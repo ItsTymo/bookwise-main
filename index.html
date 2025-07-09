@@ -201,37 +201,47 @@ async function searchBooks(titles){
 }
 
 function showSearchResults(books){
+  // Rank books before rendering
+  const rankedBooks = rankScannedBooks(books);
   results.innerHTML="<h2>Book Matches</h2>";
-  const genres=[...new Set(books.flatMap(b=>b.categories))].sort();
+  const genres=[...new Set(rankedBooks.flatMap(b=>b.categories))].sort();
   if(genres.length){
     const lab=document.createElement("label");lab.textContent="Filter:";
     const sel=document.createElement("select");sel.id="genreFilter";
     sel.innerHTML="<option value='all'>All</option>"+genres.map(g=>`<option>${g}</option>`).join("");
-    sel.onchange=()=>renderCards(books);
+    sel.onchange=()=>renderCards(rankedBooks);
     results.append(lab,sel);
   }
   const sortSel=document.createElement("select");sortSel.id="sortFilter";
-  sortSel.innerHTML=`<option value="t-asc">Title A→Z</option>
+  sortSel.innerHTML=`<option value="rank-desc">Best Match</option>
+                     <option value="t-asc">Title A→Z</option>
                      <option value="t-desc">Title Z→A</option>
                      <option value="r-desc">Rating ↑</option>
                      <option value="r-asc">Rating ↓</option>`;
-  sortSel.onchange=()=>renderCards(books);
+  sortSel.onchange=()=>renderCards(rankedBooks);
   results.append(sortSel);
-  renderCards(books);
+  renderCards(rankedBooks);
 }
+
 function renderCards(list){
   results.querySelectorAll(".book-card").forEach(n=>n.remove());
   const g=results.querySelector("#genreFilter")?.value||"all";
-  const s=results.querySelector("#sortFilter")?.value||"t-asc";
+  const s=results.querySelector("#sortFilter")?.value||"rank-desc";
   let books=[...list]; if(g!=="all")books=books.filter(b=>b.categories.includes(g));
-  const sorters={"t-asc":(a,b)=>a.title.localeCompare(b.title),"t-desc":(a,b)=>b.title.localeCompare(a.title),
-                 "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),"r-asc":(a,b)=>(a.rating||0)-(b.rating||0)};
+  const sorters={
+    "rank-desc":(a,b)=>(b.rankScore||0)-(a.rankScore||0),
+    "t-asc":(a,b)=>a.title.localeCompare(b.title),
+    "t-desc":(a,b)=>b.title.localeCompare(a.title),
+    "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),
+    "r-asc":(a,b)=>(a.rating||0)-(b.rating||0)
+  };
   books.sort(sorters[s]);
   books.forEach(b=>{
     const c=document.createElement("div");c.className="book-card";
     c.innerHTML=`<strong>Matched:</strong> "${b.query}"<br>${b.thumb?`<img src="${b.thumb}" style="height:100px"><br>`:""}
       <strong>${b.title}</strong><br>by ${b.authors}<br>Rating: ${b.rating}<br>
-      ${b.categories.length?`<em>${b.categories.join(", ")}</em><br>`:""}`;
+      ${b.categories.length?`<em>${b.categories.join(", ")}</em><br>`:""}
+      <span style="color:gray">Match Score: ${b.rankScore||0}</span>`;
     const save=Object.assign(document.createElement("button"),{textContent:"Save to My List",onclick:()=>saveBook(b)});
     c.appendChild(save);results.appendChild(c);
   });
@@ -305,6 +315,41 @@ function showHistory(){
     const card=document.createElement("div");card.className="book-card";card.innerHTML=`<strong>${b.title}</strong><br>
       by ${b.author}<br>Rating: ${"★".repeat(b.rating)}${"☆".repeat(5-b.rating)}<br>${b.genre?`<em>${b.genre}</em><br>`:""}`;
     card.appendChild(mkBtn("Remove",()=>{list.splice(i,1);setHistory(list);showHistory();}));wrap.appendChild(card);
+  });
+}
+
+/* ---------- BOOK SIMILARITY FUNCTION ---------- */
+function bookSimilarity(bookA, bookB) {
+  let score = 0;
+  // Title similarity
+  if (bookA.title && bookB.title) {
+    const a = bookA.title.toLowerCase(), b = bookB.title.toLowerCase();
+    if (a === b) score += 3;
+    else if (a.includes(b) || b.includes(a)) score += 2;
+  }
+  // Author similarity
+  if (bookA.authors && bookB.author) {
+    const a = bookA.authors.toLowerCase(), b = bookB.author.toLowerCase();
+    if (a === b) score += 2;
+    else if (a.includes(b) || b.includes(a)) score += 1;
+  }
+  // Genre similarity
+  if (bookA.categories && bookB.genre) {
+    if (bookA.categories.some(cat => cat.toLowerCase() === bookB.genre.toLowerCase())) score += 1;
+  }
+  return score;
+}
+
+function rankScannedBooks(scannedBooks) {
+  const history = getHistory();
+  return scannedBooks.map(book => {
+    let bestScore = 0;
+    history.forEach(hist => {
+      const sim = bookSimilarity(book, hist);
+      const score = sim * (hist.rating || 1);
+      if (score > bestScore) bestScore = score;
+    });
+    return {...book, rankScore: bestScore};
   });
 }
 
