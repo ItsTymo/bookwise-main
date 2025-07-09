@@ -193,15 +193,8 @@ async function searchBooks(titles){
       const url=`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(t)}&maxResults=1&key=${API_KEY}`;
       const j=await fetch(url).then(r=>r.json());
       const v=j.items?.[0]?.volumeInfo;
-      if(v)books.push({
-  title: v.title,
-  authors: (v.authors||[]).join(", "),
-  rating: v.averageRating || "N/A",
-  ratingsCount: v.ratingsCount || 0,
-  thumb: v.imageLinks?.thumbnail || "",
-  categories: (v.categories||[]).map(c=>c.trim()),
-  query: t
-});
+      if(v)books.push({title:v.title,authors:(v.authors||[]).join(", "),
+        rating:v.averageRating||"N/A",thumb:v.imageLinks?.thumbnail||"",categories:(v.categories||[]).map(c=>c.trim()),query:t});
     }catch(e){console.error(e);}
   }
   showSearchResults(books);
@@ -236,11 +229,11 @@ function renderCards(list){
   const s=results.querySelector("#sortFilter")?.value||"rank-desc";
   let books=[...list]; if(g!=="all")books=books.filter(b=>b.categories.includes(g));
   const sorters={
-    "rank-desc":(a,b)=(b.rankScore||0)-(a.rankScore||0),
+    "rank-desc":(a,b)=>(b.rankScore||0)-(a.rankScore||0),
     "t-asc":(a,b)=>a.title.localeCompare(b.title),
     "t-desc":(a,b)=>b.title.localeCompare(a.title),
-    "r-desc":(a,b)=(b.rating||0)-(a.rating||0),
-    "r-asc":(a,b)=(a.rating||0)-(b.rating||0)
+    "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),
+    "r-asc":(a,b)=>(a.rating||0)-(b.rating||0)
   };
   books.sort(sorters[s]);
   books.forEach(b=>{
@@ -269,7 +262,7 @@ function showSaved(){
     mkBtn("📄 Export CSV",exportCSV),mkBtn("📄 Export JSON",exportJSON),
     mkBtn("🗑️ Clear All",()=>{setSaved([]);showSaved();}));
   const sorter={"t-asc":(a,b)=>a.title.localeCompare(b.title),"t-desc":(a,b)=>b.title.localeCompare(a.title),
-                "r-desc":(a,b)=(b.rating||0)-(a.rating||0),"r-asc":(a,b)=(a.rating||0)-(b.rating||0)};
+                "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),"r-asc":(a,b)=>(a.rating||0)-(b.rating||0)};
   list.sort(sorter[sort.value]);
   list.forEach((b,i)=>{
     const card=document.createElement("div");card.className="book-card";
@@ -326,7 +319,6 @@ function showHistory(){
 }
 
 /* ---------- BOOK SIMILARITY FUNCTION ---------- */
-// Compare a scanned book to a saved book and return a similarity score
 function bookSimilarity(bookA, bookB) {
   let score = 0;
   // Title similarity
@@ -336,30 +328,27 @@ function bookSimilarity(bookA, bookB) {
     else if (a.includes(b) || b.includes(a)) score += 2;
   }
   // Author similarity
-  if (bookA.authors && bookB.authors) {
-    const a = bookA.authors.toLowerCase(), b = bookB.authors.toLowerCase();
+  if (bookA.authors && bookB.author) {
+    const a = bookA.authors.toLowerCase(), b = bookB.author.toLowerCase();
     if (a === b) score += 2;
     else if (a.includes(b) || b.includes(a)) score += 1;
   }
   // Genre similarity
-  if (bookA.categories && bookB.categories) {
-    if (bookA.categories.some(cat => (bookB.categories||[]).map(c=>c.toLowerCase()).includes(cat.toLowerCase()))) score += 1;
+  if (bookA.categories && bookB.genre) {
+    if (bookA.categories.some(cat => cat.toLowerCase() === bookB.genre.toLowerCase())) score += 1;
   }
   return score;
 }
 
-// Recommend scanned books based on similarity to your saved books and your ratings
 function rankScannedBooks(scannedBooks) {
-  const saved = getHistory();
+  const history = getHistory();
   return scannedBooks.map(book => {
     let bestScore = 0;
-    for (const savedBook of saved) {
-      const sim = bookSimilarity(book, savedBook);
-      // Use your rating for the saved book (default to 1 if missing)
-      const rating = Number(savedBook.rating) || 1;
-      const weighted = sim * rating;
-      if (weighted > bestScore) bestScore = weighted;
-    }
+    history.forEach(hist => {
+      const sim = bookSimilarity(book, hist);
+      const score = sim * (hist.rating || 1);
+      if (score > bestScore) bestScore = score;
+    });
     return {...book, rankScore: bestScore};
   });
 }
