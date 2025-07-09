@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BookWise</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  :root{--bg:#fff;--text:#111;--card:#f6f6f6;--accent:#0074d9}
+  [data-theme="dark"]{--bg:#121212;--text:#f5f5f5;--card:#1e1e1e;--accent:#00baff}
+  body{margin:0;padding:20px;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);transition:.3s}
+  h1,h2{margin-top:0}
+  button,select,input[type=file]{margin:6px 4px;padding:6px 10px;font-size:1rem}
+  .book-card{border:1px solid #ccc;border-color:var(--card);background:var(--card);padding:10px;margin-bottom:10px;max-width:420px}
+  .flex{display:flex;align-items:center;margin-bottom:6px}
+  .flex input{flex:1}
+  /* --- Tabs --- */
+  #tabBar{display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap}
+  .tab-btn{background:var(--card);border:1px solid var(--accent);border-radius:5px;cursor:pointer}
+  .tab-btn.active{background:var(--accent);color:#fff}
+  .tab{display:none}
+  .tab.active{display:block}
+
+  /* History search dropdown */
+  #searchResults{border:1px solid #ccc;max-height:250px;overflow-y:auto;background:#fff;
+                 position:absolute;left:0;right:0;z-index:10;display:none}
+  .sr-item{display:flex;gap:8px;padding:6px;cursor:pointer;border-bottom:1px solid #ddd}
+  .sr-item img{height:60px;width:auto}
+  .sr-item:last-child{border-bottom:none}
+</style>
+</head>
+<body>
+<h1>BookWise</h1>
+
+<!-- TAB BUTTONS -->
+<div id="tabBar">
+  <button class="tab-btn" data-tab="scannerTab">📷 Scanner</button>
+  <button class="tab-btn" data-tab="savedTab">⭐ Saved List</button>
+  <button class="tab-btn" data-tab="historyTab">📚 Reading History</button>
+  <button id="themeToggle" style="margin-left:auto">🌙 Dark Mode</button>
+</div>
+
+<!-- ============ SCANNER TAB ============ -->
+<div id="scannerTab" class="tab active">
+  <div id="topBar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+    <!-- Hidden inputs -->
+    <input type="file" id="imageInput" accept="image/*" style="display:none">
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none">
+    <!-- Visible buttons -->
+    <button id="uploadBtn">📁 Upload Photo</button>
+    <button id="cameraBtn">📷 Take Photo</button>
+  </div>
+
+  <p id="statusMsg" style="color:gray"></p>
+  <pre id="output"></pre>
+  <div id="results"></div>
+</div>
+
+<!-- ============ SAVED LIST TAB ============ -->
+<div id="savedTab" class="tab">
+  <h2>My Saved List</h2>
+  <div id="savedControls"></div>
+  <div id="savedList"></div>
+</div>
+
+<!-- ============ READING HISTORY TAB ============ -->
+<div id="historyTab" class="tab">
+  <h2>Books I've Read</h2>
+
+  <!-- Live Search Input -->
+  <div style="max-width:420px;margin-bottom:10px;position:relative">
+    <label for="bookSearch">Search by Title:</label>
+    <input type="text" id="bookSearch" placeholder="e.g. The Hobbit" style="width:100%">
+    <div id="searchResults"></div>
+  </div>
+
+  <!-- Manual entry / auto‑fill form -->
+  <form id="historyForm" class="flex" style="flex-direction:column;max-width:420px">
+    <input type="text" name="title" placeholder="Title" required>
+    <input type="text" name="author" placeholder="Author">
+    <label>Rating:
+      <select name="rating">
+        <option value="5">★★★★★ 5</option>
+        <option value="4">★★★★☆ 4</option>
+        <option value="3">★★★☆☆ 3</option>
+        <option value="2">★★☆☆☆ 2</option>
+        <option value="1">★☆☆☆☆ 1</option>
+      </select>
+    </label>
+    <input type="text" name="genre" placeholder="Genre (optional)">
+    <button>Add Book</button>
+  </form>
+
+  <div id="historyList" style="margin-top:15px"></div>
+</div>
+
+<!-- *****  REPLACE WITH YOUR REAL KEY  ***** -->
+<script>const API_KEY="YOUR_GOOGLE_API_KEY_HERE";</script>
+
+<script>
+/* ========== THEME TOGGLE ========== */
+const prefersDark=matchMedia("(prefers-color-scheme:dark)").matches;
+document.documentElement.dataset.theme=
+  localStorage.getItem("theme")|| (prefersDark?"dark":"light");
+const themeBtn=document.getElementById("themeToggle");
+const updateThemeButton=()=>
+  themeBtn.textContent=document.documentElement.dataset.theme==="dark"?"☀️ Light Mode":"🌙 Dark Mode";
+updateThemeButton();
+themeBtn.onclick=()=>{
+  document.documentElement.dataset.theme=
+    document.documentElement.dataset.theme==="dark"?"light":"dark";
+  localStorage.setItem("theme",document.documentElement.dataset.theme);
+  updateThemeButton();
+};
+
+/* ========== TAB SWITCHING ========== */
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.tab).classList.add("active");
+  };
+});
+
+/* ========== BUTTON TRIGGERS (Scanner) ========== */
+uploadBtn.onclick=()=>imageInput.click();
+cameraBtn.onclick=()=>cameraInput.click();
+["imageInput","cameraInput"].forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener("change",e=>{processImage(e).then(()=>el.value="");});
+});
+
+/* ========== OCR + GOOGLE BOOKS (Scanner) ========== */
+async function processImage(e){
+  const file=e.target.files[0]; if(!file)return;
+  statusMsg.textContent="Processing image…";
+  const reader=new FileReader();
+  reader.onloadend=async()=>{
+    const b64=reader.result.split(",")[1];
+    try{
+      const res=await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}`,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({requests:[{image:{content:b64},features:[{type:"DOCUMENT_TEXT_DETECTION"}]}]})
+      });
+      const json=await res.json();
+      const blocks=json.responses?.[0]?.fullTextAnnotation?.pages?.[0]?.blocks||[];
+      let lines=[];
+      for(const b of blocks){
+        let t=""; b.paragraphs.forEach(p=>p.words.forEach(w=>t+=w.symbols.map(s=>s.text).join("")+" "));
+        t=t.trim();
+        if(t.length>4&&!/^\d+$/.test(t)&&!/illustrated|adapted|by|with/i.test(t))lines.push(t);
+      }
+      lines=[...new Set(lines.map(l=>l.trim()))];
+      output.textContent=lines.join("\n")||"(No text)";
+      buildSearchForm(lines);
+    }catch(err){console.error(err);output.textContent="OCR error.";}
+    statusMsg.textContent="";
+  };
+  reader.readAsDataURL(file);
+}
+
+function buildSearchForm(lines){
+  results.innerHTML="<h2>Confirm Titles to Search</h2>";
+  const form=document.createElement("form");form.id="searchForm";
+  lines.forEach((line,i)=>{
+    const wrap=document.createElement("div");wrap.className="flex";
+    const inp=document.createElement("input");inp.value=line;inp.name=`t${i}`;inp.style.flex="1";
+    const x=document.createElement("button");x.type="button";x.textContent="❌";x.onclick=()=>wrap.remove();
+    wrap.append(inp,x);form.appendChild(wrap);
+  });
+  form.appendChild(Object.assign(document.createElement("button"),{textContent:"Search Books"}));
+  results.appendChild(form);
+}
+
+document.addEventListener("submit",e=>{
+  if(e.target.id==="searchForm"){e.preventDefault();
+    const titles=[...new FormData(e.target).values()]
+      .map(v=>v.trim().replace(/[^\w\s'":,.!?-]/g,"").replace(/\s+/g," "))
+      .filter(v=>v.length>2);
+    searchBooks([...new Set(titles)]);
+  }
+  if(e.target.id==="historyForm"){e.preventDefault();addHistoryEntry(new FormData(e.target));}
+});
+
+/* ---------- Google Books search for Scanner ---------- */
+async function searchBooks(titles){
+  results.innerHTML="<p>Searching Google Books…</p>";
+  const books=[];
+  for(const t of titles){
+    try{
+      const url=`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(t)}&maxResults=1&key=${API_KEY}`;
+      const j=await fetch(url).then(r=>r.json());
+      const v=j.items?.[0]?.volumeInfo;
+      if(v)books.push({title:v.title,authors:(v.authors||[]).join(", "),
+        rating:v.averageRating||"N/A",thumb:v.imageLinks?.thumbnail||"",categories:(v.categories||[]).map(c=>c.trim()),query:t});
+    }catch(e){console.error(e);}
+  }
+  showSearchResults(books);
+}
+
+function showSearchResults(books){
+  results.innerHTML="<h2>Book Matches</h2>";
+  const genres=[...new Set(books.flatMap(b=>b.categories))].sort();
+  if(genres.length){
+    const lab=document.createElement("label");lab.textContent="Filter:";
+    const sel=document.createElement("select");sel.id="genreFilter";
+    sel.innerHTML="<option value='all'>All</option>"+genres.map(g=>`<option>${g}</option>`).join("");
+    sel.onchange=()=>renderCards(books);
+    results.append(lab,sel);
+  }
+  const sortSel=document.createElement("select");sortSel.id="sortFilter";
+  sortSel.innerHTML=`<option value="t-asc">Title A→Z</option>
+                     <option value="t-desc">Title Z→A</option>
+                     <option value="r-desc">Rating ↑</option>
+                     <option value="r-asc">Rating ↓</option>`;
+  sortSel.onchange=()=>renderCards(books);
+  results.append(sortSel);
+  renderCards(books);
+}
+function renderCards(list){
+  results.querySelectorAll(".book-card").forEach(n=>n.remove());
+  const g=results.querySelector("#genreFilter")?.value||"all";
+  const s=results.querySelector("#sortFilter")?.value||"t-asc";
+  let books=[...list]; if(g!=="all")books=books.filter(b=>b.categories.includes(g));
+  const sorters={"t-asc":(a,b)=>a.title.localeCompare(b.title),"t-desc":(a,b)=>b.title.localeCompare(a.title),
+                 "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),"r-asc":(a,b)=>(a.rating||0)-(b.rating||0)};
+  books.sort(sorters[s]);
+  books.forEach(b=>{
+    const c=document.createElement("div");c.className="book-card";
+    c.innerHTML=`<strong>Matched:</strong> "${b.query}"<br>${b.thumb?`<img src="${b.thumb}" style="height:100px"><br>`:""}
+      <strong>${b.title}</strong><br>by ${b.authors}<br>Rating: ${b.rating}<br>
+      ${b.categories.length?`<em>${b.categories.join(", ")}</em><br>`:""}`;
+    const save=Object.assign(document.createElement("button"),{textContent:"Save to My List",onclick:()=>saveBook(b)});
+    c.appendChild(save);results.appendChild(c);
+  });
+}
+
+/* ========== SAVED LIST (unchanged) ========== */
+const getSaved=()=>JSON.parse(localStorage.getItem("savedBooks")||"[]");
+const setSaved=l=>localStorage.setItem("savedBooks",JSON.stringify(l));
+function saveBook(b){const l=getSaved();if(!l.some(x=>x.title===b.title&&x.authors===b.authors)){l.push(b);setSaved(l);}showSaved();}
+function showSaved(){
+  const wrap=savedList,ctl=savedControls;wrap.innerHTML="";ctl.innerHTML="";
+  const list=getSaved();
+  if(!list.length){wrap.innerHTML="<p>No saved books.</p>";return;}
+  const sort=document.createElement("select");sort.id="savedSort";
+  sort.innerHTML=`<option value="t-asc">Title A→Z</option><option value="t-desc">Title Z→A</option>
+                  <option value="r-desc">Rating ↑</option><option value="r-asc">Rating ↓</option>`;
+  sort.onchange=showSaved;ctl.append(sort,
+    mkBtn("📄 Export CSV",exportCSV),mkBtn("📄 Export JSON",exportJSON),
+    mkBtn("🗑️ Clear All",()=>{setSaved([]);showSaved();}));
+  const sorter={"t-asc":(a,b)=>a.title.localeCompare(b.title),"t-desc":(a,b)=>b.title.localeCompare(a.title),
+                "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),"r-asc":(a,b)=>(a.rating||0)-(b.rating||0)};
+  list.sort(sorter[sort.value]);
+  list.forEach((b,i)=>{
+    const card=document.createElement("div");card.className="book-card";
+    card.innerHTML=`${b.thumb?`<img src="${b.thumb}" style="height:80px"><br>`:""}
+      <strong>${b.title}</strong><br>by ${b.authors}<br>Rating: ${b.rating}<br>`;
+    card.appendChild(mkBtn("Remove",()=>{list.splice(i,1);setSaved(list);showSaved();}));
+    wrap.appendChild(card);
+  });
+}
+function exportCSV(){const l=getSaved();const rows=[["Title","Authors","Rating","Categories"]];
+  l.forEach(b=>rows.push([b.title,b.authors,b.rating,b.categories.join("|")]));download(rows,"saved_books.csv","text/csv");}
+function exportJSON(){download(JSON.stringify(getSaved(),null,2),"saved_books.json","application/json");}
+function download(content,name,type){
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click();URL.revokeObjectURL(a.href);}
+const mkBtn=(txt,fn)=>Object.assign(document.createElement("button"),{textContent:txt,onclick:fn});
+
+/* ========== READING HISTORY WITH LIVE SEARCH ========== */
+const searchBox=document.getElementById("bookSearch"),srDiv=document.getElementById("searchResults");
+let searchTimer;
+searchBox.addEventListener("input",()=>{clearTimeout(searchTimer);
+  const q=searchBox.value.trim(); if(q.length<3){srDiv.style.display="none";return;}
+  searchTimer=setTimeout(()=>fetchGB(q),400);
+});
+async function fetchGB(q){
+  const url=`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=5&key=${API_KEY}`;
+  const res=await fetch(url);const data=await res.json();
+  const items=data.items||[];srDiv.innerHTML="";if(!items.length){srDiv.style.display="none";return;}
+  items.forEach(item=>{
+    const v=item.volumeInfo;const div=document.createElement("div");div.className="sr-item";
+    div.innerHTML=`${v.imageLinks?`<img src='${v.imageLinks.thumbnail}'>`:""}
+      <div><strong>${v.title}</strong><br>${(v.authors||[]).join(", ")}</div>`;
+    div.onclick=()=>{const f=document.forms["historyForm"];f.title.value=v.title||"";f.author.value=(v.authors||[]).join(", ");f.genre.value=v.categories?.[0]||"";srDiv.style.display="none";searchBox.value="";};
+    srDiv.appendChild(div);
+  });
+  srDiv.style.display="block";
+}
+document.addEventListener("click",e=>{if(!searchBox.contains(e.target)&&!srDiv.contains(e.target))srDiv.style.display="none";});
+
+const getHistory=()=>JSON.parse(localStorage.getItem("readingHistory")||"[]");
+const setHistory=l=>localStorage.setItem("readingHistory",JSON.stringify(l));
+function addHistoryEntry(fd){
+  const entry={title:fd.get("title"),author:fd.get("author")||"Unknown",rating:+fd.get("rating"),genre:fd.get("genre")||""};
+  const list=getHistory();list.push(entry);setHistory(list);showHistory();historyForm.reset();
+}
+function showHistory(){
+  const wrap=historyList;wrap.innerHTML="";const list=getHistory();
+  if(!list.length){wrap.innerHTML="<p>No entries yet.</p>";return;}
+  list.forEach((b,i)=>{
+    const card=document.createElement("div");card.className="book-card";card.innerHTML=`<strong>${b.title}</strong><br>
+      by ${b.author}<br>Rating: ${"★".repeat(b.rating)}${"☆".repeat(5-b.rating)}<br>${b.genre?`<em>${b.genre}</em><br>`:""}`;
+    card.appendChild(mkBtn("Remove",()=>{list.splice(i,1);setHistory(list);showHistory();}));wrap.appendChild(card);
+  });
+}
+
+/* ========== INIT ========== */
+showSaved();
+showHistory();
+</script>
+</body>
+</html>
