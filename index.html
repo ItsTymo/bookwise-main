@@ -229,11 +229,11 @@ function renderCards(list){
   const s=results.querySelector("#sortFilter")?.value||"rank-desc";
   let books=[...list]; if(g!=="all")books=books.filter(b=>b.categories.includes(g));
   const sorters={
-    "rank-desc":(a,b)=>(b.rankScore||0)-(a.rankScore||0),
+    "rank-desc":(a,b)=(b.rankScore||0)-(a.rankScore||0),
     "t-asc":(a,b)=>a.title.localeCompare(b.title),
     "t-desc":(a,b)=>b.title.localeCompare(a.title),
-    "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),
-    "r-asc":(a,b)=>(a.rating||0)-(b.rating||0)
+    "r-desc":(a,b)=(b.rating||0)-(a.rating||0),
+    "r-asc":(a,b)=(a.rating||0)-(b.rating||0)
   };
   books.sort(sorters[s]);
   books.forEach(b=>{
@@ -262,7 +262,7 @@ function showSaved(){
     mkBtn("📄 Export CSV",exportCSV),mkBtn("📄 Export JSON",exportJSON),
     mkBtn("🗑️ Clear All",()=>{setSaved([]);showSaved();}));
   const sorter={"t-asc":(a,b)=>a.title.localeCompare(b.title),"t-desc":(a,b)=>b.title.localeCompare(a.title),
-                "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),"r-asc":(a,b)=>(a.rating||0)-(b.rating||0)};
+                "r-desc":(a,b)=(b.rating||0)-(a.rating||0),"r-asc":(a,b)=(a.rating||0)-(b.rating||0)};
   list.sort(sorter[sort.value]);
   list.forEach((b,i)=>{
     const card=document.createElement("div");card.className="book-card";
@@ -343,13 +343,15 @@ function bookSimilarity(bookA, bookB) {
 function rankScannedBooks(scannedBooks) {
   const history = getHistory();
   return scannedBooks.map(book => {
-    let bestScore = 0;
+    if (!history.length) return {...book, rankScore: 0};
+    let totalScore = 0;
     history.forEach(hist => {
       const sim = bookSimilarity(book, hist);
-      const score = sim * (hist.rating || 1);
-      if (score > bestScore) bestScore = score;
+      const rating = Number(hist.rating) || 1;
+      totalScore += sim * rating;
     });
-    return {...book, rankScore: bestScore};
+    const avgScore = totalScore / history.length;
+    return {...book, rankScore: avgScore};
   });
 }
 
