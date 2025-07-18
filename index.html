@@ -274,7 +274,7 @@ function renderCards(list){
     c.innerHTML=`<strong>Matched:</strong> "${b.query}"<br>${b.thumb?`<img src="${b.thumb}" style="height:100px"><br>`:""}
       <strong>${b.title}</strong><br>by ${b.authors}<br>Rating: ${b.rating}<br>
       ${b.categories.length?`<em>${b.categories.join(", ")}</em><br>`:""}
-      <span style="color:gray">Match Score: ${(b.rankScore||0).toFixed(2)}</span>`;
+      <span style="color:gray">Match Score: <span id="score-${Math.random().toString(36).substr(2,9)}" style="cursor:pointer;text-decoration:underline;font-weight:bold;" onclick="showScoreBreakdown(this, ${JSON.stringify(b.scoreBreakdown).replace(/"/g, '&quot;')})">${(b.rankScore||0).toFixed(1)}/10</span></span>`;
     const save=Object.assign(document.createElement("button"),{textContent:"Save to My List",onclick:()=>saveBook(b)});
     c.appendChild(save);results.appendChild(c);
   });
@@ -623,6 +623,60 @@ The more books you add, the smarter the recommendations become! 🎯`;
   alert(explanation);
 }
 
+function showScoreBreakdown(element, breakdown) {
+  if (!breakdown) {
+    alert("Score breakdown not available for this book.");
+    return;
+  }
+  
+  let explanation = `📊 **Score Breakdown** (Out of 10)\n\n`;
+  
+  if (breakdown.explanation) {
+    explanation += breakdown.explanation;
+  } else {
+    explanation += `**Your Reading History Analysis:**\n\n`;
+    
+    if (breakdown.genreDetails && breakdown.genreDetails.length > 0) {
+      explanation += `🎭 **Genre Preferences:**\n`;
+      breakdown.genreDetails.forEach(detail => {
+        explanation += `• ${detail}\n`;
+      });
+      explanation += `\n`;
+    }
+    
+    if (breakdown.authorDetails && breakdown.authorDetails.length > 0) {
+      explanation += `✍️ **Author Experience:**\n`;
+      breakdown.authorDetails.forEach(detail => {
+        explanation += `• ${detail}\n`;
+      });
+      explanation += `\n`;
+    }
+    
+    if ((!breakdown.genreDetails || breakdown.genreDetails.length === 0) && 
+        (!breakdown.authorDetails || breakdown.authorDetails.length === 0)) {
+      explanation += `⚪ No specific genre or author matches found in your reading history\n\n`;
+    }
+    
+    explanation += `**Score Components:**\n`;
+    
+    if (breakdown.preferenceScore !== 0) {
+      const prefText = breakdown.preferenceScore > 0 ? "positive" : "negative";
+      explanation += `📈 Personal Preferences: ${breakdown.preferenceScore > 0 ? '+' : ''}${breakdown.preferenceScore.toFixed(1)} pts (${prefText} based on similar books you've read)\n`;
+    }
+    
+    if (breakdown.offlineBonus > 0) {
+      explanation += `📚 Offline Recommendations: +${breakdown.offlineBonus.toFixed(1)} pts (related books in database)\n`;
+    }
+    
+    explanation += `\n**Final Calculation:**\n`;
+    explanation += `Raw Score: ${breakdown.total.toFixed(2)}\n`;
+    explanation += `Scaled Score: ${breakdown.scaledTotal.toFixed(1)}/10\n\n`;
+    explanation += `💡 **How it works:** Instead of just looking at genres broadly, BookWise analyzes your ratings for individual books within each genre and author to give you truly personalized recommendations!`;
+  }
+  
+  alert(explanation);
+}
+
 /* ---------- BOOK SIMILARITY FUNCTION ---------- */
 function bookSimilarity(bookA, bookB) {
   let score = 0;
@@ -687,56 +741,108 @@ function rankScannedBooks(scannedBooks) {
   return scannedBooks.map(book => {
     let rankScore = 0;
     
-    // Genre scoring
-    if (book.categories && book.categories.length > 0) {
-      book.categories.forEach(category => {
-        const categoryLower = category.toLowerCase();
-        
-        // Check for liked genres (+2 points)
-        for (const likedGenre of likedGenres) {
-          if (categoryLower.includes(likedGenre) || likedGenre.includes(categoryLower)) {
-            rankScore += 2;
-            break; // Only count each category once for liked genres
-          }
-        }
-        
-        // Check for disliked genres (-2 points)
-        for (const dislikedGenre of dislikedGenres) {
-          if (categoryLower.includes(dislikedGenre) || dislikedGenre.includes(categoryLower)) {
-            rankScore -= 2;
-            break; // Only count each category once for disliked genres
-          }
-        }
-      });
-    }
-    
-    // Author scoring
-    if (book.authors) {
-      const bookAuthorsLower = book.authors.toLowerCase();
-      
-      // Check for liked authors (+1 point)
-      for (const likedAuthor of likedAuthors) {
-        if (bookAuthorsLower.includes(likedAuthor) || likedAuthor.includes(bookAuthorsLower)) {
-          rankScore += 1;
-          break; // Only count once per book
-        }
-      }
-      
-      // Check for disliked authors (-1 point)
-      for (const dislikedAuthor of dislikedAuthors) {
-        if (bookAuthorsLower.includes(dislikedAuthor) || dislikedAuthor.includes(bookAuthorsLower)) {
-          rankScore -= 1;
-          break; // Only count once per book
-        }
-      }
-    }
+    // Advanced preference scoring - considers individual books within genres
+    const preferenceScore = calculateAdvancedPreferenceScore(book, history);
+    rankScore += preferenceScore;
     
     // Offline dataset enhancement scoring
     const offlineBonus = getOfflineRecommendationBonus(book, history);
     rankScore += offlineBonus;
     
-    return {...book, rankScore};
+    // Scale score to be out of 10 (approximate max would be around 5-6, so multiply by ~1.7)
+    const scaledScore = Math.min(Math.max(rankScore * 1.7, 0), 10);
+    
+    // Store breakdown for tooltip
+    const scoreBreakdown = calculateScoreBreakdown(book, history, rankScore, offlineBonus, preferenceScore);
+    
+    return {...book, rankScore: scaledScore, scoreBreakdown};
   });
+}
+
+/* ========== ADVANCED PREFERENCE SCORING ========== */
+function calculateAdvancedPreferenceScore(scannedBook, userHistory) {
+  if (!userHistory.length || !scannedBook.categories) return 0;
+  
+  let totalScore = 0;
+  const bookCategories = scannedBook.categories.map(cat => cat.toLowerCase());
+  const bookAuthors = scannedBook.authors ? scannedBook.authors.toLowerCase() : '';
+  
+  // For each category of the scanned book, calculate a nuanced score
+  bookCategories.forEach(scannedCategory => {
+    let categoryScore = 0;
+    let categoryVotes = 0;
+    
+    // Look at all books in user's history that share this genre
+    userHistory.forEach(historyBook => {
+      const historyGenres = historyBook.genre ? 
+        historyBook.genre.split(',').map(g => g.trim().toLowerCase()) : [];
+      const historyAuthor = historyBook.author ? historyBook.author.toLowerCase() : '';
+      const rating = Number(historyBook.rating) || 3;
+      
+      // Check if this history book shares the genre
+      const genreMatch = historyGenres.some(hg => 
+        hg.includes(scannedCategory) || scannedCategory.includes(hg)
+      );
+      
+      if (genreMatch) {
+        categoryVotes++;
+        
+        // Weight the vote based on rating and similarity
+        let voteWeight = 1;
+        
+        // Stronger weight if it's the same author
+        if (bookAuthors && historyAuthor && 
+            (bookAuthors.includes(historyAuthor) || historyAuthor.includes(bookAuthors))) {
+          voteWeight = 2;
+        }
+        
+        // Convert rating to preference score (-2 to +2 scale)
+        let preferenceValue = 0;
+        if (rating >= 4.5) preferenceValue = 2;
+        else if (rating >= 3.5) preferenceValue = 1;
+        else if (rating >= 2.5) preferenceValue = 0;
+        else if (rating >= 1.5) preferenceValue = -1;
+        else preferenceValue = -2;
+        
+        categoryScore += preferenceValue * voteWeight;
+      }
+    });
+    
+    // Calculate weighted average for this category
+    if (categoryVotes > 0) {
+      const avgCategoryScore = categoryScore / categoryVotes;
+      totalScore += avgCategoryScore;
+    }
+  });
+  
+  // Author scoring (independent of genre)
+  if (bookAuthors) {
+    let authorScore = 0;
+    let authorVotes = 0;
+    
+    userHistory.forEach(historyBook => {
+      const historyAuthor = historyBook.author ? historyBook.author.toLowerCase() : '';
+      
+      if (historyAuthor && 
+          (bookAuthors.includes(historyAuthor) || historyAuthor.includes(bookAuthors))) {
+        const rating = Number(historyBook.rating) || 3;
+        authorVotes++;
+        
+        // Author scoring: -2 to +2 based on rating
+        if (rating >= 4.5) authorScore += 2;
+        else if (rating >= 3.5) authorScore += 1;
+        else if (rating >= 2.5) authorScore += 0;
+        else if (rating >= 1.5) authorScore -= 1;
+        else authorScore -= 2;
+      }
+    });
+    
+    if (authorVotes > 0) {
+      totalScore += authorScore / authorVotes;
+    }
+  }
+  
+  return totalScore;
 }
 
 /* ========== OFFLINE RECOMMENDATION FUNCTIONS ========== */
@@ -793,6 +899,71 @@ function getOfflineRecommendationBonus(scannedBook, userHistory) {
   });
   
   return Math.min(bonus, 3); // Cap the offline bonus at +3 points
+}
+
+function calculateScoreBreakdown(book, userHistory, rawScore, offlineBonus, preferenceScore) {
+  const breakdown = {
+    preferenceScore: preferenceScore || 0,
+    offlineBonus: offlineBonus || 0,
+    total: rawScore,
+    scaledTotal: Math.min(Math.max(rawScore * 1.7, 0), 10)
+  };
+  
+  if (!userHistory.length) {
+    return {
+      ...breakdown,
+      explanation: "No reading history available for personalized scoring."
+    };
+  }
+  
+  // Calculate detailed preference breakdown
+  let genreDetails = [];
+  let authorDetails = [];
+  
+  if (book.categories) {
+    book.categories.forEach(category => {
+      const categoryLower = category.toLowerCase();
+      const matchingBooks = userHistory.filter(histBook => {
+        const histGenres = histBook.genre ? 
+          histBook.genre.split(',').map(g => g.trim().toLowerCase()) : [];
+        return histGenres.some(hg => 
+          hg.includes(categoryLower) || categoryLower.includes(hg)
+        );
+      });
+      
+      if (matchingBooks.length > 0) {
+        const avgRating = matchingBooks.reduce((sum, book) => 
+          sum + (Number(book.rating) || 3), 0) / matchingBooks.length;
+        const ratingText = avgRating >= 4 ? "loved" : 
+                          avgRating >= 3.5 ? "liked" : 
+                          avgRating >= 2.5 ? "mixed feelings about" : "disliked";
+        genreDetails.push(`${category}: You ${ratingText} ${matchingBooks.length} ${category.toLowerCase()} book${matchingBooks.length > 1 ? 's' : ''} (avg: ${avgRating.toFixed(1)}★)`);
+      }
+    });
+  }
+  
+  if (book.authors) {
+    const bookAuthors = book.authors.toLowerCase();
+    const matchingBooks = userHistory.filter(histBook => {
+      const histAuthor = histBook.author ? histBook.author.toLowerCase() : '';
+      return histAuthor && (bookAuthors.includes(histAuthor) || histAuthor.includes(bookAuthors));
+    });
+    
+    if (matchingBooks.length > 0) {
+      const avgRating = matchingBooks.reduce((sum, book) => 
+        sum + (Number(book.rating) || 3), 0) / matchingBooks.length;
+      const ratingText = avgRating >= 4 ? "loved" : 
+                        avgRating >= 3.5 ? "liked" : 
+                        avgRating >= 2.5 ? "had mixed feelings about" : "disliked";
+      authorDetails.push(`You ${ratingText} ${matchingBooks.length} book${matchingBooks.length > 1 ? 's' : ''} by this author (avg: ${avgRating.toFixed(1)}★)`);
+    }
+  }
+  
+  return {
+    ...breakdown,
+    genreDetails,
+    authorDetails
+  };
 }
 
 function findDatasetMatches(scannedBook) {
