@@ -67,6 +67,18 @@
 <div id="historyTab" class="tab">
   <h2>Books I've Read</h2>
 
+  <!-- Import Section -->
+  <div style="max-width:420px;margin-bottom:15px;padding:10px;background:var(--card);border-radius:5px;">
+    <h3 style="margin-top:0;">Import from CSV</h3>
+    <p style="margin:5px 0;font-size:0.9em;color:var(--text);">
+      Import your reading history from Goodreads or other services. 
+      <a href="#" onclick="showCSVFormat()" style="color:var(--accent);">See expected format</a>
+    </p>
+    <input type="file" id="csvInput" accept=".csv,.txt" style="display:none">
+    <button id="importBtn" style="margin-right:10px;">📁 Import CSV File</button>
+    <button id="exportHistoryBtn">📄 Export My History</button>
+  </div>
+
   <!-- Live Search Input -->
   <div style="max-width:420px;margin-bottom:10px;position:relative">
     <label for="bookSearch">Search by Title:</label>
@@ -81,13 +93,18 @@
     <label>Rating:
       <select name="rating">
         <option value="5">★★★★★ 5</option>
+        <option value="4.5">★★★★☆ 4.5</option>
         <option value="4">★★★★☆ 4</option>
+        <option value="3.5">★★★☆☆ 3.5</option>
         <option value="3">★★★☆☆ 3</option>
+        <option value="2.5">★★☆☆☆ 2.5</option>
         <option value="2">★★☆☆☆ 2</option>
+        <option value="1.5">★☆☆☆☆ 1.5</option>
         <option value="1">★☆☆☆☆ 1</option>
+        <option value="0.5">☆☆☆☆☆ 0.5</option>
       </select>
     </label>
-    <input type="text" name="genre" placeholder="Genre (optional)">
+    <input type="text" name="genre" placeholder="Genres (comma-separated, e.g., Fiction, Mystery)">
     <button>Add Book</button>
   </form>
 
@@ -124,16 +141,21 @@ document.querySelectorAll(".tab-btn").forEach(btn=>{
 });
 
 /* ========== BUTTON TRIGGERS (Scanner) ========== */
-uploadBtn.onclick=()=>imageInput.click();
-cameraBtn.onclick=()=>cameraInput.click();
+document.getElementById("uploadBtn").onclick=()=>document.getElementById("imageInput").click();
+document.getElementById("cameraBtn").onclick=()=>document.getElementById("cameraInput").click();
+document.getElementById("importBtn").onclick=()=>document.getElementById("csvInput").click();
+document.getElementById("exportHistoryBtn").onclick=exportHistory;
 ["imageInput","cameraInput"].forEach(id=>{
   const el=document.getElementById(id);
   el.addEventListener("change",e=>{processImage(e).then(()=>el.value="");});
 });
+document.getElementById("csvInput").addEventListener("change",e=>{importCSV(e).then(()=>e.target.value="");});
 
 /* ========== OCR + GOOGLE BOOKS (Scanner) ========== */
 async function processImage(e){
   const file=e.target.files[0]; if(!file)return;
+  const statusMsg=document.getElementById("statusMsg");
+  const output=document.getElementById("output");
   statusMsg.textContent="Processing image…";
   const reader=new FileReader();
   reader.onloadend=async()=>{
@@ -162,6 +184,7 @@ async function processImage(e){
 }
 
 function buildSearchForm(lines){
+  const results = document.getElementById("results");
   results.innerHTML="<h2>Confirm Titles to Search</h2>";
   const form=document.createElement("form");form.id="searchForm";
   lines.forEach((line,i)=>{
@@ -186,6 +209,7 @@ document.addEventListener("submit",e=>{
 
 /* ---------- Google Books search for Scanner ---------- */
 async function searchBooks(titles){
+  const results = document.getElementById("results");
   results.innerHTML="<p>Searching Google Books…</p>";
   const books=[];
   for(const t of titles){
@@ -203,6 +227,7 @@ async function searchBooks(titles){
 function showSearchResults(books){
   // Rank books before rendering
   const rankedBooks = rankScannedBooks(books);
+  const results = document.getElementById("results");
   results.innerHTML="<h2>Book Matches</h2>";
   const genres=[...new Set(rankedBooks.flatMap(b=>b.categories))].sort();
   if(genres.length){
@@ -219,21 +244,29 @@ function showSearchResults(books){
                      <option value="r-desc">Rating ↑</option>
                      <option value="r-asc">Rating ↓</option>`;
   sortSel.onchange=()=>renderCards(rankedBooks);
-  results.append(sortSel);
+  
+  const helpLink = document.createElement("a");
+  helpLink.href = "#";
+  helpLink.textContent = "How does ranking work?";
+  helpLink.style.cssText = "margin-left:10px;color:var(--accent);font-size:0.9em;text-decoration:underline;cursor:pointer;";
+  helpLink.onclick = (e) => { e.preventDefault(); showRankingHelp(); };
+  
+  results.append(sortSel, helpLink);
   renderCards(rankedBooks);
 }
 
 function renderCards(list){
+  const results = document.getElementById("results");
   results.querySelectorAll(".book-card").forEach(n=>n.remove());
   const g=results.querySelector("#genreFilter")?.value||"all";
   const s=results.querySelector("#sortFilter")?.value||"rank-desc";
   let books=[...list]; if(g!=="all")books=books.filter(b=>b.categories.includes(g));
   const sorters={
-    "rank-desc":(a,b)=(b.rankScore||0)-(a.rankScore||0),
+    "rank-desc":(a,b)=>(b.rankScore||0)-(a.rankScore||0),
     "t-asc":(a,b)=>a.title.localeCompare(b.title),
     "t-desc":(a,b)=>b.title.localeCompare(a.title),
-    "r-desc":(a,b)=(b.rating||0)-(a.rating||0),
-    "r-asc":(a,b)=(a.rating||0)-(b.rating||0)
+    "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),
+    "r-asc":(a,b)=>(a.rating||0)-(b.rating||0)
   };
   books.sort(sorters[s]);
   books.forEach(b=>{
@@ -241,7 +274,7 @@ function renderCards(list){
     c.innerHTML=`<strong>Matched:</strong> "${b.query}"<br>${b.thumb?`<img src="${b.thumb}" style="height:100px"><br>`:""}
       <strong>${b.title}</strong><br>by ${b.authors}<br>Rating: ${b.rating}<br>
       ${b.categories.length?`<em>${b.categories.join(", ")}</em><br>`:""}
-      <span style="color:gray">Match Score: ${b.rankScore||0}</span>`;
+      <span style="color:gray">Match Score: ${(b.rankScore||0).toFixed(2)}</span>`;
     const save=Object.assign(document.createElement("button"),{textContent:"Save to My List",onclick:()=>saveBook(b)});
     c.appendChild(save);results.appendChild(c);
   });
@@ -252,7 +285,7 @@ const getSaved=()=>JSON.parse(localStorage.getItem("savedBooks")||"[]");
 const setSaved=l=>localStorage.setItem("savedBooks",JSON.stringify(l));
 function saveBook(b){const l=getSaved();if(!l.some(x=>x.title===b.title&&x.authors===b.authors)){l.push(b);setSaved(l);}showSaved();}
 function showSaved(){
-  const wrap=savedList,ctl=savedControls;wrap.innerHTML="";ctl.innerHTML="";
+  const wrap=document.getElementById("savedList"),ctl=document.getElementById("savedControls");wrap.innerHTML="";ctl.innerHTML="";
   const list=getSaved();
   if(!list.length){wrap.innerHTML="<p>No saved books.</p>";return;}
   const sort=document.createElement("select");sort.id="savedSort";
@@ -262,7 +295,7 @@ function showSaved(){
     mkBtn("📄 Export CSV",exportCSV),mkBtn("📄 Export JSON",exportJSON),
     mkBtn("🗑️ Clear All",()=>{setSaved([]);showSaved();}));
   const sorter={"t-asc":(a,b)=>a.title.localeCompare(b.title),"t-desc":(a,b)=>b.title.localeCompare(a.title),
-                "r-desc":(a,b)=(b.rating||0)-(a.rating||0),"r-asc":(a,b)=(a.rating||0)-(b.rating||0)};
+                "r-desc":(a,b)=>(b.rating||0)-(a.rating||0),"r-asc":(a,b)=>(a.rating||0)-(b.rating||0)};
   list.sort(sorter[sort.value]);
   list.forEach((b,i)=>{
     const card=document.createElement("div");card.className="book-card";
@@ -306,16 +339,288 @@ const getHistory=()=>JSON.parse(localStorage.getItem("readingHistory")||"[]");
 const setHistory=l=>localStorage.setItem("readingHistory",JSON.stringify(l));
 function addHistoryEntry(fd){
   const entry={title:fd.get("title"),author:fd.get("author")||"Unknown",rating:+fd.get("rating"),genre:fd.get("genre")||""};
-  const list=getHistory();list.push(entry);setHistory(list);showHistory();historyForm.reset();
+  const list=getHistory();list.push(entry);setHistory(list);showHistory();document.getElementById("historyForm").reset();
 }
 function showHistory(){
-  const wrap=historyList;wrap.innerHTML="";const list=getHistory();
+  const wrap=document.getElementById("historyList");wrap.innerHTML="";const list=getHistory();
   if(!list.length){wrap.innerHTML="<p>No entries yet.</p>";return;}
   list.forEach((b,i)=>{
-    const card=document.createElement("div");card.className="book-card";card.innerHTML=`<strong>${b.title}</strong><br>
-      by ${b.author}<br>Rating: ${"★".repeat(b.rating)}${"☆".repeat(5-b.rating)}<br>${b.genre?`<em>${b.genre}</em><br>`:""}`;
-    card.appendChild(mkBtn("Remove",()=>{list.splice(i,1);setHistory(list);showHistory();}));wrap.appendChild(card);
+    const card=document.createElement("div");card.className="book-card";
+    const rating = Number(b.rating) || 0;
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    const starDisplay = "★".repeat(fullStars) + (halfStar ? "☆" : "") + "☆".repeat(emptyStars);
+    
+    card.innerHTML=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      ${b.thumbnail ? `<img src="${b.thumbnail}" style="height:80px;width:60px;object-fit:cover;cursor:pointer;border:2px solid #ccc;border-radius:4px;" onclick="editThumbnail(${i})" title="Click to edit thumbnail">` : 
+        `<div style="height:80px;width:60px;background:#f0f0f0;border:2px dashed #ccc;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;text-align:center;color:#666;" onclick="editThumbnail(${i})" title="Click to add thumbnail">Add<br>Image</div>`}
+      <div style="flex:1;">
+        <strong>${b.title}</strong><br>
+        by ${b.author}<br>
+        Rating: ${starDisplay} (${rating})<br>
+        ${b.genre?`<em>${b.genre}</em><br>`:""}
+      </div>
+    </div>`;
+    const btnContainer = document.createElement("div");
+    btnContainer.style.display = "flex";
+    btnContainer.style.gap = "5px";
+    btnContainer.appendChild(mkBtn("Edit", ()=>editHistoryEntry(i)));
+    btnContainer.appendChild(mkBtn("Remove",()=>{list.splice(i,1);setHistory(list);showHistory();}));
+    card.appendChild(btnContainer);
+    wrap.appendChild(card);
   });
+}
+
+function editThumbnail(index) {
+  const url = prompt("Enter image URL for thumbnail:");
+  if (url) {
+    const list = getHistory();
+    list[index].thumbnail = url;
+    setHistory(list);
+    showHistory();
+  }
+}
+
+function editHistoryEntry(index) {
+  const list = getHistory();
+  const entry = list[index];
+  
+  const newTitle = prompt("Edit title:", entry.title);
+  if (newTitle === null) return; // User cancelled
+  
+  const newAuthor = prompt("Edit author:", entry.author);
+  if (newAuthor === null) return;
+  
+  const newRating = prompt("Edit rating (0.5 to 5, with 0.5 increments):", entry.rating);
+  if (newRating === null) return;
+  
+  const newGenre = prompt("Edit genres (comma-separated):", entry.genre);
+  if (newGenre === null) return;
+  
+  // Validate rating
+  const ratingNum = parseFloat(newRating);
+  if (isNaN(ratingNum) || ratingNum < 0.5 || ratingNum > 5 || (ratingNum * 2) % 1 !== 0) {
+    alert("Please enter a valid rating between 0.5 and 5 with 0.5 increments (e.g., 3.5, 4, 4.5)");
+    return;
+  }
+  
+  // Update entry
+  list[index] = {
+    ...entry,
+    title: newTitle.trim(),
+    author: newAuthor.trim(),
+    rating: ratingNum,
+    genre: newGenre.trim()
+  };
+  
+  setHistory(list);
+  showHistory();
+}
+
+/* ========== CSV IMPORT/EXPORT FUNCTIONS ========== */
+async function importCSV(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const text = await file.text();
+  const lines = text.split('\n').filter(line => line.trim());
+  
+  if (lines.length < 2) {
+    alert("CSV file appears to be empty or invalid.");
+    return;
+  }
+  
+  const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/"/g, ''));
+  const existingHistory = getHistory();
+  let importedCount = 0;
+  
+  // Common header variations for different services
+  const titleHeaders = ['title', 'book title', 'name'];
+  const authorHeaders = ['author', 'authors', 'book author'];
+  const ratingHeaders = ['rating', 'my rating', 'user rating', 'personal rating'];
+  const genreHeaders = ['genre', 'genres', 'categories', 'subjects', 'bookshelves'];
+  
+  const titleIndex = headers.findIndex(h => titleHeaders.some(th => h.includes(th)));
+  const authorIndex = headers.findIndex(h => authorHeaders.some(ah => h.includes(ah)));
+  const ratingIndex = headers.findIndex(h => ratingHeaders.some(rh => h.includes(rh)));
+  const genreIndex = headers.findIndex(h => genreHeaders.some(gh => h.includes(gh)));
+  
+  if (titleIndex === -1) {
+    alert("Could not find a title column. Please ensure your CSV has a 'Title' column.");
+    return;
+  }
+  
+  for (let i = 1; i < lines.length; i++) {
+    const cells = parseCSVLine(lines[i]);
+    if (cells.length <= titleIndex) continue;
+    
+    const title = cells[titleIndex]?.trim();
+    if (!title) continue;
+    
+    // Check if book already exists
+    const existingBook = existingHistory.find(book => 
+      book.title.toLowerCase() === title.toLowerCase()
+    );
+    
+    if (existingBook) continue; // Skip duplicates
+    
+    const author = authorIndex >= 0 ? cells[authorIndex]?.trim() || "Unknown" : "Unknown";
+    let rating = 3; // Default rating
+    
+    if (ratingIndex >= 0 && cells[ratingIndex]) {
+      const ratingValue = parseFloat(cells[ratingIndex]);
+      if (!isNaN(ratingValue) && ratingValue >= 0.5 && ratingValue <= 5) {
+        // Round to nearest 0.5
+        rating = Math.round(ratingValue * 2) / 2;
+      }
+    }
+    
+    const genre = genreIndex >= 0 ? cells[genreIndex]?.trim() || "" : "";
+    
+    const entry = {
+      title,
+      author,
+      rating,
+      genre
+    };
+    
+    existingHistory.push(entry);
+    importedCount++;
+  }
+  
+  setHistory(existingHistory);
+  showHistory();
+  alert(`Successfully imported ${importedCount} books from CSV!`);
+}
+
+function parseCSVLine(line) {
+  const cells = [];
+  let current = '';
+  let inQuotes = false;
+  
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      cells.push(current.trim().replace(/^"|"$/g, ''));
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  
+  cells.push(current.trim().replace(/^"|"$/g, ''));
+  return cells;
+}
+
+function exportHistory() {
+  const history = getHistory();
+  if (!history.length) {
+    alert("No reading history to export.");
+    return;
+  }
+  
+  const headers = ['Title', 'Author', 'Rating', 'Genres'];
+  const csvContent = [
+    headers.join(','),
+    ...history.map(book => [
+      `"${book.title}"`,
+      `"${book.author}"`,
+      book.rating,
+      `"${book.genre}"`
+    ].join(','))
+  ].join('\n');
+  
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `bookwise-reading-history-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function showCSVFormat() {
+  const example = `Here are the CSV formats supported:
+
+**Goodreads Export Format:**
+Title,Author,My Rating,Bookshelves
+"The Hobbit","J.R.R. Tolkien",5,"fantasy, adventure"
+"1984","George Orwell",4.5,"dystopian, classics"
+
+**Simple Format:**
+Title,Author,Rating,Genre
+"Dune","Frank Herbert",4.5,"Science Fiction"
+"Pride and Prejudice","Jane Austen",4,"Romance, Classics"
+
+**Required:**
+- Title column (required)
+- Author column (optional, defaults to "Unknown")
+- Rating column (optional, defaults to 3.0)
+- Genre/Categories column (optional)
+
+**Notes:**
+- Ratings will be rounded to nearest 0.5 (e.g., 4.3 becomes 4.5)
+- Duplicate books (same title) will be skipped
+- CSV should have headers in the first row`;
+  
+  alert(example);
+}
+
+function showRankingHelp() {
+  const history = getHistory();
+  const hasHistory = history.length > 0;
+  
+  let explanation = `📊 **How BookWise Ranking Works**
+
+BookWise creates personalized match scores based on your reading history to help you find books you'll love!
+
+`;
+
+  if (hasHistory) {
+    const likedCount = history.filter(book => Number(book.rating) >= 4).length;
+    const dislikedCount = history.filter(book => Number(book.rating) <= 2).length;
+    
+    explanation += `**Your Reading Profile:**
+📚 ${history.length} books in your history
+👍 ${likedCount} books you loved (4-5 stars)
+👎 ${dislikedCount} books you didn't enjoy (1-2 stars)
+
+**Scoring System:**
+🎯 **Genre Matching:**
+  +2 points: Shares genre with books you rated 4-5 stars
+  -2 points: Shares genre with books you rated 1-2 stars
+
+👨‍💼 **Author Matching:**
+  +1 point: Author you've rated highly before
+  -1 point: Author you've rated poorly before
+
+**Example:** If you loved "Dune" (Sci-Fi, 5 stars), then:
+• "The Martian" (Sci-Fi) gets +2 points
+• Another Frank Herbert book gets +3 points (+2 genre, +1 author)
+
+**Higher scores = Better matches for YOU!**`;
+  } else {
+    explanation += `**Getting Started:**
+🔄 Match scores are currently 0 because you haven't added any books to your reading history yet.
+
+📖 **To get personalized recommendations:**
+1. Go to "📚 Reading History" tab
+2. Add books you've read with ratings
+3. Import your Goodreads CSV for instant personalization!
+
+**Once you have reading history:**
+• Books matching your favorite genres get higher scores
+• Books by authors you love get bonus points
+• Books similar to ones you disliked get lower scores
+
+The more books you add, the smarter the recommendations become! 🎯`;
+  }
+  
+  alert(explanation);
 }
 
 /* ---------- BOOK SIMILARITY FUNCTION ---------- */
@@ -342,22 +647,206 @@ function bookSimilarity(bookA, bookB) {
 
 function rankScannedBooks(scannedBooks) {
   const history = getHistory();
+  
+  if (!history.length) {
+    return scannedBooks.map(book => ({...book, rankScore: 0}));
+  }
+  
+  // Categorize books by rating for preference analysis
+  const likedBooks = history.filter(book => Number(book.rating) >= 4);
+  const dislikedBooks = history.filter(book => Number(book.rating) <= 2);
+  
+  // Extract genres and authors for comparison
+  const likedGenres = new Set();
+  const dislikedGenres = new Set();
+  const likedAuthors = new Set();
+  const dislikedAuthors = new Set();
+  
+  likedBooks.forEach(book => {
+    if (book.genre) {
+      book.genre.split(',').forEach(genre => 
+        likedGenres.add(genre.trim().toLowerCase())
+      );
+    }
+    if (book.author) {
+      likedAuthors.add(book.author.trim().toLowerCase());
+    }
+  });
+  
+  dislikedBooks.forEach(book => {
+    if (book.genre) {
+      book.genre.split(',').forEach(genre => 
+        dislikedGenres.add(genre.trim().toLowerCase())
+      );
+    }
+    if (book.author) {
+      dislikedAuthors.add(book.author.trim().toLowerCase());
+    }
+  });
+  
   return scannedBooks.map(book => {
-    if (!history.length) return {...book, rankScore: 0};
-    let totalScore = 0;
-    history.forEach(hist => {
-      const sim = bookSimilarity(book, hist);
-      const rating = Number(hist.rating) || 1;
-      totalScore += sim * rating;
-    });
-    const avgScore = totalScore / history.length;
-    return {...book, rankScore: avgScore};
+    let rankScore = 0;
+    
+    // Genre scoring
+    if (book.categories && book.categories.length > 0) {
+      book.categories.forEach(category => {
+        const categoryLower = category.toLowerCase();
+        
+        // Check for liked genres (+2 points)
+        for (const likedGenre of likedGenres) {
+          if (categoryLower.includes(likedGenre) || likedGenre.includes(categoryLower)) {
+            rankScore += 2;
+            break; // Only count each category once for liked genres
+          }
+        }
+        
+        // Check for disliked genres (-2 points)
+        for (const dislikedGenre of dislikedGenres) {
+          if (categoryLower.includes(dislikedGenre) || dislikedGenre.includes(categoryLower)) {
+            rankScore -= 2;
+            break; // Only count each category once for disliked genres
+          }
+        }
+      });
+    }
+    
+    // Author scoring
+    if (book.authors) {
+      const bookAuthorsLower = book.authors.toLowerCase();
+      
+      // Check for liked authors (+1 point)
+      for (const likedAuthor of likedAuthors) {
+        if (bookAuthorsLower.includes(likedAuthor) || likedAuthor.includes(bookAuthorsLower)) {
+          rankScore += 1;
+          break; // Only count once per book
+        }
+      }
+      
+      // Check for disliked authors (-1 point)
+      for (const dislikedAuthor of dislikedAuthors) {
+        if (bookAuthorsLower.includes(dislikedAuthor) || dislikedAuthor.includes(bookAuthorsLower)) {
+          rankScore -= 1;
+          break; // Only count once per book
+        }
+      }
+    }
+    
+    // Offline dataset enhancement scoring
+    const offlineBonus = getOfflineRecommendationBonus(book, history);
+    rankScore += offlineBonus;
+    
+    return {...book, rankScore};
   });
 }
 
+/* ========== OFFLINE RECOMMENDATION FUNCTIONS ========== */
+function getOfflineRecommendationBonus(scannedBook, userHistory) {
+  if (!bookDataset.length) return 0;
+  
+  let bonus = 0;
+  const userReadTitles = new Set(userHistory.map(book => book.title.toLowerCase()));
+  
+  // Find matches in dataset by title or author
+  const matches = findDatasetMatches(scannedBook);
+  
+  matches.forEach(match => {
+    // If this exact book is in our dataset and has related books
+    if (match.related && match.related.length > 0) {
+      // Check if any related books match user's reading preferences
+      match.related.forEach(relatedTitle => {
+        const relatedBook = bookDataset.find(book => 
+          book.title.toLowerCase() === relatedTitle.toLowerCase()
+        );
+        
+        if (relatedBook && !userReadTitles.has(relatedBook.title.toLowerCase())) {
+          // Bonus for unread related books
+          bonus += 0.5;
+          
+          // Additional bonus if related book matches user's preferred genres/authors
+          const userLikedBooks = userHistory.filter(book => Number(book.rating) >= 4);
+          userLikedBooks.forEach(likedBook => {
+            // Genre similarity bonus
+            if (relatedBook.genres && likedBook.genre) {
+              const likedGenres = likedBook.genre.split(',').map(g => g.trim().toLowerCase());
+              const relatedGenres = relatedBook.genres.map(g => g.toLowerCase());
+              
+              if (likedGenres.some(lg => relatedGenres.some(rg => 
+                rg.includes(lg) || lg.includes(rg)))) {
+                bonus += 0.3;
+              }
+            }
+            
+            // Author similarity bonus
+            if (relatedBook.authors && likedBook.author) {
+              const relatedAuthors = relatedBook.authors.map(a => a.toLowerCase());
+              const likedAuthor = likedBook.author.toLowerCase();
+              
+              if (relatedAuthors.some(ra => 
+                ra.includes(likedAuthor) || likedAuthor.includes(ra))) {
+                bonus += 0.5;
+              }
+            }
+          });
+        }
+      });
+    }
+  });
+  
+  return Math.min(bonus, 3); // Cap the offline bonus at +3 points
+}
+
+function findDatasetMatches(scannedBook) {
+  if (!bookDataset.length) return [];
+  
+  const matches = [];
+  const scannedTitle = scannedBook.title ? scannedBook.title.toLowerCase() : '';
+  const scannedAuthors = scannedBook.authors ? scannedBook.authors.toLowerCase() : '';
+  
+  bookDataset.forEach(book => {
+    let isMatch = false;
+    
+    // Title matching (exact or partial)
+    if (book.title && scannedTitle) {
+      const datasetTitle = book.title.toLowerCase();
+      if (datasetTitle.includes(scannedTitle) || scannedTitle.includes(datasetTitle)) {
+        isMatch = true;
+      }
+    }
+    
+    // Author matching
+    if (!isMatch && book.authors && scannedAuthors) {
+      book.authors.forEach(author => {
+        const authorLower = author.toLowerCase();
+        if (authorLower.includes(scannedAuthors) || scannedAuthors.includes(authorLower)) {
+          isMatch = true;
+        }
+      });
+    }
+    
+    if (isMatch) {
+      matches.push(book);
+    }
+  });
+  
+  return matches;
+}
+
 /* ========== INIT ========== */
+let bookDataset = [];
+// Load offline book dataset for enhanced recommendations
+async function loadBookDataset() {
+  try {
+    const response = await fetch('./bookwise_recommendations_dataset.json');
+    bookDataset = await response.json();
+    console.log(`Loaded ${bookDataset.length} books for offline recommendations`);
+  } catch (error) {
+    console.warn('Could not load offline book dataset:', error);
+  }
+}
+
 showSaved();
 showHistory();
+loadBookDataset();
 </script>
 </body>
 </html>

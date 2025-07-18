@@ -1,0 +1,4252 @@
+[
+  {
+    "title": "Pride and Prejudice Redux 59",
+    "authors": [
+      "Jane Austen"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "Dune Chronicles 7",
+      "The Girl with the Dragon Tattoo Chronicles 78",
+      "Dune Extended 85",
+      "To Kill a Mockingbird Chronicles 26",
+      "The Shining Legacy 60"
+    ]
+  },
+  {
+    "title": "The Shining Legacy 62",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "The Road Legacy 97",
+      "1984 Redux 48",
+      "Pride and Prejudice Chronicles 2",
+      "The Song of Achilles Redux 24",
+      "To Kill a Mockingbird Revisited 78"
+    ]
+  },
+  {
+    "title": "The Alchemist Legacy 94",
+    "authors": [
+      "Paulo Coelho"
+    ],
+    "genres": [
+      "Horror",
+      "Contemporary"
+    ],
+    "related": [
+      "1984 Redux 56",
+      "Harry Potter and the Sorcerer's Stone Redux 15",
+      "The Road Revisited 52",
+      "It Legacy 42",
+      "1984 Legacy 16"
+    ]
+  },
+  {
+    "title": "The Alchemist Chronicles 91",
+    "authors": [
+      "Paulo Coelho"
+    ],
+    "genres": [
+      "Romance",
+      "Biography",
+      "Nonfiction"
+    ],
+    "related": [
+      "To Kill a Mockingbird Chronicles 26",
+      "Gone Girl Extended 27",
+      "Becoming Redux 93",
+      "1984 Legacy 16",
+      "The Catcher in the Rye Redux 63"
+    ]
+  },
+  {
+    "title": "A Game of Thrones Extended 11",
+    "authors": [
+      "George R.R. Martin"
+    ],
+    "genres": [
+      "Horror",
+      "Thriller"
+    ],
+    "related": [
+      "The Lord of the Rings Chronicles 13",
+      "The Book Thief Chronicles 2",
+      "Brave New World Redux 74",
+      "Becoming Extended 4",
+      "Dune Legacy 7"
+    ]
+  },
+  {
+    "title": "Gone Girl Extended 27",
+    "authors": [
+      "Gillian Flynn"
+    ],
+    "genres": [
+      "Biography",
+      "Science Fiction"
+    ],
+    "related": [
+      "It Chronicles 38",
+      "Becoming Redux 65",
+      "The Book Thief Revisited 68",
+      "The Girl with the Dragon Tattoo Extended 20",
+      "The Da Vinci Code Chronicles 63"
+    ]
+  },
+  {
+    "title": "Where the Crawdads Sing Redux 98",
+    "authors": [
+      "Delia Owens"
+    ],
+    "genres": [
+      "Biography"
+    ],
+    "related": [
+      "Pride and Prejudice Chronicles 41",
+      "The Girl with the Dragon Tattoo Legacy 54",
+      "The Girl with the Dragon Tattoo Redux 90",
+      "The Book Thief Extended 68",
+      "Gone Girl Extended 27"
+    ]
+  },
+  {
+    "title": "The Hunger Games Extended 53",
+    "authors": [
+      "Suzanne Collins"
+    ],
+    "genres": [
+      "Literary Fiction",
+      "Science Fiction",
+      "Dystopian"
+    ],
+    "related": [
+      "The Great Gatsby Redux 10",
+      "The Night Circus Chronicles 90",
+      "Harry Potter and the Sorcerer's Stone Extended 95",
+      "Circe Revisited 66",
+      "Educated Extended 34"
+    ]
+  },
+  {
+    "title": "1984 Legacy 36",
+    "authors": [
+      "George Orwell"
+    ],
+    "genres": [
+      "Adventure",
+      "Classics",
+      "Literary Fiction"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Chronicles 76",
+      "Brave New World Revisited 44",
+      "The Da Vinci Code Legacy 99",
+      "The Shining Chronicles 23",
+      "The Great Gatsby Chronicles 64"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Redux 86",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Biography"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Chronicles 53",
+      "The Girl with the Dragon Tattoo Legacy 26",
+      "Gone Girl Redux 83",
+      "The Da Vinci Code Revisited 81",
+      "Educated Revisited 21"
+    ]
+  },
+  {
+    "title": "The Hobbit Revisited 11",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Classics",
+      "Nonfiction",
+      "Romance"
+    ],
+    "related": [
+      "The Great Gatsby Chronicles 66",
+      "The Great Gatsby Chronicles 64",
+      "Educated Revisited 9",
+      "The Book Thief Redux 56",
+      "The Fault in Our Stars Extended 58"
+    ]
+  },
+  {
+    "title": "The Fault in Our Stars Extended 10",
+    "authors": [
+      "John Green"
+    ],
+    "genres": [
+      "Dystopian",
+      "Mystery"
+    ],
+    "related": [
+      "Where the Crawdads Sing Revisited 44",
+      "The Hobbit Chronicles 1",
+      "1984 Redux 48",
+      "The Great Gatsby Redux 10",
+      "The Hunger Games Revisited 78"
+    ]
+  },
+  {
+    "title": "The Fault in Our Stars Extended 38",
+    "authors": [
+      "John Green"
+    ],
+    "genres": [
+      "Science Fiction"
+    ],
+    "related": [
+      "Brave New World Chronicles 57",
+      "The Girl with the Dragon Tattoo Legacy 54",
+      "The Girl with the Dragon Tattoo Revisited 86",
+      "The Alchemist Revisited 83",
+      "It Redux 47"
+    ]
+  },
+  {
+    "title": "The Road Revisited 99",
+    "authors": [
+      "Cormac McCarthy"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Historical",
+      "Fantasy"
+    ],
+    "related": [
+      "The Girl with the Dragon Tattoo Redux 39",
+      "The Night Circus Extended 79",
+      "The Book Thief Legacy 95",
+      "Brave New World Extended 86",
+      "The Alchemist Extended 61"
+    ]
+  },
+  {
+    "title": "The Shining Chronicles 68",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Classics"
+    ],
+    "related": [
+      "To Kill a Mockingbird Chronicles 26",
+      "Where the Crawdads Sing Legacy 81",
+      "Twilight Revisited 84",
+      "Twilight Revisited 16",
+      "The Lord of the Rings Chronicles 13"
+    ]
+  },
+  {
+    "title": "The Midnight Library Redux 38",
+    "authors": [
+      "Matt Haig"
+    ],
+    "genres": [
+      "Historical",
+      "Mystery",
+      "Horror"
+    ],
+    "related": [
+      "Harry Potter and the Sorcerer's Stone Chronicles 69",
+      "The Song of Achilles Revisited 98",
+      "The Fault in Our Stars Extended 10",
+      "Becoming Legacy 65",
+      "The Song of Achilles Redux 97"
+    ]
+  },
+  {
+    "title": "The Alchemist Extended 61",
+    "authors": [
+      "Paulo Coelho"
+    ],
+    "genres": [
+      "Fantasy",
+      "Romance"
+    ],
+    "related": [
+      "It Redux 76",
+      "The Road Revisited 99",
+      "It Extended 46",
+      "The Song of Achilles Redux 24",
+      "The Night Circus Extended 36"
+    ]
+  },
+  {
+    "title": "To Kill a Mockingbird Revisited 78",
+    "authors": [
+      "Harper Lee"
+    ],
+    "genres": [
+      "Literary Fiction"
+    ],
+    "related": [
+      "Gone Girl Extended 99",
+      "The Girl with the Dragon Tattoo Chronicles 78",
+      "Circe Redux 17",
+      "The Great Gatsby Chronicles 64",
+      "The Book Thief Extended 68"
+    ]
+  },
+  {
+    "title": "Circe Extended 66",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Thriller",
+      "Contemporary"
+    ],
+    "related": [
+      "The Hunger Games Chronicles 68",
+      "The Night Circus Extended 79",
+      "Where the Crawdads Sing Chronicles 7",
+      "Where the Crawdads Sing Redux 98",
+      "Gone Girl Redux 83"
+    ]
+  },
+  {
+    "title": "The Midnight Library Revisited 64",
+    "authors": [
+      "Matt Haig"
+    ],
+    "genres": [
+      "Young Adult",
+      "Literary Fiction",
+      "Adventure"
+    ],
+    "related": [
+      "A Game of Thrones Revisited 13",
+      "Becoming Legacy 64",
+      "It Chronicles 49",
+      "Where the Crawdads Sing Revisited 44",
+      "The Song of Achilles Redux 24"
+    ]
+  },
+  {
+    "title": "The Road Redux 72",
+    "authors": [
+      "Cormac McCarthy"
+    ],
+    "genres": [
+      "Nonfiction"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Revisited 16",
+      "The Book Thief Chronicles 2",
+      "A Game of Thrones Revisited 38",
+      "The Lord of the Rings Revisited 42",
+      "Brave New World Legacy 19"
+    ]
+  },
+  {
+    "title": "It Chronicles 38",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Dystopian",
+      "Nonfiction",
+      "Classics"
+    ],
+    "related": [
+      "Dune Redux 45",
+      "Educated Chronicles 2",
+      "The Song of Achilles Chronicles 5",
+      "Pride and Prejudice Revisited 6",
+      "The Book Thief Chronicles 2"
+    ]
+  },
+  {
+    "title": "Educated Legacy 49",
+    "authors": [
+      "Tara Westover"
+    ],
+    "genres": [
+      "Historical"
+    ],
+    "related": [
+      "The Night Circus Revisited 44",
+      "The Catcher in the Rye Extended 77",
+      "The Song of Achilles Revisited 59",
+      "Twilight Revisited 25",
+      "The Book Thief Legacy 25"
+    ]
+  },
+  {
+    "title": "The Catcher in the Rye Extended 3",
+    "authors": [
+      "J.D. Salinger"
+    ],
+    "genres": [
+      "Science Fiction"
+    ],
+    "related": [
+      "The Book Thief Revisited 68",
+      "Gone Girl Redux 83",
+      "Educated Revisited 42",
+      "The Catcher in the Rye Chronicles 36",
+      "The Hobbit Chronicles 6"
+    ]
+  },
+  {
+    "title": "The Road Extended 11",
+    "authors": [
+      "Cormac McCarthy"
+    ],
+    "genres": [
+      "Adventure",
+      "Literary Fiction",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Great Gatsby Chronicles 64",
+      "Brave New World Revisited 44",
+      "Brave New World Redux 74",
+      "The Shining Legacy 60",
+      "Circe Revisited 66"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings Revisited 42",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Fantasy"
+    ],
+    "related": [
+      "Harry Potter and the Sorcerer's Stone Legacy 67",
+      "Pride and Prejudice Redux 59",
+      "Circe Extended 96",
+      "The Girl with the Dragon Tattoo Legacy 54",
+      "Gone Girl Extended 99"
+    ]
+  },
+  {
+    "title": "The Hobbit Chronicles 1",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Classics",
+      "Historical"
+    ],
+    "related": [
+      "Brave New World Chronicles 82",
+      "Where the Crawdads Sing Extended 9",
+      "The Hunger Games Redux 10",
+      "Where the Crawdads Sing Legacy 81",
+      "The Great Gatsby Extended 85"
+    ]
+  },
+  {
+    "title": "Becoming Redux 93",
+    "authors": [
+      "Michelle Obama"
+    ],
+    "genres": [
+      "Fantasy",
+      "Thriller",
+      "Literary Fiction"
+    ],
+    "related": [
+      "The Da Vinci Code Legacy 26",
+      "Twilight Revisited 24",
+      "The Song of Achilles Redux 7",
+      "The Midnight Library Chronicles 54",
+      "The Midnight Library Redux 38"
+    ]
+  },
+  {
+    "title": "Twilight Revisited 84",
+    "authors": [
+      "Stephenie Meyer"
+    ],
+    "genres": [
+      "Classics",
+      "Nonfiction",
+      "Young Adult"
+    ],
+    "related": [
+      "The Da Vinci Code Chronicles 60",
+      "It Redux 3",
+      "Becoming Legacy 64",
+      "The Da Vinci Code Legacy 63",
+      "The Midnight Library Revisited 15"
+    ]
+  },
+  {
+    "title": "Circe Revisited 7",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Contemporary",
+      "Historical",
+      "Mystery"
+    ],
+    "related": [
+      "Twilight Revisited 37",
+      "The Da Vinci Code Legacy 26",
+      "The Catcher in the Rye Revisited 69",
+      "Becoming Extended 35",
+      "The Great Gatsby Chronicles 66"
+    ]
+  },
+  {
+    "title": "It Redux 47",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Fantasy"
+    ],
+    "related": [
+      "The Night Circus Revisited 44",
+      "Harry Potter and the Sorcerer's Stone Legacy 67",
+      "Brave New World Extended 8",
+      "The Girl with the Dragon Tattoo Legacy 26",
+      "Twilight Revisited 37"
+    ]
+  },
+  {
+    "title": "The Book Thief Redux 56",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Dystopian",
+      "Biography",
+      "Nonfiction"
+    ],
+    "related": [
+      "The Lord of the Rings Revisited 42",
+      "A Game of Thrones Extended 11",
+      "Educated Chronicles 2",
+      "The Hobbit Revisited 11",
+      "The Night Circus Extended 79"
+    ]
+  },
+  {
+    "title": "Brave New World Revisited 44",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Dystopian",
+      "Adventure"
+    ],
+    "related": [
+      "The Alchemist Chronicles 14",
+      "Twilight Legacy 18",
+      "Twilight Revisited 16",
+      "Gone Girl Extended 55",
+      "Pride and Prejudice Extended 17"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Revisited 81",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Historical",
+      "Literary Fiction"
+    ],
+    "related": [
+      "Gone Girl Extended 55",
+      "Harry Potter and the Sorcerer's Stone Extended 95",
+      "Becoming Legacy 64",
+      "Pride and Prejudice Chronicles 2",
+      "The Alchemist Redux 67"
+    ]
+  },
+  {
+    "title": "1984 Redux 48",
+    "authors": [
+      "George Orwell"
+    ],
+    "genres": [
+      "Young Adult",
+      "Romance",
+      "Literary Fiction"
+    ],
+    "related": [
+      "Circe Redux 17",
+      "The Da Vinci Code Chronicles 26",
+      "Dune Extended 85",
+      "It Redux 79",
+      "Where the Crawdads Sing Legacy 81"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Redux 85",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Science Fiction"
+    ],
+    "related": [
+      "To Kill a Mockingbird Revisited 3",
+      "Dune Extended 13",
+      "The Da Vinci Code Legacy 63",
+      "The Alchemist Legacy 94",
+      "The Night Circus Extended 79"
+    ]
+  },
+  {
+    "title": "1984 Legacy 16",
+    "authors": [
+      "George Orwell"
+    ],
+    "genres": [
+      "Contemporary"
+    ],
+    "related": [
+      "The Da Vinci Code Revisited 81",
+      "Brave New World Chronicles 82",
+      "The Hunger Games Redux 10",
+      "It Revisited 23",
+      "Where the Crawdads Sing Chronicles 7"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Chronicles 60",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Adventure",
+      "Young Adult"
+    ],
+    "related": [
+      "Dune Chronicles 58",
+      "Circe Redux 51",
+      "The Midnight Library Redux 38",
+      "Dune Chronicles 7",
+      "The Seven Husbands of Evelyn Hugo Redux 70"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Chronicles 78",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "The Song of Achilles Chronicles 5",
+      "The Da Vinci Code Chronicles 63",
+      "Where the Crawdads Sing Revisited 35",
+      "The Fault in Our Stars Extended 28",
+      "Educated Revisited 42"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Extended 85",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Horror"
+    ],
+    "related": [
+      "1984 Redux 56",
+      "The Da Vinci Code Legacy 63",
+      "Gone Girl Extended 55",
+      "A Game of Thrones Revisited 38",
+      "The Road Legacy 97"
+    ]
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone Redux 15",
+    "authors": [
+      "J.K. Rowling"
+    ],
+    "genres": [
+      "Historical",
+      "Classics"
+    ],
+    "related": [
+      "The Da Vinci Code Revisited 81",
+      "The Book Thief Chronicles 2",
+      "It Legacy 52",
+      "Brave New World Revisited 99",
+      "The Midnight Library Chronicles 54"
+    ]
+  },
+  {
+    "title": "Brave New World Extended 50",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Romance"
+    ],
+    "related": [
+      "The Da Vinci Code Legacy 63",
+      "It Redux 76",
+      "Harry Potter and the Sorcerer's Stone Chronicles 12",
+      "Gone Girl Extended 55",
+      "To Kill a Mockingbird Chronicles 98"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Legacy 100",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Classics",
+      "Mystery",
+      "Nonfiction"
+    ],
+    "related": [
+      "The Book Thief Revisited 68",
+      "The Great Gatsby Extended 21",
+      "1984 Redux 48",
+      "Where the Crawdads Sing Extended 9",
+      "Brave New World Extended 86"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings Legacy 20",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Historical",
+      "Mystery"
+    ],
+    "related": [
+      "The Night Circus Chronicles 34",
+      "The Great Gatsby Revisited 53",
+      "Pride and Prejudice Chronicles 37",
+      "Educated Revisited 9",
+      "Becoming Redux 93"
+    ]
+  },
+  {
+    "title": "Where the Crawdads Sing Legacy 81",
+    "authors": [
+      "Delia Owens"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "1984 Redux 48",
+      "Circe Extended 27",
+      "The Da Vinci Code Legacy 26",
+      "Where the Crawdads Sing Redux 98",
+      "Gone Girl Extended 99"
+    ]
+  },
+  {
+    "title": "The Shining Legacy 60",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Biography",
+      "Romance",
+      "Horror"
+    ],
+    "related": [
+      "It Chronicles 38",
+      "The Book Thief Legacy 38",
+      "Where the Crawdads Sing Revisited 35",
+      "The Hobbit Chronicles 6",
+      "The Book Thief Legacy 23"
+    ]
+  },
+  {
+    "title": "Brave New World Chronicles 57",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Fantasy"
+    ],
+    "related": [
+      "Where the Crawdads Sing Revisited 35",
+      "Pride and Prejudice Chronicles 41",
+      "The Shining Legacy 62",
+      "The Hobbit Chronicles 72",
+      "Pride and Prejudice Extended 17"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Legacy 68",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Mystery"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Redux 70",
+      "The Midnight Library Revisited 68",
+      "The Road Revisited 99",
+      "Circe Extended 96",
+      "The Song of Achilles Redux 7"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Redux 35",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Classics",
+      "Contemporary"
+    ],
+    "related": [
+      "The Hunger Games Chronicles 4",
+      "The Lord of the Rings Redux 14",
+      "The Catcher in the Rye Extended 3",
+      "The Fault in Our Stars Extended 38",
+      "Twilight Extended 57"
+    ]
+  },
+  {
+    "title": "Pride and Prejudice Chronicles 2",
+    "authors": [
+      "Jane Austen"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Dystopian"
+    ],
+    "related": [
+      "A Game of Thrones Revisited 38",
+      "The Song of Achilles Redux 7",
+      "The Book Thief Legacy 99",
+      "The Alchemist Redux 67",
+      "Brave New World Extended 8"
+    ]
+  },
+  {
+    "title": "Dune Legacy 7",
+    "authors": [
+      "Frank Herbert"
+    ],
+    "genres": [
+      "Romance",
+      "Horror"
+    ],
+    "related": [
+      "Circe Revisited 7",
+      "The Catcher in the Rye Revisited 69",
+      "The Seven Husbands of Evelyn Hugo Chronicles 53",
+      "The Seven Husbands of Evelyn Hugo Extended 52",
+      "Pride and Prejudice Chronicles 2"
+    ]
+  },
+  {
+    "title": "Dune Redux 45",
+    "authors": [
+      "Frank Herbert"
+    ],
+    "genres": [
+      "Young Adult",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Great Gatsby Extended 2",
+      "1984 Legacy 36",
+      "The Night Circus Legacy 19",
+      "Becoming Legacy 72",
+      "The Book Thief Legacy 95"
+    ]
+  },
+  {
+    "title": "To Kill a Mockingbird Redux 26",
+    "authors": [
+      "Harper Lee"
+    ],
+    "genres": [
+      "Contemporary",
+      "Adventure",
+      "Historical"
+    ],
+    "related": [
+      "The Night Circus Chronicles 34",
+      "Becoming Legacy 79",
+      "Harry Potter and the Sorcerer's Stone Chronicles 69",
+      "The Alchemist Chronicles 19",
+      "The Girl with the Dragon Tattoo Redux 39"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Extended 95",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Fantasy",
+      "Literary Fiction",
+      "Dystopian"
+    ],
+    "related": [
+      "The Midnight Library Revisited 15",
+      "The Hobbit Legacy 97",
+      "The Midnight Library Legacy 77",
+      "The Girl with the Dragon Tattoo Redux 35",
+      "Where the Crawdads Sing Extended 9"
+    ]
+  },
+  {
+    "title": "It Chronicles 49",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Nonfiction"
+    ],
+    "related": [
+      "Circe Revisited 66",
+      "The Girl with the Dragon Tattoo Redux 35",
+      "Becoming Redux 93",
+      "It Redux 79",
+      "The Road Chronicles 11"
+    ]
+  },
+  {
+    "title": "The Night Circus Chronicles 90",
+    "authors": [
+      "Erin Morgenstern"
+    ],
+    "genres": [
+      "Historical"
+    ],
+    "related": [
+      "Gone Girl Extended 99",
+      "Dune Chronicles 15",
+      "The Song of Achilles Chronicles 5",
+      "The Catcher in the Rye Chronicles 36",
+      "Circe Redux 17"
+    ]
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone Extended 95",
+    "authors": [
+      "J.K. Rowling"
+    ],
+    "genres": [
+      "Literary Fiction",
+      "Dystopian",
+      "Fantasy"
+    ],
+    "related": [
+      "Becoming Legacy 79",
+      "The Da Vinci Code Extended 33",
+      "Harry Potter and the Sorcerer's Stone Chronicles 31",
+      "The Fault in Our Stars Revisited 56",
+      "Pride and Prejudice Revisited 22"
+    ]
+  },
+  {
+    "title": "The Book Thief Legacy 25",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Horror"
+    ],
+    "related": [
+      "The Great Gatsby Legacy 100",
+      "The Hunger Games Revisited 78",
+      "To Kill a Mockingbird Chronicles 26",
+      "Circe Redux 51",
+      "The Da Vinci Code Legacy 26"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Redux 37",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Mystery",
+      "Thriller",
+      "Classics"
+    ],
+    "related": [
+      "The Night Circus Extended 36",
+      "Dune Extended 34",
+      "The Night Circus Chronicles 34",
+      "It Legacy 62",
+      "Educated Chronicles 2"
+    ]
+  },
+  {
+    "title": "Pride and Prejudice Revisited 6",
+    "authors": [
+      "Jane Austen"
+    ],
+    "genres": [
+      "Romance",
+      "Mystery",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Da Vinci Code Chronicles 60",
+      "The Midnight Library Redux 38",
+      "Harry Potter and the Sorcerer's Stone Extended 95",
+      "Dune Chronicles 7",
+      "Harry Potter and the Sorcerer's Stone Chronicles 12"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Revisited 98",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Horror",
+      "Fantasy",
+      "Contemporary"
+    ],
+    "related": [
+      "Where the Crawdads Sing Revisited 45",
+      "The Book Thief Chronicles 2",
+      "It Redux 76",
+      "The Catcher in the Rye Chronicles 36",
+      "The Song of Achilles Chronicles 5"
+    ]
+  },
+  {
+    "title": "Twilight Extended 57",
+    "authors": [
+      "Stephenie Meyer"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Historical"
+    ],
+    "related": [
+      "Circe Extended 96",
+      "The Hobbit Chronicles 72",
+      "The Catcher in the Rye Extended 3",
+      "Becoming Legacy 65",
+      "Pride and Prejudice Redux 59"
+    ]
+  },
+  {
+    "title": "Brave New World Chronicles 82",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Classics"
+    ],
+    "related": [
+      "The Da Vinci Code Extended 33",
+      "It Redux 3",
+      "The Da Vinci Code Chronicles 63",
+      "The Great Gatsby Extended 95",
+      "Brave New World Legacy 19"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Redux 7",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Thriller",
+      "Romance",
+      "Nonfiction"
+    ],
+    "related": [
+      "Educated Chronicles 2",
+      "Brave New World Redux 74",
+      "The Song of Achilles Redux 24",
+      "Where the Crawdads Sing Redux 98",
+      "The Hunger Games Chronicles 4"
+    ]
+  },
+  {
+    "title": "The Alchemist Revisited 83",
+    "authors": [
+      "Paulo Coelho"
+    ],
+    "genres": [
+      "Fantasy",
+      "Biography",
+      "Historical"
+    ],
+    "related": [
+      "The Book Thief Chronicles 2",
+      "Dune Extended 85",
+      "The Hunger Games Chronicles 68",
+      "1984 Redux 48",
+      "The Song of Achilles Extended 97"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Extended 52",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Romance"
+    ],
+    "related": [
+      "The Song of Achilles Revisited 98",
+      "The Midnight Library Revisited 68",
+      "The Road Chronicles 11",
+      "A Game of Thrones Revisited 13",
+      "The Hunger Games Revisited 78"
+    ]
+  },
+  {
+    "title": "The Book Thief Legacy 38",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Fantasy",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Midnight Library Chronicles 54",
+      "Twilight Revisited 25",
+      "The Song of Achilles Revisited 96",
+      "Becoming Legacy 72",
+      "It Legacy 52"
+    ]
+  },
+  {
+    "title": "The Hobbit Extended 85",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Mystery",
+      "Dystopian"
+    ],
+    "related": [
+      "Harry Potter and the Sorcerer's Stone Chronicles 69",
+      "The Book Thief Extended 68",
+      "Pride and Prejudice Chronicles 37",
+      "Where the Crawdads Sing Chronicles 7",
+      "Gone Girl Extended 27"
+    ]
+  },
+  {
+    "title": "The Hunger Games Chronicles 68",
+    "authors": [
+      "Suzanne Collins"
+    ],
+    "genres": [
+      "Historical"
+    ],
+    "related": [
+      "It Chronicles 72",
+      "The Seven Husbands of Evelyn Hugo Chronicles 51",
+      "The Great Gatsby Legacy 68",
+      "The Shining Legacy 62",
+      "It Redux 79"
+    ]
+  },
+  {
+    "title": "Brave New World Redux 74",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Mystery"
+    ],
+    "related": [
+      "The Night Circus Extended 79",
+      "The Alchemist Chronicles 19",
+      "Twilight Legacy 18",
+      "The Hobbit Extended 8",
+      "The Da Vinci Code Redux 85"
+    ]
+  },
+  {
+    "title": "Dune Extended 13",
+    "authors": [
+      "Frank Herbert"
+    ],
+    "genres": [
+      "Young Adult",
+      "Mystery"
+    ],
+    "related": [
+      "The Lord of the Rings Extended 41",
+      "The Fault in Our Stars Revisited 100",
+      "Educated Extended 61",
+      "The Fault in Our Stars Chronicles 10",
+      "Gone Girl Extended 27"
+    ]
+  },
+  {
+    "title": "Where the Crawdads Sing Revisited 35",
+    "authors": [
+      "Delia Owens"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "The Great Gatsby Extended 21",
+      "The Book Thief Chronicles 2",
+      "The Midnight Library Chronicles 54",
+      "The Hobbit Revisited 11",
+      "The Seven Husbands of Evelyn Hugo Redux 70"
+    ]
+  },
+  {
+    "title": "Educated Revisited 21",
+    "authors": [
+      "Tara Westover"
+    ],
+    "genres": [
+      "Classics",
+      "Literary Fiction",
+      "Nonfiction"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Legacy 100",
+      "Brave New World Redux 74",
+      "It Redux 46",
+      "The Great Gatsby Extended 95",
+      "The Alchemist Extended 66"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Revisited 59",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Thriller",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Hobbit Chronicles 72",
+      "The Alchemist Chronicles 14",
+      "Brave New World Chronicles 57",
+      "The Hobbit Revisited 81",
+      "The Girl with the Dragon Tattoo Redux 86"
+    ]
+  },
+  {
+    "title": "Circe Extended 27",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Young Adult",
+      "Science Fiction"
+    ],
+    "related": [
+      "Where the Crawdads Sing Legacy 47",
+      "Pride and Prejudice Revisited 22",
+      "A Game of Thrones Redux 37",
+      "1984 Redux 48",
+      "Educated Extended 34"
+    ]
+  },
+  {
+    "title": "The Midnight Library Legacy 77",
+    "authors": [
+      "Matt Haig"
+    ],
+    "genres": [
+      "Dystopian",
+      "Classics"
+    ],
+    "related": [
+      "The Road Redux 72",
+      "It Redux 46",
+      "To Kill a Mockingbird Redux 26",
+      "The Book Thief Legacy 23",
+      "Harry Potter and the Sorcerer's Stone Extended 95"
+    ]
+  },
+  {
+    "title": "Gone Girl Extended 55",
+    "authors": [
+      "Gillian Flynn"
+    ],
+    "genres": [
+      "Science Fiction"
+    ],
+    "related": [
+      "The Lord of the Rings Extended 90",
+      "Where the Crawdads Sing Revisited 44",
+      "The Night Circus Chronicles 96",
+      "The Night Circus Legacy 19",
+      "The Catcher in the Rye Redux 63"
+    ]
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone Chronicles 69",
+    "authors": [
+      "J.K. Rowling"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "The Great Gatsby Chronicles 64",
+      "The Night Circus Extended 79",
+      "The Shining Chronicles 68",
+      "The Song of Achilles Redux 38",
+      "The Great Gatsby Chronicles 66"
+    ]
+  },
+  {
+    "title": "The Catcher in the Rye Revisited 69",
+    "authors": [
+      "J.D. Salinger"
+    ],
+    "genres": [
+      "Historical",
+      "Romance",
+      "Fantasy"
+    ],
+    "related": [
+      "It Extended 46",
+      "The Hunger Games Revisited 78",
+      "Educated Revisited 42",
+      "The Girl with the Dragon Tattoo Chronicles 78",
+      "Circe Legacy 32"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Redux 24",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Dystopian",
+      "Mystery"
+    ],
+    "related": [
+      "Becoming Legacy 72",
+      "The Lord of the Rings Legacy 20",
+      "Dune Chronicles 7",
+      "Educated Chronicles 46",
+      "The Hunger Games Chronicles 4"
+    ]
+  },
+  {
+    "title": "The Hunger Games Revisited 91",
+    "authors": [
+      "Suzanne Collins"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Dystopian",
+      "Horror"
+    ],
+    "related": [
+      "The Fault in Our Stars Chronicles 10",
+      "The Song of Achilles Revisited 59",
+      "The Catcher in the Rye Extended 77",
+      "The Seven Husbands of Evelyn Hugo Revisited 16",
+      "The Book Thief Legacy 38"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Revisited 93",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Literary Fiction",
+      "Thriller"
+    ],
+    "related": [
+      "The Road Legacy 97",
+      "The Alchemist Legacy 94",
+      "It Extended 46",
+      "Dune Extended 34",
+      "The Book Thief Chronicles 2"
+    ]
+  },
+  {
+    "title": "1984 Chronicles 83",
+    "authors": [
+      "George Orwell"
+    ],
+    "genres": [
+      "Classics",
+      "Historical"
+    ],
+    "related": [
+      "The Hunger Games Revisited 91",
+      "The Catcher in the Rye Revisited 69",
+      "The Night Circus Extended 79",
+      "It Redux 76",
+      "Pride and Prejudice Revisited 22"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings Extended 41",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Dystopian"
+    ],
+    "related": [
+      "The Book Thief Legacy 95",
+      "The Book Thief Chronicles 27",
+      "The Girl with the Dragon Tattoo Legacy 54",
+      "The Da Vinci Code Chronicles 26",
+      "The Shining Legacy 62"
+    ]
+  },
+  {
+    "title": "Dune Chronicles 15",
+    "authors": [
+      "Frank Herbert"
+    ],
+    "genres": [
+      "Young Adult",
+      "Historical",
+      "Mystery"
+    ],
+    "related": [
+      "Dune Chronicles 58",
+      "The Catcher in the Rye Redux 63",
+      "The Seven Husbands of Evelyn Hugo Chronicles 76",
+      "The Da Vinci Code Chronicles 26",
+      "The Shining Chronicles 50"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings Extended 90",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Romance",
+      "Science Fiction",
+      "Adventure"
+    ],
+    "related": [
+      "A Game of Thrones Revisited 13",
+      "The Da Vinci Code Chronicles 26",
+      "Where the Crawdads Sing Legacy 81",
+      "The Lord of the Rings Chronicles 13",
+      "1984 Revisited 6"
+    ]
+  },
+  {
+    "title": "The Night Circus Legacy 19",
+    "authors": [
+      "Erin Morgenstern"
+    ],
+    "genres": [
+      "Young Adult",
+      "Fantasy"
+    ],
+    "related": [
+      "Gone Girl Redux 83",
+      "Twilight Extended 57",
+      "The Seven Husbands of Evelyn Hugo Chronicles 39",
+      "The Book Thief Extended 48",
+      "The Lord of the Rings Extended 41"
+    ]
+  },
+  {
+    "title": "The Hobbit Chronicles 6",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Mystery"
+    ],
+    "related": [
+      "Circe Revisited 7",
+      "The Song of Achilles Redux 38",
+      "The Midnight Library Revisited 15",
+      "Pride and Prejudice Chronicles 41",
+      "The Lord of the Rings Chronicles 13"
+    ]
+  },
+  {
+    "title": "Becoming Legacy 64",
+    "authors": [
+      "Michelle Obama"
+    ],
+    "genres": [
+      "Thriller"
+    ],
+    "related": [
+      "The Fault in Our Stars Chronicles 10",
+      "The Midnight Library Legacy 63",
+      "The Fault in Our Stars Extended 28",
+      "Dune Chronicles 7",
+      "The Seven Husbands of Evelyn Hugo Revisited 16"
+    ]
+  },
+  {
+    "title": "The Midnight Library Chronicles 54",
+    "authors": [
+      "Matt Haig"
+    ],
+    "genres": [
+      "Horror",
+      "Young Adult"
+    ],
+    "related": [
+      "Circe Redux 51",
+      "The Alchemist Revisited 83",
+      "Circe Revisited 7",
+      "The Great Gatsby Extended 95",
+      "The Book Thief Chronicles 27"
+    ]
+  },
+  {
+    "title": "Educated Chronicles 46",
+    "authors": [
+      "Tara Westover"
+    ],
+    "genres": [
+      "Contemporary"
+    ],
+    "related": [
+      "The Book Thief Revisited 68",
+      "Brave New World Legacy 19",
+      "The Road Redux 72",
+      "The Midnight Library Revisited 15",
+      "The Hobbit Chronicles 1"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Extended 33",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Young Adult",
+      "Horror"
+    ],
+    "related": [
+      "The Hobbit Revisited 11",
+      "The Song of Achilles Chronicles 5",
+      "The Da Vinci Code Revisited 81",
+      "The Book Thief Legacy 38",
+      "Educated Revisited 42"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Redux 90",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Contemporary",
+      "Literary Fiction"
+    ],
+    "related": [
+      "Dune Redux 45",
+      "The Midnight Library Redux 38",
+      "Twilight Revisited 16",
+      "The Da Vinci Code Extended 33",
+      "The Lord of the Rings Extended 90"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Chronicles 53",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Nonfiction"
+    ],
+    "related": [
+      "The Great Gatsby Redux 68",
+      "The Alchemist Revisited 83",
+      "The Lord of the Rings Revisited 60",
+      "Circe Redux 17",
+      "Where the Crawdads Sing Chronicles 7"
+    ]
+  },
+  {
+    "title": "Brave New World Extended 8",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Mystery",
+      "Thriller"
+    ],
+    "related": [
+      "Circe Revisited 7",
+      "Circe Redux 51",
+      "Brave New World Redux 74",
+      "The Seven Husbands of Evelyn Hugo Chronicles 53",
+      "The Shining Chronicles 50"
+    ]
+  },
+  {
+    "title": "The Night Circus Chronicles 34",
+    "authors": [
+      "Erin Morgenstern"
+    ],
+    "genres": [
+      "Contemporary",
+      "Horror"
+    ],
+    "related": [
+      "The Book Thief Chronicles 2",
+      "The Girl with the Dragon Tattoo Redux 39",
+      "To Kill a Mockingbird Chronicles 98",
+      "Brave New World Chronicles 82",
+      "The Great Gatsby Extended 2"
+    ]
+  },
+  {
+    "title": "Educated Chronicles 2",
+    "authors": [
+      "Tara Westover"
+    ],
+    "genres": [
+      "Contemporary"
+    ],
+    "related": [
+      "Where the Crawdads Sing Redux 98",
+      "The Road Legacy 97",
+      "1984 Chronicles 83",
+      "Where the Crawdads Sing Legacy 81",
+      "The Night Circus Extended 36"
+    ]
+  },
+  {
+    "title": "The Road Revisited 2",
+    "authors": [
+      "Cormac McCarthy"
+    ],
+    "genres": [
+      "Horror",
+      "Historical"
+    ],
+    "related": [
+      "The Hunger Games Chronicles 68",
+      "Educated Revisited 9",
+      "Brave New World Revisited 99",
+      "The Fault in Our Stars Revisited 100",
+      "The Seven Husbands of Evelyn Hugo Redux 70"
+    ]
+  },
+  {
+    "title": "The Night Circus Revisited 44",
+    "authors": [
+      "Erin Morgenstern"
+    ],
+    "genres": [
+      "Contemporary",
+      "Mystery",
+      "Literary Fiction"
+    ],
+    "related": [
+      "Pride and Prejudice Chronicles 37",
+      "It Chronicles 49",
+      "Becoming Extended 4",
+      "The Alchemist Revisited 81",
+      "It Redux 47"
+    ]
+  },
+  {
+    "title": "A Game of Thrones Redux 37",
+    "authors": [
+      "George R.R. Martin"
+    ],
+    "genres": [
+      "Dystopian",
+      "Young Adult"
+    ],
+    "related": [
+      "The Midnight Library Revisited 64",
+      "Brave New World Extended 50",
+      "Gone Girl Extended 27",
+      "The Song of Achilles Revisited 98",
+      "Educated Revisited 42"
+    ]
+  },
+  {
+    "title": "Circe Redux 51",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Nonfiction"
+    ],
+    "related": [
+      "The Hunger Games Redux 10",
+      "Circe Extended 96",
+      "The Midnight Library Revisited 68",
+      "The Book Thief Legacy 23",
+      "The Alchemist Chronicles 14"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Chronicles 66",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Classics",
+      "Contemporary"
+    ],
+    "related": [
+      "Circe Revisited 7",
+      "The Hunger Games Extended 57",
+      "The Da Vinci Code Redux 29",
+      "Where the Crawdads Sing Legacy 47",
+      "1984 Chronicles 83"
+    ]
+  },
+  {
+    "title": "The Alchemist Extended 66",
+    "authors": [
+      "Paulo Coelho"
+    ],
+    "genres": [
+      "Adventure",
+      "Classics",
+      "Mystery"
+    ],
+    "related": [
+      "The Hobbit Redux 21",
+      "The Seven Husbands of Evelyn Hugo Chronicles 76",
+      "The Seven Husbands of Evelyn Hugo Revisited 16",
+      "1984 Chronicles 83",
+      "Pride and Prejudice Chronicles 37"
+    ]
+  },
+  {
+    "title": "The Hobbit Legacy 97",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Mystery"
+    ],
+    "related": [
+      "Educated Legacy 49",
+      "The Night Circus Legacy 19",
+      "Circe Revisited 7",
+      "Circe Extended 27",
+      "To Kill a Mockingbird Chronicles 26"
+    ]
+  },
+  {
+    "title": "The Catcher in the Rye Extended 77",
+    "authors": [
+      "J.D. Salinger"
+    ],
+    "genres": [
+      "Fantasy",
+      "Literary Fiction"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Chronicles 51",
+      "The Girl with the Dragon Tattoo Redux 37",
+      "Brave New World Redux 74",
+      "The Da Vinci Code Chronicles 26",
+      "The Shining Legacy 62"
+    ]
+  },
+  {
+    "title": "The Hobbit Chronicles 72",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Romance"
+    ],
+    "related": [
+      "Where the Crawdads Sing Revisited 45",
+      "Where the Crawdads Sing Legacy 47",
+      "Circe Redux 17",
+      "Brave New World Chronicles 82",
+      "The Great Gatsby Legacy 68"
+    ]
+  },
+  {
+    "title": "Where the Crawdads Sing Chronicles 7",
+    "authors": [
+      "Delia Owens"
+    ],
+    "genres": [
+      "Horror"
+    ],
+    "related": [
+      "The Catcher in the Rye Extended 77",
+      "The Catcher in the Rye Revisited 69",
+      "Dune Chronicles 58",
+      "Twilight Revisited 24",
+      "The Shining Chronicles 68"
+    ]
+  },
+  {
+    "title": "The Fault in Our Stars Chronicles 10",
+    "authors": [
+      "John Green"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Fantasy",
+      "Mystery"
+    ],
+    "related": [
+      "Educated Extended 61",
+      "The Song of Achilles Redux 7",
+      "The Hunger Games Chronicles 4",
+      "The Night Circus Chronicles 34",
+      "The Hobbit Extended 85"
+    ]
+  },
+  {
+    "title": "The Fault in Our Stars Extended 58",
+    "authors": [
+      "John Green"
+    ],
+    "genres": [
+      "Horror",
+      "Dystopian",
+      "Thriller"
+    ],
+    "related": [
+      "The Lord of the Rings Revisited 60",
+      "Twilight Revisited 16",
+      "It Redux 46",
+      "The Girl with the Dragon Tattoo Chronicles 78",
+      "The Midnight Library Legacy 63"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Chronicles 64",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Dystopian",
+      "Biography"
+    ],
+    "related": [
+      "The Alchemist Legacy 94",
+      "The Lord of the Rings Revisited 52",
+      "It Redux 76",
+      "The Great Gatsby Legacy 9",
+      "Where the Crawdads Sing Revisited 35"
+    ]
+  },
+  {
+    "title": "The Alchemist Chronicles 14",
+    "authors": [
+      "Paulo Coelho"
+    ],
+    "genres": [
+      "Fantasy",
+      "Contemporary"
+    ],
+    "related": [
+      "Becoming Legacy 65",
+      "Circe Legacy 32",
+      "The Hobbit Revisited 11",
+      "The Midnight Library Redux 38",
+      "It Redux 47"
+    ]
+  },
+  {
+    "title": "1984 Redux 56",
+    "authors": [
+      "George Orwell"
+    ],
+    "genres": [
+      "Fantasy"
+    ],
+    "related": [
+      "The Da Vinci Code Revisited 81",
+      "The Girl with the Dragon Tattoo Redux 90",
+      "1984 Legacy 16",
+      "It Redux 76",
+      "Harry Potter and the Sorcerer's Stone Chronicles 69"
+    ]
+  },
+  {
+    "title": "The Book Thief Legacy 99",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Young Adult",
+      "Nonfiction",
+      "Horror"
+    ],
+    "related": [
+      "The Hobbit Revisited 81",
+      "The Great Gatsby Extended 2",
+      "The Hunger Games Extended 53",
+      "Twilight Revisited 37",
+      "It Redux 76"
+    ]
+  },
+  {
+    "title": "It Redux 46",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Thriller",
+      "Classics"
+    ],
+    "related": [
+      "The Great Gatsby Revisited 93",
+      "To Kill a Mockingbird Redux 26",
+      "The Great Gatsby Chronicles 66",
+      "It Redux 3",
+      "The Midnight Library Revisited 68"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Legacy 13",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "Twilight Legacy 18",
+      "Circe Redux 17",
+      "Pride and Prejudice Revisited 6",
+      "The Night Circus Extended 36",
+      "The Great Gatsby Extended 21"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Legacy 9",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Science Fiction"
+    ],
+    "related": [
+      "The Hobbit Extended 8",
+      "The Lord of the Rings Revisited 42",
+      "Circe Extended 96",
+      "Harry Potter and the Sorcerer's Stone Chronicles 12",
+      "The Shining Chronicles 68"
+    ]
+  },
+  {
+    "title": "Becoming Legacy 72",
+    "authors": [
+      "Michelle Obama"
+    ],
+    "genres": [
+      "Thriller",
+      "Young Adult"
+    ],
+    "related": [
+      "The Night Circus Chronicles 96",
+      "Where the Crawdads Sing Legacy 81",
+      "Becoming Extended 35",
+      "Dune Legacy 7",
+      "The Lord of the Rings Redux 14"
+    ]
+  },
+  {
+    "title": "The Road Revisited 52",
+    "authors": [
+      "Cormac McCarthy"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "The Road Revisited 99",
+      "Brave New World Extended 86",
+      "The Hunger Games Chronicles 68",
+      "The Da Vinci Code Redux 85",
+      "The Great Gatsby Legacy 100"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings Redux 14",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Contemporary",
+      "Horror"
+    ],
+    "related": [
+      "The Girl with the Dragon Tattoo Redux 86",
+      "The Alchemist Redux 67",
+      "To Kill a Mockingbird Chronicles 26",
+      "Harry Potter and the Sorcerer's Stone Legacy 67",
+      "Where the Crawdads Sing Revisited 35"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Redux 38",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Adventure",
+      "Thriller"
+    ],
+    "related": [
+      "Circe Extended 27",
+      "The Seven Husbands of Evelyn Hugo Chronicles 39",
+      "The Midnight Library Revisited 15",
+      "Twilight Revisited 37",
+      "The Great Gatsby Revisited 53"
+    ]
+  },
+  {
+    "title": "The Book Thief Revisited 68",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Fantasy",
+      "Dystopian"
+    ],
+    "related": [
+      "The Song of Achilles Chronicles 5",
+      "The Lord of the Rings Legacy 20",
+      "The Lord of the Rings Redux 14",
+      "The Hobbit Extended 8",
+      "The Girl with the Dragon Tattoo Redux 39"
+    ]
+  },
+  {
+    "title": "Pride and Prejudice Chronicles 41",
+    "authors": [
+      "Jane Austen"
+    ],
+    "genres": [
+      "Biography",
+      "Contemporary",
+      "Horror"
+    ],
+    "related": [
+      "It Redux 79",
+      "The Alchemist Redux 67",
+      "The Lord of the Rings Extended 90",
+      "Harry Potter and the Sorcerer's Stone Chronicles 12",
+      "The Seven Husbands of Evelyn Hugo Chronicles 53"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Revisited 16",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Adventure",
+      "Biography"
+    ],
+    "related": [
+      "The Midnight Library Legacy 63",
+      "The Lord of the Rings Revisited 42",
+      "The Hobbit Extended 85",
+      "Educated Extended 34",
+      "The Fault in Our Stars Redux 18"
+    ]
+  },
+  {
+    "title": "Where the Crawdads Sing Legacy 48",
+    "authors": [
+      "Delia Owens"
+    ],
+    "genres": [
+      "Dystopian"
+    ],
+    "related": [
+      "Becoming Legacy 79",
+      "To Kill a Mockingbird Chronicles 98",
+      "1984 Redux 48",
+      "The Da Vinci Code Revisited 81",
+      "The Hobbit Chronicles 6"
+    ]
+  },
+  {
+    "title": "Educated Revisited 9",
+    "authors": [
+      "Tara Westover"
+    ],
+    "genres": [
+      "Dystopian",
+      "Fantasy",
+      "Young Adult"
+    ],
+    "related": [
+      "Brave New World Legacy 19",
+      "A Game of Thrones Revisited 38",
+      "The Midnight Library Redux 38",
+      "Educated Revisited 21",
+      "The Alchemist Chronicles 14"
+    ]
+  },
+  {
+    "title": "The Book Thief Extended 68",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Thriller"
+    ],
+    "related": [
+      "Circe Extended 96",
+      "Circe Extended 66",
+      "Educated Chronicles 2",
+      "The Da Vinci Code Redux 85",
+      "The Midnight Library Revisited 64"
+    ]
+  },
+  {
+    "title": "Becoming Legacy 79",
+    "authors": [
+      "Michelle Obama"
+    ],
+    "genres": [
+      "Fantasy",
+      "Biography",
+      "Historical"
+    ],
+    "related": [
+      "The Great Gatsby Redux 68",
+      "Brave New World Extended 86",
+      "The Song of Achilles Revisited 96",
+      "The Road Extended 11",
+      "The Da Vinci Code Redux 29"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Legacy 99",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Fantasy"
+    ],
+    "related": [
+      "To Kill a Mockingbird Revisited 78",
+      "The Night Circus Revisited 44",
+      "The Da Vinci Code Chronicles 63",
+      "The Book Thief Extended 48",
+      "The Song of Achilles Revisited 98"
+    ]
+  },
+  {
+    "title": "It Revisited 23",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Mystery",
+      "Thriller"
+    ],
+    "related": [
+      "The Alchemist Extended 66",
+      "Where the Crawdads Sing Legacy 47",
+      "The Catcher in the Rye Revisited 69",
+      "The Great Gatsby Legacy 9",
+      "The Alchemist Chronicles 91"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Legacy 54",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Fantasy",
+      "Dystopian",
+      "Mystery"
+    ],
+    "related": [
+      "The Alchemist Revisited 81",
+      "Educated Legacy 49",
+      "1984 Legacy 36",
+      "The Hobbit Revisited 81",
+      "To Kill a Mockingbird Chronicles 98"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Chronicles 63",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Young Adult",
+      "Fantasy"
+    ],
+    "related": [
+      "1984 Redux 56",
+      "Brave New World Chronicles 72",
+      "The Alchemist Chronicles 19",
+      "The Midnight Library Chronicles 54",
+      "The Night Circus Legacy 19"
+    ]
+  },
+  {
+    "title": "Twilight Revisited 25",
+    "authors": [
+      "Stephenie Meyer"
+    ],
+    "genres": [
+      "Romance",
+      "Young Adult",
+      "Literary Fiction"
+    ],
+    "related": [
+      "A Game of Thrones Extended 11",
+      "The Lord of the Rings Revisited 42",
+      "The Da Vinci Code Chronicles 63",
+      "The Lord of the Rings Legacy 20",
+      "Dune Redux 45"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Revisited 86",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Adventure",
+      "Classics"
+    ],
+    "related": [
+      "The Girl with the Dragon Tattoo Chronicles 78",
+      "Where the Crawdads Sing Revisited 35",
+      "Dune Extended 85",
+      "The Night Circus Chronicles 96",
+      "The Midnight Library Revisited 68"
+    ]
+  },
+  {
+    "title": "The Hunger Games Extended 57",
+    "authors": [
+      "Suzanne Collins"
+    ],
+    "genres": [
+      "Literary Fiction",
+      "Horror",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Chronicles 76",
+      "The Night Circus Legacy 19",
+      "Becoming Extended 4",
+      "The Road Extended 11",
+      "Twilight Revisited 84"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Extended 23",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Mystery",
+      "Nonfiction",
+      "Contemporary"
+    ],
+    "related": [
+      "The Book Thief Legacy 95",
+      "Becoming Legacy 72",
+      "The Hobbit Extended 8",
+      "It Chronicles 72",
+      "Circe Extended 96"
+    ]
+  },
+  {
+    "title": "The Book Thief Legacy 95",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Dystopian"
+    ],
+    "related": [
+      "The Lord of the Rings Redux 14",
+      "The Hunger Games Revisited 91",
+      "Harry Potter and the Sorcerer's Stone Chronicles 31",
+      "The Road Chronicles 11",
+      "Twilight Extended 57"
+    ]
+  },
+  {
+    "title": "Dune Extended 34",
+    "authors": [
+      "Frank Herbert"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Chronicles 51",
+      "The Girl with the Dragon Tattoo Legacy 26",
+      "The Midnight Library Revisited 8",
+      "The Seven Husbands of Evelyn Hugo Legacy 13",
+      "The Hobbit Extended 97"
+    ]
+  },
+  {
+    "title": "The Night Circus Chronicles 96",
+    "authors": [
+      "Erin Morgenstern"
+    ],
+    "genres": [
+      "Dystopian",
+      "Romance",
+      "Young Adult"
+    ],
+    "related": [
+      "Pride and Prejudice Revisited 6",
+      "The Night Circus Legacy 19",
+      "To Kill a Mockingbird Chronicles 26",
+      "The Seven Husbands of Evelyn Hugo Legacy 13",
+      "The Shining Chronicles 50"
+    ]
+  },
+  {
+    "title": "The Book Thief Legacy 23",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Contemporary",
+      "Dystopian"
+    ],
+    "related": [
+      "Becoming Redux 65",
+      "The Song of Achilles Redux 97",
+      "The Girl with the Dragon Tattoo Redux 37",
+      "Harry Potter and the Sorcerer's Stone Legacy 67",
+      "Becoming Legacy 79"
+    ]
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone Chronicles 31",
+    "authors": [
+      "J.K. Rowling"
+    ],
+    "genres": [
+      "Contemporary",
+      "Romance"
+    ],
+    "related": [
+      "It Chronicles 72",
+      "The Great Gatsby Chronicles 64",
+      "Brave New World Extended 86",
+      "Becoming Redux 65",
+      "The Song of Achilles Revisited 96"
+    ]
+  },
+  {
+    "title": "Where the Crawdads Sing Legacy 47",
+    "authors": [
+      "Delia Owens"
+    ],
+    "genres": [
+      "Historical"
+    ],
+    "related": [
+      "To Kill a Mockingbird Chronicles 98",
+      "Educated Revisited 9",
+      "It Legacy 62",
+      "The Road Revisited 52",
+      "The Lord of the Rings Revisited 42"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Chronicles 39",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Thriller"
+    ],
+    "related": [
+      "The Road Legacy 97",
+      "The Night Circus Revisited 16",
+      "The Midnight Library Revisited 64",
+      "It Revisited 23",
+      "A Game of Thrones Revisited 76"
+    ]
+  },
+  {
+    "title": "Twilight Revisited 24",
+    "authors": [
+      "Stephenie Meyer"
+    ],
+    "genres": [
+      "Historical",
+      "Science Fiction",
+      "Romance"
+    ],
+    "related": [
+      "Becoming Redux 93",
+      "The Hunger Games Chronicles 68",
+      "The Catcher in the Rye Revisited 69",
+      "The Alchemist Chronicles 19",
+      "Twilight Revisited 25"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Chronicles 51",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Contemporary",
+      "Romance",
+      "Fantasy"
+    ],
+    "related": [
+      "The Road Revisited 52",
+      "1984 Legacy 16",
+      "The Da Vinci Code Chronicles 60",
+      "A Game of Thrones Extended 11",
+      "The Fault in Our Stars Chronicles 10"
+    ]
+  },
+  {
+    "title": "The Midnight Library Revisited 15",
+    "authors": [
+      "Matt Haig"
+    ],
+    "genres": [
+      "Horror",
+      "Young Adult",
+      "Romance"
+    ],
+    "related": [
+      "The Midnight Library Revisited 64",
+      "The Alchemist Redux 67",
+      "The Midnight Library Revisited 8",
+      "The Da Vinci Code Redux 85",
+      "The Shining Legacy 62"
+    ]
+  },
+  {
+    "title": "The Fault in Our Stars Revisited 56",
+    "authors": [
+      "John Green"
+    ],
+    "genres": [
+      "Literary Fiction",
+      "Historical"
+    ],
+    "related": [
+      "The Book Thief Legacy 38",
+      "Brave New World Revisited 99",
+      "The Midnight Library Revisited 8",
+      "Dune Extended 34",
+      "Circe Legacy 32"
+    ]
+  },
+  {
+    "title": "The Hobbit Chronicles 60",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Dystopian",
+      "Thriller",
+      "Romance"
+    ],
+    "related": [
+      "The Da Vinci Code Extended 33",
+      "The Seven Husbands of Evelyn Hugo Redux 70",
+      "Brave New World Chronicles 82",
+      "1984 Revisited 6",
+      "The Night Circus Chronicles 90"
+    ]
+  },
+  {
+    "title": "The Road Chronicles 11",
+    "authors": [
+      "Cormac McCarthy"
+    ],
+    "genres": [
+      "Fantasy",
+      "Romance"
+    ],
+    "related": [
+      "Pride and Prejudice Redux 59",
+      "The Catcher in the Rye Revisited 69",
+      "Where the Crawdads Sing Revisited 44",
+      "The Midnight Library Revisited 64",
+      "The Lord of the Rings Redux 14"
+    ]
+  },
+  {
+    "title": "The Book Thief Extended 48",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Historical",
+      "Adventure",
+      "Horror"
+    ],
+    "related": [
+      "Brave New World Revisited 44",
+      "The Hobbit Revisited 11",
+      "Educated Extended 34",
+      "Twilight Revisited 25",
+      "The Catcher in the Rye Extended 77"
+    ]
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone Legacy 67",
+    "authors": [
+      "J.K. Rowling"
+    ],
+    "genres": [
+      "Literary Fiction",
+      "Thriller",
+      "Dystopian"
+    ],
+    "related": [
+      "1984 Revisited 6",
+      "The Midnight Library Legacy 77",
+      "The Night Circus Extended 36",
+      "The Da Vinci Code Revisited 36",
+      "Educated Chronicles 2"
+    ]
+  },
+  {
+    "title": "The Book Thief Chronicles 2",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Adventure",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Midnight Library Revisited 15",
+      "The Road Legacy 97",
+      "Where the Crawdads Sing Legacy 48",
+      "The Song of Achilles Revisited 98",
+      "Circe Revisited 7"
+    ]
+  },
+  {
+    "title": "A Game of Thrones Revisited 76",
+    "authors": [
+      "George R.R. Martin"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Fantasy",
+      "Historical"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Chronicles 76",
+      "The Lord of the Rings Revisited 60",
+      "Brave New World Extended 8",
+      "The Book Thief Chronicles 27",
+      "A Game of Thrones Redux 37"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Chronicles 5",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Romance",
+      "Contemporary"
+    ],
+    "related": [
+      "The Hunger Games Revisited 78",
+      "The Song of Achilles Extended 23",
+      "Becoming Legacy 72",
+      "It Chronicles 38",
+      "Twilight Revisited 25"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Revisited 53",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Historical",
+      "Horror",
+      "Classics"
+    ],
+    "related": [
+      "The Great Gatsby Extended 95",
+      "The Night Circus Legacy 19",
+      "The Great Gatsby Revisited 93",
+      "The Hobbit Extended 85",
+      "The Hobbit Extended 97"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Redux 39",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Romance",
+      "Mystery",
+      "Classics"
+    ],
+    "related": [
+      "It Chronicles 38",
+      "The Girl with the Dragon Tattoo Redux 86",
+      "Brave New World Extended 50",
+      "It Extended 46",
+      "Becoming Legacy 79"
+    ]
+  },
+  {
+    "title": "Where the Crawdads Sing Revisited 45",
+    "authors": [
+      "Delia Owens"
+    ],
+    "genres": [
+      "Fantasy",
+      "Classics"
+    ],
+    "related": [
+      "Circe Legacy 32",
+      "Circe Revisited 7",
+      "The Great Gatsby Redux 10",
+      "The Hunger Games Revisited 91",
+      "Twilight Revisited 16"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Revisited 36",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Dystopian",
+      "Young Adult"
+    ],
+    "related": [
+      "The Road Revisited 99",
+      "Educated Extended 61",
+      "The Catcher in the Rye Redux 63",
+      "It Redux 79",
+      "The Hobbit Chronicles 60"
+    ]
+  },
+  {
+    "title": "Twilight Revisited 16",
+    "authors": [
+      "Stephenie Meyer"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Thriller"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Redux 58",
+      "The Night Circus Revisited 44",
+      "To Kill a Mockingbird Chronicles 98",
+      "The Catcher in the Rye Extended 77",
+      "The Lord of the Rings Chronicles 13"
+    ]
+  },
+  {
+    "title": "Twilight Revisited 37",
+    "authors": [
+      "Stephenie Meyer"
+    ],
+    "genres": [
+      "Historical"
+    ],
+    "related": [
+      "Becoming Extended 4",
+      "The Hobbit Redux 21",
+      "The Road Chronicles 11",
+      "The Catcher in the Rye Chronicles 36",
+      "The Shining Chronicles 82"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Redux 68",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Young Adult",
+      "Literary Fiction",
+      "Horror"
+    ],
+    "related": [
+      "The Da Vinci Code Revisited 36",
+      "Educated Revisited 42",
+      "The Fault in Our Stars Revisited 100",
+      "The Fault in Our Stars Extended 38",
+      "Becoming Legacy 79"
+    ]
+  },
+  {
+    "title": "The Alchemist Chronicles 19",
+    "authors": [
+      "Paulo Coelho"
+    ],
+    "genres": [
+      "Romance"
+    ],
+    "related": [
+      "The Hunger Games Revisited 78",
+      "The Book Thief Chronicles 27",
+      "The Book Thief Revisited 68",
+      "The Midnight Library Revisited 8",
+      "Educated Legacy 49"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Chronicles 76",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Thriller",
+      "Historical",
+      "Horror"
+    ],
+    "related": [
+      "Educated Chronicles 2",
+      "The Alchemist Revisited 81",
+      "The Great Gatsby Chronicles 66",
+      "Brave New World Extended 86",
+      "The Book Thief Chronicles 27"
+    ]
+  },
+  {
+    "title": "The Fault in Our Stars Redux 18",
+    "authors": [
+      "John Green"
+    ],
+    "genres": [
+      "Historical"
+    ],
+    "related": [
+      "The Fault in Our Stars Revisited 56",
+      "The Fault in Our Stars Extended 10",
+      "The Da Vinci Code Redux 85",
+      "The Seven Husbands of Evelyn Hugo Revisited 16",
+      "Twilight Extended 57"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Legacy 26",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Literary Fiction",
+      "Contemporary"
+    ],
+    "related": [
+      "Circe Extended 66",
+      "The Seven Husbands of Evelyn Hugo Extended 52",
+      "The Fault in Our Stars Revisited 100",
+      "The Da Vinci Code Chronicles 63",
+      "The Great Gatsby Redux 68"
+    ]
+  },
+  {
+    "title": "Twilight Legacy 18",
+    "authors": [
+      "Stephenie Meyer"
+    ],
+    "genres": [
+      "Biography",
+      "Dystopian",
+      "Romance"
+    ],
+    "related": [
+      "Circe Extended 66",
+      "1984 Redux 56",
+      "The Hobbit Chronicles 72",
+      "The Girl with the Dragon Tattoo Revisited 86",
+      "Dune Extended 34"
+    ]
+  },
+  {
+    "title": "The Hobbit Extended 8",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Classics"
+    ],
+    "related": [
+      "Dune Chronicles 7",
+      "The Girl with the Dragon Tattoo Redux 39",
+      "The Song of Achilles Extended 23",
+      "It Legacy 42",
+      "Brave New World Chronicles 72"
+    ]
+  },
+  {
+    "title": "Pride and Prejudice Extended 17",
+    "authors": [
+      "Jane Austen"
+    ],
+    "genres": [
+      "Young Adult",
+      "Dystopian",
+      "Classics"
+    ],
+    "related": [
+      "To Kill a Mockingbird Chronicles 26",
+      "The Da Vinci Code Revisited 36",
+      "A Game of Thrones Redux 37",
+      "The Great Gatsby Extended 2",
+      "The Fault in Our Stars Redux 18"
+    ]
+  },
+  {
+    "title": "To Kill a Mockingbird Chronicles 26",
+    "authors": [
+      "Harper Lee"
+    ],
+    "genres": [
+      "Fantasy",
+      "Biography"
+    ],
+    "related": [
+      "The Night Circus Legacy 19",
+      "The Seven Husbands of Evelyn Hugo Chronicles 51",
+      "Pride and Prejudice Redux 59",
+      "The Great Gatsby Chronicles 64",
+      "The Hunger Games Extended 57"
+    ]
+  },
+  {
+    "title": "The Book Thief Chronicles 27",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Contemporary",
+      "Thriller"
+    ],
+    "related": [
+      "1984 Revisited 6",
+      "The Da Vinci Code Legacy 63",
+      "The Hobbit Redux 21",
+      "The Alchemist Revisited 83",
+      "The Lord of the Rings Extended 41"
+    ]
+  },
+  {
+    "title": "The Midnight Library Revisited 68",
+    "authors": [
+      "Matt Haig"
+    ],
+    "genres": [
+      "Thriller"
+    ],
+    "related": [
+      "1984 Redux 56",
+      "The Alchemist Chronicles 19",
+      "A Game of Thrones Redux 37",
+      "The Catcher in the Rye Extended 77",
+      "It Legacy 52"
+    ]
+  },
+  {
+    "title": "The Midnight Library Revisited 8",
+    "authors": [
+      "Matt Haig"
+    ],
+    "genres": [
+      "Fantasy"
+    ],
+    "related": [
+      "The Da Vinci Code Chronicles 60",
+      "Harry Potter and the Sorcerer's Stone Extended 95",
+      "The Hobbit Legacy 97",
+      "The Lord of the Rings Redux 14",
+      "The Da Vinci Code Chronicles 26"
+    ]
+  },
+  {
+    "title": "The Alchemist Revisited 81",
+    "authors": [
+      "Paulo Coelho"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Adventure"
+    ],
+    "related": [
+      "The Great Gatsby Revisited 93",
+      "The Hunger Games Chronicles 4",
+      "Harry Potter and the Sorcerer's Stone Extended 95",
+      "A Game of Thrones Extended 11",
+      "The Da Vinci Code Revisited 81"
+    ]
+  },
+  {
+    "title": "Dune Chronicles 7",
+    "authors": [
+      "Frank Herbert"
+    ],
+    "genres": [
+      "Fantasy",
+      "Nonfiction"
+    ],
+    "related": [
+      "Becoming Redux 65",
+      "Gone Girl Extended 99",
+      "Twilight Revisited 25",
+      "The Girl with the Dragon Tattoo Revisited 86",
+      "The Alchemist Chronicles 14"
+    ]
+  },
+  {
+    "title": "The Hobbit Redux 21",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Fantasy"
+    ],
+    "related": [
+      "The Alchemist Extended 61",
+      "1984 Redux 56",
+      "It Redux 47",
+      "The Hunger Games Chronicles 17",
+      "The Fault in Our Stars Extended 38"
+    ]
+  },
+  {
+    "title": "The Alchemist Redux 67",
+    "authors": [
+      "Paulo Coelho"
+    ],
+    "genres": [
+      "Historical"
+    ],
+    "related": [
+      "Harry Potter and the Sorcerer's Stone Chronicles 12",
+      "The Night Circus Extended 79",
+      "Dune Chronicles 7",
+      "It Chronicles 38",
+      "The Song of Achilles Extended 97"
+    ]
+  },
+  {
+    "title": "Brave New World Revisited 99",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Thriller",
+      "Literary Fiction"
+    ],
+    "related": [
+      "Twilight Extended 57",
+      "The Lord of the Rings Redux 14",
+      "Circe Extended 96",
+      "Dune Chronicles 15",
+      "To Kill a Mockingbird Revisited 78"
+    ]
+  },
+  {
+    "title": "The Hobbit Revisited 81",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Classics",
+      "Science Fiction",
+      "Romance"
+    ],
+    "related": [
+      "1984 Redux 56",
+      "The Catcher in the Rye Extended 77",
+      "The Hobbit Chronicles 6",
+      "The Alchemist Revisited 81",
+      "Twilight Revisited 24"
+    ]
+  },
+  {
+    "title": "Dune Extended 85",
+    "authors": [
+      "Frank Herbert"
+    ],
+    "genres": [
+      "Biography",
+      "Mystery",
+      "Literary Fiction"
+    ],
+    "related": [
+      "The Girl with the Dragon Tattoo Redux 90",
+      "Dune Extended 13",
+      "To Kill a Mockingbird Chronicles 26",
+      "The Book Thief Legacy 25",
+      "The Lord of the Rings Legacy 20"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Chronicles 26",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Biography",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Fault in Our Stars Revisited 56",
+      "The Midnight Library Revisited 15",
+      "The Catcher in the Rye Redux 63",
+      "The Night Circus Legacy 19",
+      "The Girl with the Dragon Tattoo Extended 20"
+    ]
+  },
+  {
+    "title": "Circe Legacy 32",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Literary Fiction",
+      "Biography",
+      "Fantasy"
+    ],
+    "related": [
+      "The Da Vinci Code Legacy 26",
+      "Where the Crawdads Sing Chronicles 7",
+      "Where the Crawdads Sing Revisited 35",
+      "The Da Vinci Code Redux 29",
+      "The Seven Husbands of Evelyn Hugo Chronicles 76"
+    ]
+  },
+  {
+    "title": "The Book Thief Revisited 21",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Romance",
+      "Biography"
+    ],
+    "related": [
+      "The Lord of the Rings Revisited 52",
+      "The Night Circus Chronicles 34",
+      "It Chronicles 38",
+      "The Seven Husbands of Evelyn Hugo Chronicles 53",
+      "Circe Redux 17"
+    ]
+  },
+  {
+    "title": "The Hunger Games Chronicles 17",
+    "authors": [
+      "Suzanne Collins"
+    ],
+    "genres": [
+      "Classics",
+      "Dystopian",
+      "Fantasy"
+    ],
+    "related": [
+      "The Book Thief Legacy 99",
+      "The Midnight Library Revisited 8",
+      "The Shining Chronicles 82",
+      "The Great Gatsby Extended 2",
+      "The Seven Husbands of Evelyn Hugo Redux 70"
+    ]
+  },
+  {
+    "title": "It Redux 3",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Romance"
+    ],
+    "related": [
+      "1984 Revisited 6",
+      "The Lord of the Rings Legacy 20",
+      "Becoming Legacy 65",
+      "The Midnight Library Chronicles 54",
+      "To Kill a Mockingbird Redux 26"
+    ]
+  },
+  {
+    "title": "Becoming Extended 4",
+    "authors": [
+      "Michelle Obama"
+    ],
+    "genres": [
+      "Biography"
+    ],
+    "related": [
+      "1984 Redux 48",
+      "The Seven Husbands of Evelyn Hugo Chronicles 76",
+      "The Book Thief Legacy 95",
+      "Brave New World Legacy 19",
+      "A Game of Thrones Revisited 76"
+    ]
+  },
+  {
+    "title": "A Game of Thrones Revisited 13",
+    "authors": [
+      "George R.R. Martin"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Adventure",
+      "Contemporary"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Legacy 13",
+      "The Great Gatsby Extended 2",
+      "The Alchemist Extended 66",
+      "Circe Extended 27",
+      "Educated Revisited 21"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Redux 10",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Romance",
+      "Nonfiction",
+      "Classics"
+    ],
+    "related": [
+      "Educated Revisited 9",
+      "The Road Revisited 2",
+      "Dune Legacy 7",
+      "The Seven Husbands of Evelyn Hugo Redux 58",
+      "1984 Revisited 6"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Redux 29",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Biography",
+      "Mystery"
+    ],
+    "related": [
+      "The Great Gatsby Redux 68",
+      "The Alchemist Extended 66",
+      "The Great Gatsby Chronicles 66",
+      "The Hobbit Extended 8",
+      "Brave New World Chronicles 57"
+    ]
+  },
+  {
+    "title": "The Shining Chronicles 23",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Dystopian",
+      "Biography",
+      "Young Adult"
+    ],
+    "related": [
+      "The Da Vinci Code Redux 29",
+      "It Revisited 23",
+      "It Chronicles 38",
+      "The Great Gatsby Chronicles 64",
+      "The Seven Husbands of Evelyn Hugo Redux 58"
+    ]
+  },
+  {
+    "title": "Where the Crawdads Sing Revisited 44",
+    "authors": [
+      "Delia Owens"
+    ],
+    "genres": [
+      "Adventure",
+      "Fantasy"
+    ],
+    "related": [
+      "Twilight Revisited 25",
+      "The Hobbit Chronicles 6",
+      "The Fault in Our Stars Extended 28",
+      "The Seven Husbands of Evelyn Hugo Chronicles 39",
+      "To Kill a Mockingbird Redux 26"
+    ]
+  },
+  {
+    "title": "It Redux 79",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Biography",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Da Vinci Code Revisited 81",
+      "A Game of Thrones Revisited 13",
+      "The Song of Achilles Revisited 98",
+      "The Hobbit Revisited 11",
+      "The Seven Husbands of Evelyn Hugo Chronicles 76"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings Revisited 60",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Contemporary",
+      "Fantasy"
+    ],
+    "related": [
+      "To Kill a Mockingbird Redux 26",
+      "Where the Crawdads Sing Chronicles 7",
+      "The Shining Chronicles 82",
+      "Brave New World Revisited 99",
+      "Where the Crawdads Sing Revisited 45"
+    ]
+  },
+  {
+    "title": "Circe Extended 96",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Historical",
+      "Dystopian",
+      "Thriller"
+    ],
+    "related": [
+      "Circe Extended 27",
+      "Educated Revisited 42",
+      "Gone Girl Extended 27",
+      "The Seven Husbands of Evelyn Hugo Chronicles 53",
+      "The Seven Husbands of Evelyn Hugo Legacy 100"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Redux 70",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Dystopian"
+    ],
+    "related": [
+      "Circe Extended 66",
+      "The Fault in Our Stars Extended 10",
+      "The Fault in Our Stars Extended 28",
+      "The Book Thief Redux 56",
+      "Harry Potter and the Sorcerer's Stone Legacy 67"
+    ]
+  },
+  {
+    "title": "It Legacy 62",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Classics",
+      "Dystopian",
+      "Thriller"
+    ],
+    "related": [
+      "The Girl with the Dragon Tattoo Redux 90",
+      "Gone Girl Extended 55",
+      "The Night Circus Revisited 16",
+      "The Great Gatsby Revisited 53",
+      "It Redux 46"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings Chronicles 13",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Horror"
+    ],
+    "related": [
+      "Educated Revisited 9",
+      "The Da Vinci Code Revisited 81",
+      "The Book Thief Chronicles 2",
+      "Becoming Legacy 65",
+      "The Midnight Library Chronicles 54"
+    ]
+  },
+  {
+    "title": "The Book Thief Chronicles 2",
+    "authors": [
+      "Markus Zusak"
+    ],
+    "genres": [
+      "Mystery"
+    ],
+    "related": [
+      "The Road Revisited 2",
+      "Dune Chronicles 15",
+      "The Song of Achilles Redux 24",
+      "1984 Chronicles 83",
+      "Brave New World Chronicles 82"
+    ]
+  },
+  {
+    "title": "The Hobbit Extended 97",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Contemporary",
+      "Nonfiction",
+      "Historical"
+    ],
+    "related": [
+      "It Redux 79",
+      "It Chronicles 38",
+      "The Alchemist Extended 61",
+      "The Hunger Games Redux 10",
+      "Where the Crawdads Sing Revisited 35"
+    ]
+  },
+  {
+    "title": "It Redux 76",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "Pride and Prejudice Redux 59",
+      "The Great Gatsby Revisited 93",
+      "The Great Gatsby Legacy 9",
+      "A Game of Thrones Revisited 38",
+      "Educated Legacy 49"
+    ]
+  },
+  {
+    "title": "Pride and Prejudice Chronicles 37",
+    "authors": [
+      "Jane Austen"
+    ],
+    "genres": [
+      "Science Fiction"
+    ],
+    "related": [
+      "To Kill a Mockingbird Redux 26",
+      "The Great Gatsby Revisited 53",
+      "The Midnight Library Revisited 8",
+      "To Kill a Mockingbird Chronicles 98",
+      "Dune Extended 85"
+    ]
+  },
+  {
+    "title": "1984 Revisited 6",
+    "authors": [
+      "George Orwell"
+    ],
+    "genres": [
+      "Dystopian",
+      "Literary Fiction",
+      "Adventure"
+    ],
+    "related": [
+      "The Book Thief Legacy 25",
+      "Pride and Prejudice Revisited 6",
+      "The Girl with the Dragon Tattoo Legacy 26",
+      "A Game of Thrones Redux 37",
+      "To Kill a Mockingbird Revisited 78"
+    ]
+  },
+  {
+    "title": "The Fault in Our Stars Revisited 100",
+    "authors": [
+      "John Green"
+    ],
+    "genres": [
+      "Dystopian",
+      "Historical",
+      "Literary Fiction"
+    ],
+    "related": [
+      "The Night Circus Legacy 19",
+      "Where the Crawdads Sing Revisited 35",
+      "Brave New World Redux 74",
+      "Where the Crawdads Sing Redux 98",
+      "Becoming Legacy 72"
+    ]
+  },
+  {
+    "title": "It Legacy 52",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Classics",
+      "Young Adult",
+      "Dystopian"
+    ],
+    "related": [
+      "The Road Legacy 97",
+      "The Alchemist Extended 66",
+      "The Book Thief Chronicles 27",
+      "The Song of Achilles Redux 97",
+      "Dune Chronicles 15"
+    ]
+  },
+  {
+    "title": "The Night Circus Revisited 16",
+    "authors": [
+      "Erin Morgenstern"
+    ],
+    "genres": [
+      "Thriller"
+    ],
+    "related": [
+      "Becoming Extended 4",
+      "Dune Legacy 7",
+      "The Road Chronicles 11",
+      "The Shining Chronicles 23",
+      "The Book Thief Chronicles 2"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Extended 2",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Science Fiction"
+    ],
+    "related": [
+      "The Fault in Our Stars Extended 10",
+      "It Legacy 62",
+      "The Road Revisited 52",
+      "The Fault in Our Stars Revisited 100",
+      "The Book Thief Legacy 99"
+    ]
+  },
+  {
+    "title": "The Hunger Games Revisited 78",
+    "authors": [
+      "Suzanne Collins"
+    ],
+    "genres": [
+      "Contemporary"
+    ],
+    "related": [
+      "Dune Chronicles 15",
+      "The Song of Achilles Revisited 98",
+      "The Midnight Library Legacy 63",
+      "The Lord of the Rings Redux 14",
+      "The Seven Husbands of Evelyn Hugo Redux 58"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Revisited 96",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Mystery",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Book Thief Redux 56",
+      "The Girl with the Dragon Tattoo Legacy 54",
+      "Gone Girl Extended 27",
+      "Twilight Legacy 18",
+      "Brave New World Revisited 99"
+    ]
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone Chronicles 12",
+    "authors": [
+      "J.K. Rowling"
+    ],
+    "genres": [
+      "Young Adult",
+      "Horror"
+    ],
+    "related": [
+      "Dune Extended 34",
+      "The Great Gatsby Revisited 93",
+      "The Great Gatsby Chronicles 64",
+      "The Girl with the Dragon Tattoo Chronicles 78",
+      "1984 Legacy 16"
+    ]
+  },
+  {
+    "title": "Circe Revisited 66",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "The Alchemist Redux 67",
+      "The Alchemist Extended 61",
+      "To Kill a Mockingbird Chronicles 98",
+      "The Shining Legacy 62",
+      "Brave New World Revisited 99"
+    ]
+  },
+  {
+    "title": "The Hunger Games Redux 10",
+    "authors": [
+      "Suzanne Collins"
+    ],
+    "genres": [
+      "Adventure",
+      "Biography"
+    ],
+    "related": [
+      "Circe Extended 66",
+      "Where the Crawdads Sing Legacy 81",
+      "The Hobbit Revisited 81",
+      "Harry Potter and the Sorcerer's Stone Chronicles 31",
+      "Educated Chronicles 2"
+    ]
+  },
+  {
+    "title": "It Extended 46",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Horror",
+      "Adventure"
+    ],
+    "related": [
+      "The Girl with the Dragon Tattoo Legacy 26",
+      "Harry Potter and the Sorcerer's Stone Chronicles 12",
+      "The Shining Chronicles 23",
+      "The Great Gatsby Chronicles 64",
+      "The Seven Husbands of Evelyn Hugo Chronicles 76"
+    ]
+  },
+  {
+    "title": "Gone Girl Redux 83",
+    "authors": [
+      "Gillian Flynn"
+    ],
+    "genres": [
+      "Thriller",
+      "Science Fiction"
+    ],
+    "related": [
+      "The Book Thief Legacy 23",
+      "The Midnight Library Legacy 77",
+      "Dune Extended 85",
+      "Pride and Prejudice Chronicles 37",
+      "The Road Revisited 99"
+    ]
+  },
+  {
+    "title": "Pride and Prejudice Revisited 22",
+    "authors": [
+      "Jane Austen"
+    ],
+    "genres": [
+      "Contemporary",
+      "Classics"
+    ],
+    "related": [
+      "It Chronicles 38",
+      "The Lord of the Rings Revisited 42",
+      "The Girl with the Dragon Tattoo Redux 39",
+      "A Game of Thrones Revisited 76",
+      "The Alchemist Redux 67"
+    ]
+  },
+  {
+    "title": "Becoming Extended 35",
+    "authors": [
+      "Michelle Obama"
+    ],
+    "genres": [
+      "Contemporary",
+      "Horror",
+      "Romance"
+    ],
+    "related": [
+      "The Night Circus Chronicles 34",
+      "1984 Revisited 6",
+      "The Night Circus Chronicles 96",
+      "The Da Vinci Code Chronicles 63",
+      "The Song of Achilles Chronicles 5"
+    ]
+  },
+  {
+    "title": "The Shining Chronicles 82",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Fantasy"
+    ],
+    "related": [
+      "The Hobbit Chronicles 72",
+      "Dune Extended 34",
+      "The Book Thief Legacy 23",
+      "Twilight Revisited 25",
+      "The Great Gatsby Chronicles 66"
+    ]
+  },
+  {
+    "title": "Brave New World Extended 86",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Biography"
+    ],
+    "related": [
+      "The Hobbit Chronicles 60",
+      "Educated Revisited 9",
+      "It Redux 46",
+      "The Book Thief Revisited 21",
+      "The Night Circus Chronicles 90"
+    ]
+  },
+  {
+    "title": "A Game of Thrones Revisited 38",
+    "authors": [
+      "George R.R. Martin"
+    ],
+    "genres": [
+      "Biography",
+      "Romance",
+      "Classics"
+    ],
+    "related": [
+      "The Da Vinci Code Legacy 99",
+      "The Book Thief Chronicles 27",
+      "The Seven Husbands of Evelyn Hugo Revisited 16",
+      "The Book Thief Legacy 99",
+      "The Catcher in the Rye Redux 63"
+    ]
+  },
+  {
+    "title": "The Catcher in the Rye Chronicles 36",
+    "authors": [
+      "J.D. Salinger"
+    ],
+    "genres": [
+      "Literary Fiction"
+    ],
+    "related": [
+      "The Fault in Our Stars Redux 18",
+      "Circe Revisited 66",
+      "The Girl with the Dragon Tattoo Redux 37",
+      "The Da Vinci Code Redux 29",
+      "Educated Extended 61"
+    ]
+  },
+  {
+    "title": "The Road Legacy 97",
+    "authors": [
+      "Cormac McCarthy"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "related": [
+      "The Song of Achilles Chronicles 5",
+      "The Midnight Library Redux 38",
+      "The Seven Husbands of Evelyn Hugo Chronicles 39",
+      "The Da Vinci Code Chronicles 26",
+      "Dune Extended 85"
+    ]
+  },
+  {
+    "title": "The Hunger Games Chronicles 4",
+    "authors": [
+      "Suzanne Collins"
+    ],
+    "genres": [
+      "Young Adult"
+    ],
+    "related": [
+      "The Song of Achilles Redux 38",
+      "The Lord of the Rings Revisited 52",
+      "The Hobbit Extended 8",
+      "1984 Legacy 36",
+      "The Girl with the Dragon Tattoo Extended 20"
+    ]
+  },
+  {
+    "title": "Brave New World Legacy 19",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Contemporary",
+      "Mystery"
+    ],
+    "related": [
+      "The Hobbit Chronicles 60",
+      "The Great Gatsby Revisited 93",
+      "Becoming Legacy 79",
+      "Brave New World Chronicles 82",
+      "Pride and Prejudice Chronicles 37"
+    ]
+  },
+  {
+    "title": "The Seven Husbands of Evelyn Hugo Redux 58",
+    "authors": [
+      "Taylor Jenkins Reid"
+    ],
+    "genres": [
+      "Thriller",
+      "Nonfiction",
+      "Biography"
+    ],
+    "related": [
+      "Educated Revisited 21",
+      "Circe Revisited 66",
+      "Where the Crawdads Sing Legacy 81",
+      "To Kill a Mockingbird Chronicles 98",
+      "It Redux 47"
+    ]
+  },
+  {
+    "title": "The Da Vinci Code Legacy 63",
+    "authors": [
+      "Dan Brown"
+    ],
+    "genres": [
+      "Science Fiction",
+      "Biography",
+      "Classics"
+    ],
+    "related": [
+      "The Shining Chronicles 23",
+      "The Seven Husbands of Evelyn Hugo Redux 58",
+      "The Book Thief Extended 68",
+      "Educated Revisited 9",
+      "The Great Gatsby Extended 21"
+    ]
+  },
+  {
+    "title": "To Kill a Mockingbird Chronicles 98",
+    "authors": [
+      "Harper Lee"
+    ],
+    "genres": [
+      "Young Adult"
+    ],
+    "related": [
+      "Circe Redux 51",
+      "The Alchemist Revisited 83",
+      "The Da Vinci Code Revisited 81",
+      "The Seven Husbands of Evelyn Hugo Chronicles 53",
+      "The Alchemist Chronicles 19"
+    ]
+  },
+  {
+    "title": "Circe Redux 17",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Thriller",
+      "Adventure"
+    ],
+    "related": [
+      "Circe Extended 66",
+      "The Great Gatsby Revisited 93",
+      "The Night Circus Chronicles 34",
+      "The Great Gatsby Redux 68",
+      "The Fault in Our Stars Extended 58"
+    ]
+  },
+  {
+    "title": "The Catcher in the Rye Redux 63",
+    "authors": [
+      "J.D. Salinger"
+    ],
+    "genres": [
+      "Dystopian"
+    ],
+    "related": [
+      "It Chronicles 72",
+      "Circe Redux 51",
+      "The Great Gatsby Revisited 53",
+      "The Hobbit Chronicles 6",
+      "The Song of Achilles Revisited 59"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Legacy 26",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Fantasy",
+      "Young Adult"
+    ],
+    "related": [
+      "The Girl with the Dragon Tattoo Redux 35",
+      "The Great Gatsby Revisited 53",
+      "A Game of Thrones Revisited 38",
+      "The Lord of the Rings Extended 90",
+      "Brave New World Extended 86"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Legacy 100",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Fantasy"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Legacy 13",
+      "A Game of Thrones Revisited 13",
+      "The Night Circus Revisited 16",
+      "1984 Redux 56",
+      "Circe Revisited 66"
+    ]
+  },
+  {
+    "title": "Where the Crawdads Sing Extended 9",
+    "authors": [
+      "Delia Owens"
+    ],
+    "genres": [
+      "Young Adult",
+      "Historical"
+    ],
+    "related": [
+      "The Lord of the Rings Extended 41",
+      "It Redux 76",
+      "The Midnight Library Revisited 64",
+      "The Hunger Games Redux 10",
+      "Brave New World Revisited 44"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Extended 97",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Biography",
+      "Nonfiction"
+    ],
+    "related": [
+      "The Fault in Our Stars Extended 38",
+      "The Fault in Our Stars Redux 18",
+      "1984 Redux 56",
+      "The Hobbit Chronicles 1",
+      "The Lord of the Rings Redux 14"
+    ]
+  },
+  {
+    "title": "Dune Chronicles 58",
+    "authors": [
+      "Frank Herbert"
+    ],
+    "genres": [
+      "Thriller"
+    ],
+    "related": [
+      "The Road Revisited 2",
+      "Pride and Prejudice Revisited 6",
+      "The Lord of the Rings Revisited 60",
+      "The Girl with the Dragon Tattoo Redux 86",
+      "The Song of Achilles Chronicles 5"
+    ]
+  },
+  {
+    "title": "The Fault in Our Stars Extended 28",
+    "authors": [
+      "John Green"
+    ],
+    "genres": [
+      "Horror"
+    ],
+    "related": [
+      "A Game of Thrones Revisited 13",
+      "The Hunger Games Redux 10",
+      "The Hobbit Chronicles 1",
+      "Brave New World Legacy 19",
+      "The Alchemist Chronicles 91"
+    ]
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo Extended 20",
+    "authors": [
+      "Stieg Larsson"
+    ],
+    "genres": [
+      "Contemporary",
+      "Literary Fiction"
+    ],
+    "related": [
+      "The Great Gatsby Chronicles 64",
+      "The Da Vinci Code Legacy 99",
+      "The Fault in Our Stars Extended 28",
+      "The Song of Achilles Revisited 59",
+      "The Girl with the Dragon Tattoo Redux 86"
+    ]
+  },
+  {
+    "title": "Educated Extended 34",
+    "authors": [
+      "Tara Westover"
+    ],
+    "genres": [
+      "Contemporary"
+    ],
+    "related": [
+      "The Midnight Library Legacy 63",
+      "The Alchemist Chronicles 14",
+      "The Book Thief Legacy 23",
+      "The Midnight Library Revisited 68",
+      "The Da Vinci Code Revisited 36"
+    ]
+  },
+  {
+    "title": "Becoming Legacy 65",
+    "authors": [
+      "Michelle Obama"
+    ],
+    "genres": [
+      "Horror",
+      "Young Adult"
+    ],
+    "related": [
+      "Circe Redux 51",
+      "The Alchemist Revisited 83",
+      "The Hunger Games Revisited 91",
+      "Gone Girl Extended 27",
+      "The Alchemist Redux 67"
+    ]
+  },
+  {
+    "title": "The Night Circus Extended 36",
+    "authors": [
+      "Erin Morgenstern"
+    ],
+    "genres": [
+      "Historical"
+    ],
+    "related": [
+      "Where the Crawdads Sing Legacy 47",
+      "Educated Extended 61",
+      "It Chronicles 49",
+      "Where the Crawdads Sing Legacy 48",
+      "The Book Thief Legacy 95"
+    ]
+  },
+  {
+    "title": "It Chronicles 72",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Fantasy"
+    ],
+    "related": [
+      "The Seven Husbands of Evelyn Hugo Chronicles 53",
+      "The Seven Husbands of Evelyn Hugo Legacy 100",
+      "The Hunger Games Extended 57",
+      "The Road Chronicles 11",
+      "The Shining Chronicles 50"
+    ]
+  },
+  {
+    "title": "Brave New World Chronicles 72",
+    "authors": [
+      "Aldous Huxley"
+    ],
+    "genres": [
+      "Nonfiction"
+    ],
+    "related": [
+      "The Hunger Games Revisited 78",
+      "The Lord of the Rings Extended 41",
+      "The Lord of the Rings Legacy 20",
+      "The Hunger Games Extended 57",
+      "The Song of Achilles Redux 38"
+    ]
+  },
+  {
+    "title": "The Midnight Library Legacy 63",
+    "authors": [
+      "Matt Haig"
+    ],
+    "genres": [
+      "Romance",
+      "Horror"
+    ],
+    "related": [
+      "It Legacy 52",
+      "The Da Vinci Code Legacy 26",
+      "Educated Chronicles 2",
+      "The Shining Legacy 62",
+      "The Night Circus Legacy 19"
+    ]
+  },
+  {
+    "title": "The Great Gatsby Extended 21",
+    "authors": [
+      "F. Scott Fitzgerald"
+    ],
+    "genres": [
+      "Fantasy"
+    ],
+    "related": [
+      "The Hobbit Extended 85",
+      "Dune Legacy 7",
+      "Becoming Legacy 64",
+      "It Legacy 42",
+      "The Road Revisited 99"
+    ]
+  },
+  {
+    "title": "Educated Revisited 42",
+    "authors": [
+      "Tara Westover"
+    ],
+    "genres": [
+      "Fantasy",
+      "Young Adult"
+    ],
+    "related": [
+      "The Midnight Library Revisited 8",
+      "Brave New World Chronicles 72",
+      "Brave New World Legacy 19",
+      "The Hobbit Chronicles 1",
+      "The Great Gatsby Legacy 68"
+    ]
+  },
+  {
+    "title": "It Legacy 42",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Adventure",
+      "Mystery",
+      "Biography"
+    ],
+    "related": [
+      "Where the Crawdads Sing Chronicles 7",
+      "The Midnight Library Revisited 68",
+      "To Kill a Mockingbird Redux 26",
+      "The Song of Achilles Revisited 59",
+      "Brave New World Chronicles 82"
+    ]
+  },
+  {
+    "title": "Becoming Redux 65",
+    "authors": [
+      "Michelle Obama"
+    ],
+    "genres": [
+      "Fantasy",
+      "Thriller"
+    ],
+    "related": [
+      "The Song of Achilles Redux 97",
+      "The Song of Achilles Revisited 59",
+      "Gone Girl Extended 55",
+      "The Midnight Library Redux 38",
+      "The Great Gatsby Extended 2"
+    ]
+  },
+  {
+    "title": "The Song of Achilles Redux 97",
+    "authors": [
+      "Madeline Miller"
+    ],
+    "genres": [
+      "Literary Fiction",
+      "Historical"
+    ],
+    "related": [
+      "The Night Circus Chronicles 34",
+      "The Great Gatsby Revisited 93",
+      "Harry Potter and the Sorcerer's Stone Chronicles 31",
+      "Educated Revisited 21",
+      "Harry Potter and the Sorcerer's Stone Legacy 67"
+    ]
+  },
+  {
+    "title": "The Shining Chronicles 50",
+    "authors": [
+      "Stephen King"
+    ],
+    "genres": [
+      "Mystery",
+      "Fantasy"
+    ],
+    "related": [
+      "The Hobbit Chronicles 72",
+      "The Great Gatsby Revisited 53",
+      "The Girl with the Dragon Tattoo Redux 37",
+      "The Da Vinci Code Legacy 63",
+      "Circe Revisited 66"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings Revisited 52",
+    "authors": [
+      "J.R.R. Tolkien"
+    ],
+    "genres": [
+      "Nonfiction",
+      "Science Fiction",
+      "Biography"
+    ],
+    "related": [
+      "Educated Chronicles 46",
+      "A Game of Thrones Revisited 13",
+      "The Great Gatsby Revisited 93",
+      "Educated Legacy 49",
+      "The Song of Achilles Revisited 96"
+    ]
+  },
+  {
+    "title": "The Night Circus Extended 79",
+    "authors": [
+      "Erin Morgenstern"
+    ],
+    "genres": [
+      "Adventure",
+      "Young Adult",
+      "Nonfiction"
+    ],
+    "related": [
+      "The Hunger Games Extended 57",
+      "The Da Vinci Code Redux 85",
+      "The Girl with the Dragon Tattoo Redux 90",
+      "Educated Chronicles 46",
+      "The Song of Achilles Revisited 96"
+    ]
+  },
+  {
+    "title": "Educated Extended 61",
+    "authors": [
+      "Tara Westover"
+    ],
+    "genres": [
+      "Horror",
+      "Contemporary"
+    ],
+    "related": [
+      "The Lord of the Rings Revisited 52",
+      "The Book Thief Legacy 38",
+      "Where the Crawdads Sing Redux 98",
+      "Where the Crawdads Sing Revisited 35",
+      "Brave New World Redux 74"
+    ]
+  },
+  {
+    "title": "Dune Redux 45",
+    "authors": [
+      "Frank Herbert"
+    ],
+    "genres": [
+      "Mystery",
+      "Thriller"
+    ],
+    "related": [
+      "A Game of Thrones Redux 37",
+      "The Seven Husbands of Evelyn Hugo Legacy 13",
+      "The Alchemist Revisited 81",
+      "The Hobbit Revisited 81",
+      "The Girl with the Dragon Tattoo Redux 39"
+    ]
+  },
+  {
+    "title": "Gone Girl Extended 99",
+    "authors": [
+      "Gillian Flynn"
+    ],
+    "genres": [
+      "Adventure",
+      "Contemporary"
+    ],
+    "related": [
+      "The Road Chronicles 11",
+      "Becoming Legacy 79",
+      "It Redux 47",
+      "Pride and Prejudice Revisited 6",
+      "The Seven Husbands of Evelyn Hugo Legacy 100"
+    ]
+  },
+  {
+    "title": "To Kill a Mockingbird Revisited 3",
+    "authors": [
+      "Harper Lee"
+    ],
+    "genres": [
+      "Dystopian",
+      "Young Adult"
+    ],
+    "related": [
+      "The Da Vinci Code Legacy 99",
+      "The Seven Husbands of Evelyn Hugo Chronicles 76",
+      "The Song of Achilles Chronicles 5",
+      "The Midnight Library Legacy 77",
+      "It Chronicles 49"
+    ]
+  }
+]
