@@ -151,6 +151,319 @@ document.getElementById("exportHistoryBtn").onclick=exportHistory;
 });
 document.getElementById("csvInput").addEventListener("change",e=>{importCSV(e).then(()=>e.target.value="");});
 
+/* ========== OCR TEXT PROCESSING FUNCTIONS ========== */
+
+// Clean and filter OCR lines to remove noise
+function cleanOCRLines(rawLines) {
+  const debugLog = { discarded: [], cleaned: [] };
+  
+  // Common stopwords and noise patterns
+  const stopWords = new Set([
+    'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by',
+    'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did',
+    'will', 'would', 'could', 'should', 'may', 'might', 'must', 'this', 'that', 'these', 'those'
+  ]);
+  
+  const noisePatterns = [
+    /^(isbn|copyright|©|\d{4}|\$\d+|\d+\.\d+)$/i, // ISBNs, years, prices
+    /^(page|chapter|part|volume|vol|edition|ed)\s*\d*$/i, // Book structure terms
+    /^(illustrated|adapted|abridged|unabridged|revised)$/i, // Publication terms
+    /^(hardcover|paperback|kindle|ebook|audiobook)$/i, // Format terms
+    /^(bestseller|award|winner|nominee|finalist)$/i, // Marketing terms
+    /^(new|york|times|amazon|goodreads|review)$/i, // Publisher/review terms
+    /^[^\w\s]+$/, // Only punctuation
+    /^\d+$/ // Only numbers
+  ];
+  
+  const cleaned = rawLines
+    .map(line => line.trim())
+    .filter(line => {
+      // Remove very short lines
+      if (line.length < 3) {
+        debugLog.discarded.push({ line, reason: 'too short' });
+        return false;
+      }
+      
+      // Remove lines with only stopwords
+      const words = line.toLowerCase().split(/\s+/);
+      if (words.every(word => stopWords.has(word))) {
+        debugLog.discarded.push({ line, reason: 'only stopwords' });
+        return false;
+      }
+      
+      // Remove lines matching noise patterns
+      for (const pattern of noisePatterns) {
+        if (pattern.test(line)) {
+          debugLog.discarded.push({ line, reason: 'noise pattern' });
+          return false;
+        }
+      }
+      
+      return true;
+    })
+    // Remove near-duplicates (Levenshtein distance)
+    .filter((line, index, arr) => {
+      const isDuplicate = arr.slice(0, index).some(prevLine => 
+        calculateSimilarity(line.toLowerCase(), prevLine.toLowerCase()) > 0.8
+      );
+      if (isDuplicate) {
+        debugLog.discarded.push({ line, reason: 'near duplicate' });
+        return false;
+      }
+      debugLog.cleaned.push(line);
+      return true;
+    });
+  
+  return { lines: cleaned, debug: debugLog };
+}
+
+// Calculate text similarity using Levenshtein distance
+function calculateSimilarity(str1, str2) {
+  const matrix = Array(str2.length + 1).fill(null).map(() => Array(str1.length + 1).fill(null));
+  
+  for (let i = 0; i <= str1.length; i++) matrix[0][i] = i;
+  for (let j = 0; j <= str2.length; j++) matrix[j][0] = j;
+  
+  for (let j = 1; j <= str2.length; j++) {
+    for (let i = 1; i <= str1.length; i++) {
+      const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
+      matrix[j][i] = Math.min(
+        matrix[j][i - 1] + 1,     // insertion
+        matrix[j - 1][i] + 1,     // deletion
+        matrix[j - 1][i - 1] + cost // substitution
+      );
+    }
+  }
+  
+  const maxLen = Math.max(str1.length, str2.length);
+  return maxLen === 0 ? 1 : 1 - (matrix[str2.length][str1.length] / maxLen);
+}
+
+// Group related OCR lines into potential book titles
+function groupOCRLines(cleanedLines) {
+  const debugLog = { groups: [], individual: [] };
+  const used = new Set();
+  const groups = [];
+  
+  // Look for title + author patterns first
+  for (let i = 0; i < cleanedLines.length - 1; i++) {
+    if (used.has(i)) continue;
+    
+    const line1 = cleanedLines[i];
+    const line2 = cleanedLines[i + 1];
+    
+    // Check if line1 looks like a title and line2 looks like an author
+    if (looksLikeTitle(line1) && looksLikeAuthor(line2)) {
+      const combined = `${line1} by ${line2}`;
+      groups.push({
+        text: combined,
+        confidence: 0.9,
+        components: [line1, line2],
+        type: 'title-author'
+      });
+      debugLog.groups.push({
+        combined,
+        components: [line1, line2],
+        type: 'title-author',
+        indices: [i, i + 1]
+      });
+      used.add(i);
+      used.add(i + 1);
+      continue;
+    }
+  }
+  
+  // Look for split titles (nearby lines with matching capitalization)
+  for (let i = 0; i < cleanedLines.length - 2; i++) {
+    if (used.has(i)) continue;
+    
+    const candidates = [];
+    candidates.push(cleanedLines[i]);
+    
+    // Look for up to 3 nearby lines that might be part of the same title
+    for (let j = i + 1; j < Math.min(i + 4, cleanedLines.length); j++) {
+      if (used.has(j)) continue;
+      
+      const currentLine = cleanedLines[j];
+      
+      // Check if this line might be part of the same title
+      if (mightBeSameTitle(cleanedLines[i], currentLine)) {
+        candidates.push(currentLine);
+      }
+    }
+    
+    // If we found potential components, try to merge them
+    if (candidates.length > 1) {
+      const merged = mergeTitle(candidates);
+      const confidence = calculateMergeConfidence(candidates, merged);
+      
+      // Only keep merges with reasonable confidence
+      if (confidence > 0.6) {
+        groups.push({
+          text: merged,
+          confidence: confidence,
+          components: candidates,
+          type: 'split-title'
+        });
+        
+        debugLog.groups.push({
+          combined: merged,
+          components: candidates,
+          type: 'split-title',
+          confidence: confidence
+        });
+        
+        // Mark all components as used
+        candidates.forEach(component => {
+          const index = cleanedLines.indexOf(component);
+          if (index !== -1) used.add(index);
+        });
+        continue;
+      }
+    }
+  }
+  
+  // Add remaining individual lines
+  cleanedLines.forEach((line, index) => {
+    if (!used.has(index)) {
+      groups.push({
+        text: line,
+        confidence: looksLikeTitle(line) ? 0.7 : 0.5,
+        components: [line],
+        type: 'individual'
+      });
+      debugLog.individual.push({ line, index });
+    }
+  });
+  
+  // Sort by confidence (highest first)
+  groups.sort((a, b) => b.confidence - a.confidence);
+  
+  return { groups, debug: debugLog };
+}
+
+// Check if a line looks like a book title
+function looksLikeTitle(line) {
+  const titlePatterns = [
+    /^[A-Z][a-z]/, // Starts with capital letter
+    /[A-Z][a-z]+(?:\s+[A-Z][a-z]*)*/, // Title case pattern
+    /^(the|a|an)\s+[A-Z]/i, // Articles followed by capitals
+  ];
+  
+  const hasNumbers = /\d/.test(line);
+  const hasArticles = /^(the|a|an)\s+/i.test(line);
+  const reasonableLength = line.length >= 4 && line.length <= 100;
+  
+  return titlePatterns.some(pattern => pattern.test(line)) && 
+         !hasNumbers && reasonableLength;
+}
+
+// Check if a line looks like an author name
+function looksLikeAuthor(line) {
+  const authorPatterns = [
+    /^[A-Z][a-z]+(?:\s+[A-Z]\.?)*(?:\s+[A-Z][a-z]+)+$/, // First M. Last or First Last
+    /^[A-Z]\.\s*[A-Z]\.\s*[A-Z][a-z]+$/, // J.K. Rowling style
+    /^by\s+[A-Z]/i, // Starts with "by"
+  ];
+  
+  const hasCommonNames = /\b(john|jane|mary|david|michael|sarah|elizabeth|robert|william|james)\b/i.test(line);
+  const reasonableLength = line.length >= 4 && line.length <= 50;
+  
+  return (authorPatterns.some(pattern => pattern.test(line)) || hasCommonNames) && 
+         reasonableLength;
+}
+
+// Check if two lines might be parts of the same title
+function mightBeSameTitle(line1, line2) {
+  const both = [line1, line2].map(l => l.trim().toUpperCase());
+  
+  // Similar capitalization patterns
+  const cap1 = line1.replace(/[^A-Z]/g, '');
+  const cap2 = line2.replace(/[^A-Z]/g, '');
+  const similarCaps = cap1.length > 0 && cap2.length > 0 && 
+                      Math.abs(cap1.length - cap2.length) <= 1;
+  
+  // One might be a connecting word or preposition
+  const connectingWords = ['of', 'the', 'and', 'in', 'on', 'at', 'to', 'for', 'with'];
+  const isConnector = connectingWords.some(word => 
+    both[1].includes(word.toUpperCase()) && both[1].split(/\s+/).length <= 2
+  );
+  
+  // Both are short and might be fragments
+  const bothShort = line1.length <= 15 && line2.length <= 15;
+  
+  return similarCaps || isConnector || bothShort;
+}
+
+// Merge title components intelligently
+function mergeTitle(components) {
+  // Sort components by likely order (longer/more complete parts first)
+  const sorted = components.slice().sort((a, b) => {
+    // Prefer lines that look more like main title parts
+    const aScore = looksLikeTitle(a) ? 1 : 0;
+    const bScore = looksLikeTitle(b) ? 1 : 0;
+    if (aScore !== bScore) return bScore - aScore;
+    
+    // Then by length
+    return b.length - a.length;
+  });
+  
+  // Smart joining - detect if we need connecting words
+  let merged = sorted[0];
+  for (let i = 1; i < sorted.length; i++) {
+    const next = sorted[i];
+    
+    // Skip if it's already contained in the merged title
+    if (merged.toLowerCase().includes(next.toLowerCase())) continue;
+    
+    // Add connecting words if needed
+    const needsConnection = !merged.endsWith(' ') && !next.startsWith(' ') &&
+                           !/^(of|the|and|in|on|at|to|for|with)$/i.test(next);
+    
+    merged += needsConnection ? ` ${next}` : next;
+  }
+  
+  return merged.trim().replace(/\s+/g, ' ');
+}
+
+// Calculate confidence for a merged title
+function calculateMergeConfidence(components, merged) {
+  let confidence = 0.5; // Base confidence
+  
+  // Boost for title-like appearance of result
+  if (looksLikeTitle(merged)) confidence += 0.2;
+  
+  // Boost for reasonable length
+  if (merged.length >= 8 && merged.length <= 80) confidence += 0.1;
+  
+  // Boost for multiple meaningful components
+  if (components.length >= 2) confidence += 0.1;
+  if (components.length >= 3) confidence += 0.1;
+  
+  // Penalty for too many components (likely noise)
+  if (components.length > 4) confidence -= 0.2;
+  
+  return Math.max(0, Math.min(1, confidence));
+}
+
+// Main OCR processing function
+function processOCRText(rawLines) {
+  const cleaning = cleanOCRLines(rawLines);
+  const grouping = groupOCRLines(cleaning.lines);
+  
+  const processed = {
+    queries: grouping.groups.map(group => group.text),
+    debug: {
+      original: rawLines,
+      cleaning: cleaning.debug,
+      grouping: grouping.debug,
+      finalGroups: grouping.groups
+    }
+  };
+  
+  return processed;
+}
+
 /* ========== OCR + GOOGLE BOOKS (Scanner) ========== */
 async function processImage(e){
   const file=e.target.files[0]; if(!file)return;
@@ -168,32 +481,117 @@ async function processImage(e){
       });
       const json=await res.json();
       const blocks=json.responses?.[0]?.fullTextAnnotation?.pages?.[0]?.blocks||[];
-      let lines=[];
+      let rawLines=[];
       for(const b of blocks){
         let t=""; b.paragraphs.forEach(p=>p.words.forEach(w=>t+=w.symbols.map(s=>s.text).join("")+" "));
         t=t.trim();
-        if(t.length>4&&!/^\d+$/.test(t)&&!/illustrated|adapted|by|with/i.test(t))lines.push(t);
+        if(t.length>0)rawLines.push(t);
       }
-      lines=[...new Set(lines.map(l=>l.trim()))];
-      output.textContent=lines.join("\n")||"(No text)";
-      buildSearchForm(lines);
+      
+      // Process OCR text with new intelligent cleaning and grouping
+      const processed = processOCRText(rawLines);
+      
+      output.textContent = processed.queries.join("\n") || "(No text detected)";
+      
+      // Store debug info for transparency
+      window.lastOCRDebug = processed.debug;
+      console.log("OCR Processing Debug:", processed.debug);
+      
+      buildSearchForm(processed.queries, processed.debug);
     }catch(err){console.error(err);output.textContent="OCR error.";}
     statusMsg.textContent="";
   };
   reader.readAsDataURL(file);
 }
 
-function buildSearchForm(lines){
+function buildSearchForm(queries, debug){
   const results = document.getElementById("results");
-  results.innerHTML="<h2>Confirm Titles to Search</h2>";
+  results.innerHTML="<h2>Processed OCR Results</h2>";
+  
+  // Add debug toggle if debug info is available
+  if (debug) {
+    const debugToggle = document.createElement("button");
+    debugToggle.type = "button";
+    debugToggle.textContent = "Show Processing Details";
+    debugToggle.style.cssText = "margin-bottom: 10px; background: #f0f0f0; border: 1px solid #ccc; padding: 5px 10px; cursor: pointer;";
+    
+    const debugInfo = document.createElement("div");
+    debugInfo.style.display = "none";
+    debugInfo.style.cssText = "background: #f9f9f9; border: 1px solid #ddd; padding: 10px; margin: 10px 0; font-family: monospace; font-size: 12px; white-space: pre-wrap;";
+    
+    debugToggle.onclick = () => {
+      if (debugInfo.style.display === "none") {
+        debugInfo.style.display = "block";
+        debugToggle.textContent = "Hide Processing Details";
+        
+        let debugText = `📊 OCR Processing Summary:\n\n`;
+        debugText += `Original lines detected: ${debug.original.length}\n`;
+        debugText += `Lines discarded: ${debug.cleaning.discarded.length}\n`;
+        debugText += `Lines cleaned: ${debug.cleaning.cleaned.length}\n`;
+        debugText += `Final grouped queries: ${queries.length}\n\n`;
+        
+        if (debug.cleaning.discarded.length > 0) {
+          debugText += `🗑️ Discarded lines:\n`;
+          debug.cleaning.discarded.forEach(item => {
+            debugText += `  • "${item.line}" (${item.reason})\n`;
+          });
+          debugText += `\n`;
+        }
+        
+        if (debug.grouping.groups.length > 0) {
+          debugText += `🔗 Grouped combinations:\n`;
+          debug.grouping.groups.forEach(group => {
+            debugText += `  • Type: ${group.type}\n`;
+            debugText += `    Combined: "${group.combined}"\n`;
+            debugText += `    From: [${group.components.join(', ')}]\n`;
+            if (group.confidence) debugText += `    Confidence: ${(group.confidence * 100).toFixed(1)}%\n`;
+            debugText += `\n`;
+          });
+        }
+        
+        if (debug.grouping.individual.length > 0) {
+          debugText += `📝 Individual lines kept:\n`;
+          debug.grouping.individual.forEach(item => {
+            debugText += `  • "${item.line}"\n`;
+          });
+        }
+        
+        debugInfo.textContent = debugText;
+      } else {
+        debugInfo.style.display = "none";
+        debugToggle.textContent = "Show Processing Details";
+      }
+    };
+    
+    results.appendChild(debugToggle);
+    results.appendChild(debugInfo);
+  }
+  
   const form=document.createElement("form");form.id="searchForm";
-  lines.forEach((line,i)=>{
-    const wrap=document.createElement("div");wrap.className="flex";
-    const inp=document.createElement("input");inp.value=line;inp.name=`t${i}`;inp.style.flex="1";
-    const x=document.createElement("button");x.type="button";x.textContent="❌";x.onclick=()=>wrap.remove();
-    wrap.append(inp,x);form.appendChild(wrap);
+  queries.forEach((query,i)=>{
+    const wrap=document.createElement("div");wrap.className="flex";wrap.style.cssText="margin: 5px 0; align-items: center;";
+    
+    const inp=document.createElement("input");
+    inp.value=query;
+    inp.name=`t${i}`;
+    inp.style.flex="1";
+    inp.style.marginRight="10px";
+    
+    const x=document.createElement("button");
+    x.type="button";
+    x.textContent="❌";
+    x.style.cssText="background: #ff4444; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 3px;";
+    x.onclick=()=>wrap.remove();
+    
+    wrap.append(inp,x);
+    form.appendChild(wrap);
   });
-  form.appendChild(Object.assign(document.createElement("button"),{textContent:"Search Books"}));
+  
+  const submitBtn = document.createElement("button");
+  submitBtn.textContent="Search Books";
+  submitBtn.style.cssText="margin-top: 10px; padding: 10px 20px; background: #007cba; color: white; border: none; cursor: pointer; border-radius: 3px;";
+  form.appendChild(submitBtn);
+  
   results.appendChild(form);
 }
 
@@ -652,9 +1050,18 @@ function showScoreBreakdown(element, breakdown) {
       explanation += `\n`;
     }
     
+    if (breakdown.keywordDetails && breakdown.keywordDetails.length > 0) {
+      explanation += `🔍 **Thematic Matching:**\n`;
+      breakdown.keywordDetails.forEach(detail => {
+        explanation += `• ${detail}\n`;
+      });
+      explanation += `\n`;
+    }
+    
     if ((!breakdown.genreDetails || breakdown.genreDetails.length === 0) && 
-        (!breakdown.authorDetails || breakdown.authorDetails.length === 0)) {
-      explanation += `⚪ No specific genre or author matches found in your reading history\n\n`;
+        (!breakdown.authorDetails || breakdown.authorDetails.length === 0) &&
+        (!breakdown.keywordDetails || breakdown.keywordDetails.length === 0)) {
+      explanation += `⚪ No specific genre, author, or thematic matches found in your reading history\n\n`;
     }
     
     explanation += `**Score Components:**\n`;
@@ -772,28 +1179,38 @@ function calculateAdvancedPreferenceScore(scannedBook, userHistory) {
     let categoryScore = 0;
     let categoryVotes = 0;
     
-    // Look at all books in user's history that share this genre
+    // Extract specific tags/themes from the scanned category
+    const scannedTags = extractTags(scannedCategory);
+    
+    // Look at all books in user's history that share this genre OR similar tags
     userHistory.forEach(historyBook => {
       const historyGenres = historyBook.genre ? 
         historyBook.genre.split(',').map(g => g.trim().toLowerCase()) : [];
       const historyAuthor = historyBook.author ? historyBook.author.toLowerCase() : '';
       const rating = Number(historyBook.rating) || 3;
       
-      // Check if this history book shares the genre
+      // Check for both genre match AND tag overlap
       const genreMatch = historyGenres.some(hg => 
         hg.includes(scannedCategory) || scannedCategory.includes(hg)
       );
       
-      if (genreMatch) {
+      const tagOverlap = calculateTagOverlap(scannedTags, historyGenres);
+      
+      if (genreMatch || tagOverlap.score > 0) {
         categoryVotes++;
         
-        // Weight the vote based on rating and similarity
+        // Weight the vote based on rating, similarity, and tag overlap
         let voteWeight = 1;
         
         // Stronger weight if it's the same author
         if (bookAuthors && historyAuthor && 
             (bookAuthors.includes(historyAuthor) || historyAuthor.includes(bookAuthors))) {
           voteWeight = 2;
+        }
+        
+        // Boost weight for strong tag overlap
+        if (tagOverlap.score > 0.5) {
+          voteWeight *= (1 + tagOverlap.score);
         }
         
         // Convert rating to preference score (-2 to +2 scale)
@@ -819,7 +1236,9 @@ function calculateAdvancedPreferenceScore(scannedBook, userHistory) {
   if (bookAuthors) {
     let authorScore = 0;
     let authorVotes = 0;
+    let totalAuthorRating = 0;
     
+    // Find ALL books by this author in user's history
     userHistory.forEach(historyBook => {
       const historyAuthor = historyBook.author ? historyBook.author.toLowerCase() : '';
       
@@ -827,22 +1246,270 @@ function calculateAdvancedPreferenceScore(scannedBook, userHistory) {
           (bookAuthors.includes(historyAuthor) || historyAuthor.includes(bookAuthors))) {
         const rating = Number(historyBook.rating) || 3;
         authorVotes++;
-        
-        // Author scoring: -2 to +2 based on rating
-        if (rating >= 4.5) authorScore += 2;
-        else if (rating >= 3.5) authorScore += 1;
-        else if (rating >= 2.5) authorScore += 0;
-        else if (rating >= 1.5) authorScore -= 1;
-        else authorScore -= 2;
+        totalAuthorRating += rating;
       }
     });
     
+    // Calculate average rating for this author and convert to preference score
     if (authorVotes > 0) {
-      totalScore += authorScore / authorVotes;
+      const avgAuthorRating = totalAuthorRating / authorVotes;
+      
+      // Convert average rating to preference score (-2 to +2 scale)
+      let authorPreference = 0;
+      if (avgAuthorRating >= 4.5) authorPreference = 2;
+      else if (avgAuthorRating >= 3.5) authorPreference = 1;
+      else if (avgAuthorRating >= 2.5) authorPreference = 0;
+      else if (avgAuthorRating >= 1.5) authorPreference = -1;
+      else authorPreference = -2;
+      
+      // Weight the score by confidence (more books = more reliable)
+      const confidenceWeight = Math.min(authorVotes / 3, 1); // Caps at 1 for 3+ books
+      totalScore += authorPreference * confidenceWeight;
+    }
+  }
+  
+  // Keyword-based description matching for thematic similarity
+  if (scannedBook.description || scannedBook.subtitle) {
+    const scannedDescription = (scannedBook.description || '') + ' ' + (scannedBook.subtitle || '');
+    const scannedKeywords = extractKeywords(scannedDescription);
+    
+    if (scannedKeywords.length > 0) {
+      let keywordScore = 0;
+      let keywordVotes = 0;
+      
+      // Compare with highly-rated books in user's history
+      userHistory.forEach(historyBook => {
+        const rating = Number(historyBook.rating) || 3;
+        
+        // Only consider books rated 3.5+ for positive keyword associations
+        if (rating >= 3.5 && historyBook.title) {
+          // Use title + genre as description proxy (since we don't have full descriptions)
+          const historyDescription = historyBook.title + ' ' + (historyBook.genre || '');
+          const historyKeywords = extractKeywords(historyDescription);
+          
+          const keywordOverlap = calculateKeywordOverlap(scannedKeywords, historyKeywords);
+          
+          if (keywordOverlap.score > 0) {
+            keywordVotes++;
+            
+            // Convert rating to preference score
+            let preferenceValue = 0;
+            if (rating >= 4.5) preferenceValue = 1.5;
+            else if (rating >= 4.0) preferenceValue = 1.0;
+            else preferenceValue = 0.5;
+            
+            // Weight by keyword overlap strength
+            keywordScore += preferenceValue * keywordOverlap.score;
+          }
+        }
+      });
+      
+      // Add keyword score with diminishing returns to prevent overwhelming other factors
+      if (keywordVotes > 0) {
+        const avgKeywordScore = keywordScore / keywordVotes;
+        totalScore += Math.min(avgKeywordScore, 1); // Cap keyword contribution at +1
+      }
     }
   }
   
   return totalScore;
+}
+
+/* ========== TAG-BASED PREFERENCE FUNCTIONS ========== */
+function extractTags(genreText) {
+  const text = genreText.toLowerCase();
+  const tags = [];
+  
+  // Define comprehensive tag patterns for specific themes/subgenres
+  const tagPatterns = {
+    // Horror subgenres
+    'gothic': ['gothic', 'dark romanticism', 'victorian horror'],
+    'psychological': ['psychological', 'mind', 'mental', 'psycho'],
+    'supernatural': ['supernatural', 'paranormal', 'ghost', 'haunted', 'occult'],
+    'cosmic': ['cosmic', 'lovecraftian', 'eldrich', 'cosmic horror'],
+    'body horror': ['body horror', 'visceral', 'grotesque', 'medical horror'],
+    
+    // Fantasy subgenres
+    'medieval': ['medieval', 'middle ages', 'feudal', 'knights', 'castles'],
+    'urban fantasy': ['urban', 'modern fantasy', 'contemporary fantasy'],
+    'high fantasy': ['high fantasy', 'epic fantasy', 'sword and sorcery'],
+    'dark fantasy': ['dark fantasy', 'grimdark'],
+    'fairy tale': ['fairy tale', 'folklore', 'myth', 'legend'],
+    
+    // Sci-Fi subgenres
+    'dystopian': ['dystopian', 'post-apocalyptic', 'totalitarian'],
+    'cyberpunk': ['cyberpunk', 'cyber', 'hacker', 'virtual reality'],
+    'space opera': ['space opera', 'galactic', 'interstellar'],
+    'hard sci-fi': ['hard science', 'scientific', 'technical'],
+    'time travel': ['time travel', 'temporal', 'chronological'],
+    
+    // Mystery/Thriller subgenres
+    'noir': ['noir', 'hard-boiled', 'detective'],
+    'cozy mystery': ['cozy', 'amateur detective', 'village mystery'],
+    'spy thriller': ['spy', 'espionage', 'intelligence'],
+    'legal thriller': ['legal', 'courtroom', 'lawyer'],
+    'medical thriller': ['medical', 'hospital', 'doctor'],
+    
+    // Romance subgenres
+    'historical romance': ['historical', 'period', 'regency', 'victorian'],
+    'paranormal romance': ['paranormal', 'vampire', 'werewolf', 'shapeshifter'],
+    'contemporary romance': ['contemporary', 'modern'],
+    'romantic suspense': ['suspense', 'danger', 'thriller'],
+    
+    // Literary themes
+    'coming of age': ['coming of age', 'bildungsroman', 'young adult', 'adolescence'],
+    'family saga': ['family', 'generational', 'multi-generational'],
+    'war': ['war', 'military', 'battle', 'combat', 'wwii', 'vietnam'],
+    'social commentary': ['social', 'political', 'society', 'class'],
+    'existential': ['existential', 'philosophical', 'meaning of life'],
+    
+    // Settings/Atmospheres
+    'small town': ['small town', 'rural', 'village', 'countryside'],
+    'big city': ['city', 'urban', 'metropolitan', 'new york', 'london'],
+    'isolated': ['isolated', 'remote', 'cabin', 'island', 'wilderness'],
+    'academic': ['university', 'college', 'academic', 'professor', 'school'],
+    'workplace': ['office', 'corporate', 'business', 'workplace']
+  };
+  
+  // Check for tag matches
+  Object.keys(tagPatterns).forEach(tag => {
+    const patterns = tagPatterns[tag];
+    if (patterns.some(pattern => text.includes(pattern))) {
+      tags.push(tag);
+    }
+  });
+  
+  // Also include the original genre as a tag (normalized)
+  tags.push(text.replace(/[^a-z\s]/g, '').trim());
+  
+  return [...new Set(tags)]; // Remove duplicates
+}
+
+function calculateTagOverlap(scannedTags, historyGenres) {
+  if (!scannedTags.length || !historyGenres.length) {
+    return { score: 0, matches: [] };
+  }
+  
+  const matches = [];
+  const historyTags = [];
+  
+  // Extract tags from all history genres
+  historyGenres.forEach(genre => {
+    const tags = extractTags(genre);
+    historyTags.push(...tags);
+  });
+  
+  // Find overlapping tags
+  scannedTags.forEach(scannedTag => {
+    historyTags.forEach(historyTag => {
+      if (scannedTag === historyTag || 
+          scannedTag.includes(historyTag) || 
+          historyTag.includes(scannedTag)) {
+        matches.push({ scanned: scannedTag, history: historyTag });
+      }
+    });
+  });
+  
+  // Calculate overlap score (0 to 1)
+  const uniqueMatches = [...new Set(matches.map(m => m.scanned))];
+  const overlapScore = uniqueMatches.length / Math.max(scannedTags.length, 1);
+  
+  return {
+    score: overlapScore,
+    matches: uniqueMatches
+  };
+}
+
+// Extract meaningful keywords from book descriptions
+function extractKeywords(description) {
+  if (!description) return [];
+  
+  // Common stop words to filter out
+  const stopWords = new Set([
+    'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 
+    'by', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 
+    'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must',
+    'this', 'that', 'these', 'those', 'his', 'her', 'their', 'he', 'she', 'it', 'they',
+    'when', 'where', 'why', 'how', 'what', 'who', 'which', 'can', 'one', 'two', 'new',
+    'old', 'first', 'last', 'good', 'great', 'best', 'book', 'story', 'novel', 'author'
+  ]);
+  
+  // Meaningful keywords patterns (nouns, adjectives, thematic terms)
+  const meaningfulPatterns = [
+    // Settings & Places
+    /\b(castle|palace|kingdom|village|city|forest|mountain|desert|ocean|island|space|planet|ship|station)\b/gi,
+    /\b(medieval|victorian|modern|ancient|future|dystopian|utopian|magical|supernatural)\b/gi,
+    /\b(academy|school|university|hospital|prison|mansion|cottage|tower|temple|church)\b/gi,
+    
+    // Characters & Relationships  
+    /\b(prince|princess|king|queen|knight|warrior|wizard|witch|vampire|werewolf|dragon|demon|angel)\b/gi,
+    /\b(detective|spy|assassin|thief|pirate|captain|doctor|scientist|professor|student)\b/gi,
+    /\b(romance|love|marriage|friendship|family|betrayal|revenge|sacrifice|loyalty|honor)\b/gi,
+    /\b(enemies|lovers|rivals|allies|mentor|apprentice|siblings|parents|children)\b/gi,
+    
+    // Themes & Concepts
+    /\b(magic|power|curse|prophecy|destiny|fate|immortal|mortal|death|life|soul|spirit)\b/gi,
+    /\b(war|battle|quest|journey|adventure|escape|survival|rescue|discovery|mystery)\b/gi,
+    /\b(secret|hidden|forbidden|ancient|lost|forgotten|chosen|special|unique|rare)\b/gi,
+    /\b(dark|light|shadow|blood|fire|ice|storm|night|dawn|time|memory|dream)\b/gi,
+    
+    // Emotions & Tone
+    /\b(dangerous|deadly|haunting|beautiful|terrifying|mysterious|enchanting|forbidden)\b/gi,
+    /\b(epic|intimate|heartbreaking|thrilling|suspenseful|romantic|comedic|tragic)\b/gi,
+    /\b(complex|simple|twisted|pure|corrupt|innocent|wise|foolish|brave|cowardly)\b/gi,
+    
+    // Plot Elements
+    /\b(conspiracy|investigation|heist|tournament|competition|ritual|ceremony|trial)\b/gi,
+    /\b(rebellion|revolution|invasion|siege|alliance|treaty|betrayal|murder|theft)\b/gi,
+    /\b(transformation|awakening|revelation|confrontation|sacrifice|redemption)\b/gi
+  ];
+  
+  const keywords = new Set();
+  
+  // Extract pattern-based keywords
+  meaningfulPatterns.forEach(pattern => {
+    const matches = description.match(pattern);
+    if (matches) {
+      matches.forEach(match => keywords.add(match.toLowerCase().trim()));
+    }
+  });
+  
+  // Extract important adjectives and nouns (fallback for other meaningful words)
+  const words = description.toLowerCase()
+    .replace(/[^\w\s]/g, ' ')
+    .split(/\s+/)
+    .filter(word => word.length >= 4 && !stopWords.has(word))
+    .filter(word => /^[a-z]+$/.test(word)); // Only alphabetic words
+  
+  // Add high-value words that might not match patterns
+  words.forEach(word => {
+    // Add words that appear in genre-defining contexts or are descriptive
+    if (word.length >= 5 || 
+        ['dark', 'lost', 'dead', 'wild', 'cold', 'deep', 'true', 'real'].includes(word)) {
+      keywords.add(word);
+    }
+  });
+  
+  return Array.from(keywords).slice(0, 20); // Limit to top 20 keywords
+}
+
+// Calculate keyword overlap between descriptions
+function calculateKeywordOverlap(keywords1, keywords2) {
+  if (!keywords1.length || !keywords2.length) return { score: 0, matches: [] };
+  
+  const matches = keywords1.filter(keyword => keywords2.includes(keyword));
+  const score = matches.length / Math.max(keywords1.length, keywords2.length, 1);
+  
+  // Bonus for multiple shared keywords (indicates strong thematic similarity)
+  let bonusMultiplier = 1;
+  if (matches.length >= 5) bonusMultiplier = 1.5;
+  else if (matches.length >= 3) bonusMultiplier = 1.3;
+  else if (matches.length >= 2) bonusMultiplier = 1.1;
+  
+  return { 
+    score: Math.min(score * bonusMultiplier, 1), 
+    matches: matches.slice(0, 5) // Show top 5 matches
+  };
 }
 
 /* ========== OFFLINE RECOMMENDATION FUNCTIONS ========== */
@@ -923,12 +1590,19 @@ function calculateScoreBreakdown(book, userHistory, rawScore, offlineBonus, pref
   if (book.categories) {
     book.categories.forEach(category => {
       const categoryLower = category.toLowerCase();
+      const scannedTags = extractTags(category);
+      
       const matchingBooks = userHistory.filter(histBook => {
         const histGenres = histBook.genre ? 
           histBook.genre.split(',').map(g => g.trim().toLowerCase()) : [];
-        return histGenres.some(hg => 
+        
+        // Check both genre match and tag overlap
+        const genreMatch = histGenres.some(hg => 
           hg.includes(categoryLower) || categoryLower.includes(hg)
         );
+        const tagOverlap = calculateTagOverlap(scannedTags, histGenres);
+        
+        return genreMatch || tagOverlap.score > 0;
       });
       
       if (matchingBooks.length > 0) {
@@ -937,7 +1611,26 @@ function calculateScoreBreakdown(book, userHistory, rawScore, offlineBonus, pref
         const ratingText = avgRating >= 4 ? "loved" : 
                           avgRating >= 3.5 ? "liked" : 
                           avgRating >= 2.5 ? "mixed feelings about" : "disliked";
-        genreDetails.push(`${category}: You ${ratingText} ${matchingBooks.length} ${category.toLowerCase()} book${matchingBooks.length > 1 ? 's' : ''} (avg: ${avgRating.toFixed(1)}★)`);
+        
+        // Show specific tags that matched
+        const tagMatches = [];
+        matchingBooks.forEach(histBook => {
+          const histGenres = histBook.genre ? 
+            histBook.genre.split(',').map(g => g.trim().toLowerCase()) : [];
+          const overlap = calculateTagOverlap(scannedTags, histGenres);
+          if (overlap.matches.length > 0) {
+            tagMatches.push(...overlap.matches);
+          }
+        });
+        const uniqueTagMatches = [...new Set(tagMatches)];
+        
+        let detail = `${category}: You ${ratingText} ${matchingBooks.length} similar book${matchingBooks.length > 1 ? 's' : ''} (avg: ${avgRating.toFixed(1)}★)`;
+        
+        if (uniqueTagMatches.length > 0) {
+          detail += ` - matched themes: ${uniqueTagMatches.slice(0, 3).join(', ')}${uniqueTagMatches.length > 3 ? '...' : ''}`;
+        }
+        
+        genreDetails.push(detail);
       }
     });
   }
@@ -955,14 +1648,62 @@ function calculateScoreBreakdown(book, userHistory, rawScore, offlineBonus, pref
       const ratingText = avgRating >= 4 ? "loved" : 
                         avgRating >= 3.5 ? "liked" : 
                         avgRating >= 2.5 ? "had mixed feelings about" : "disliked";
-      authorDetails.push(`You ${ratingText} ${matchingBooks.length} book${matchingBooks.length > 1 ? 's' : ''} by this author (avg: ${avgRating.toFixed(1)}★)`);
+      
+      const confidenceText = matchingBooks.length >= 3 ? "high confidence" : 
+                           matchingBooks.length === 2 ? "moderate confidence" : "low confidence";
+      
+      authorDetails.push(`You ${ratingText} ${matchingBooks.length} book${matchingBooks.length > 1 ? 's' : ''} by this author (avg: ${avgRating.toFixed(1)}★, ${confidenceText})`);
+    }
+  }
+  
+  // Keyword-based thematic matching details
+  const keywordDetails = [];
+  if (book.description || book.subtitle) {
+    const scannedDescription = (book.description || '') + ' ' + (book.subtitle || '');
+    const scannedKeywords = extractKeywords(scannedDescription);
+    
+    if (scannedKeywords.length > 0) {
+      // Find books with keyword matches
+      const keywordMatches = [];
+      userHistory.forEach(histBook => {
+        const rating = Number(histBook.rating) || 3;
+        
+        if (rating >= 3.5 && histBook.title) {
+          const historyDescription = histBook.title + ' ' + (histBook.genre || '');
+          const historyKeywords = extractKeywords(historyDescription);
+          const overlap = calculateKeywordOverlap(scannedKeywords, historyKeywords);
+          
+          if (overlap.score > 0 && overlap.matches.length > 0) {
+            keywordMatches.push({
+              book: histBook.title,
+              rating: rating,
+              matches: overlap.matches
+            });
+          }
+        }
+      });
+      
+      if (keywordMatches.length > 0) {
+        const avgRating = keywordMatches.reduce((sum, match) => 
+          sum + match.rating, 0) / keywordMatches.length;
+        
+        const allMatches = keywordMatches.reduce((acc, match) => 
+          acc.concat(match.matches), []);
+        const uniqueMatches = [...new Set(allMatches)];
+        
+        let detail = `Thematic similarity: Found ${keywordMatches.length} book${keywordMatches.length > 1 ? 's' : ''} with shared themes (avg: ${avgRating.toFixed(1)}★)`;
+        detail += ` - keywords: ${uniqueMatches.slice(0, 4).join(', ')}${uniqueMatches.length > 4 ? '...' : ''}`;
+        
+        keywordDetails.push(detail);
+      }
     }
   }
   
   return {
     ...breakdown,
     genreDetails,
-    authorDetails
+    authorDetails,
+    keywordDetails
   };
 }
 
