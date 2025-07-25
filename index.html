@@ -789,6 +789,93 @@
   .book-card:active {
     transform: translateY(1px) scale(0.995);
   }
+
+  /* Edit Modal Styles */
+  .edit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .edit-modal.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .edit-modal-content {
+    background: var(--card);
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+  }
+
+  .edit-modal.show .edit-modal-content {
+    transform: scale(1);
+  }
+
+  .edit-modal h3 {
+    margin: 0 0 20px 0;
+    color: var(--text);
+    font-size: 1.3em;
+  }
+
+  .edit-field {
+    margin-bottom: 16px;
+  }
+
+  .edit-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .edit-field input,
+  .edit-field select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+  }
+
+  .edit-field input:focus,
+  .edit-field select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.1);
+  }
+
+  .edit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .edit-actions button {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+  }
 </style>
 </head>
 <body>
@@ -907,7 +994,6 @@ themeBtn.onclick = enhancedClick(themeBtn, ()=>{
   document.documentElement.dataset.theme = newTheme;
   localStorage.setItem("theme", newTheme);
   updateThemeButton();
-  showToast(`Switched to ${newTheme} mode`, 'info', 2000);
   hapticFeedback('light');
 }, 'light');
 
@@ -2055,12 +2141,17 @@ function showHistory(){
     const emptyStars = 5 - fullStars - halfStar;
     const starDisplay = "★".repeat(fullStars) + (halfStar ? "☆" : "") + "☆".repeat(emptyStars);
     
+    // Generate book cover URL using Google Books API or OpenLibrary
+    const bookCover = b.thumbnail || generateBookCover(b.title, b.author);
+    
     card.innerHTML=`
       <div class="book-display">
-        ${b.thumbnail ? 
-          `<div class="book-image"><img src="${b.thumbnail}" style="cursor:pointer;border:2px solid var(--border);" onclick="editThumbnail(${i})" title="Click to edit thumbnail" alt="${b.title} cover"></div>` : 
-          `<div class="book-image"><div style="height:80px;width:60px;background:var(--card);border:2px dashed var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;text-align:center;color:var(--secondary);" onclick="editThumbnail(${i})" title="Click to add thumbnail">Add<br>Image</div></div>`
-        }
+        <div class="book-image">
+          <img src="${bookCover}" 
+               style="height:80px;width:60px;object-fit:cover;border-radius:var(--radius);border:2px solid var(--border);" 
+               alt="${b.title} cover"
+               onerror="this.src='data:image/svg+xml;base64,${generatePlaceholderCover(b.title)}'">
+        </div>
         <div class="book-info">
           <h3 style="margin:0 0 8px 0;font-size:1.1em;line-height:1.3;">${b.title}</h3>
           <div style="margin-bottom:8px;color:var(--secondary);">by ${b.author}</div>
@@ -2072,10 +2163,10 @@ function showHistory(){
     btnContainer.style.display = "flex";
     btnContainer.style.flexDirection = "column";
     btnContainer.style.gap = "8px";
-    const editBtn = mkBtn("Edit", ()=>editHistoryEntry(i));
+    const editBtn = mkBtn("✏️ Edit", ()=>openEditModal(i));
     editBtn.style.margin = "0";
     btnContainer.appendChild(editBtn);
-    const removeBtn = mkBtn("Remove",()=>{
+    const removeBtn = mkBtn("🗑️ Remove",()=>{
       const bookTitle = list[i].title;
       list.splice(i,1);
       setHistory(list);
@@ -2101,40 +2192,216 @@ function editThumbnail(index) {
   }
 }
 
-function editHistoryEntry(index) {
+// Generate book cover using Google Books API
+function generateBookCover(title, author) {
+  const query = encodeURIComponent(`${title} ${author}`);
+  return `https://books.google.com/books/content?id=${btoa(query).slice(0,12)}&printsec=frontcover&img=1&zoom=1&source=gbs_api`;
+}
+
+// Generate placeholder cover as base64 SVG
+function generatePlaceholderCover(title) {
+  const shortTitle = title.length > 20 ? title.substring(0, 17) + "..." : title;
+  const svg = `
+    <svg width="60" height="80" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="80" fill="#4a5568"/>
+      <text x="30" y="45" text-anchor="middle" fill="white" font-size="8" font-family="Arial, sans-serif">
+        <tspan x="30" dy="0">${shortTitle.split(' ').slice(0,3).join(' ')}</tspan>
+        ${shortTitle.split(' ').length > 3 ? `<tspan x="30" dy="10">${shortTitle.split(' ').slice(3).join(' ')}</tspan>` : ''}
+      </text>
+    </svg>
+  `;
+  return btoa(svg);
+}
+
+// Open edit modal with dropdown selection
+function openEditModal(index) {
   const list = getHistory();
   const entry = list[index];
   
-  const newTitle = prompt("Edit title:", entry.title);
-  if (newTitle === null) return; // User cancelled
+  // Create modal HTML
+  const modalHTML = `
+    <div class="edit-modal" id="editModal">
+      <div class="edit-modal-content">
+        <h3>📝 Edit Book: ${entry.title}</h3>
+        
+        <div class="edit-field">
+          <label>What would you like to edit?</label>
+          <select id="editFieldSelect" onchange="showEditField()">
+            <option value="">-- Select field to edit --</option>
+            <option value="title">📖 Title</option>
+            <option value="author">✍️ Author</option>
+            <option value="rating">⭐ Rating</option>
+            <option value="genre">🏷️ Genres</option>
+            <option value="thumbnail">🖼️ Book Cover</option>
+          </select>
+        </div>
+        
+        <div id="editFieldContainer" style="display: none;">
+          <!-- Dynamic field will be inserted here -->
+        </div>
+        
+        <div class="edit-actions">
+          <button onclick="closeEditModal()" style="background: var(--secondary); color: white;">Cancel</button>
+          <button id="saveEditBtn" onclick="saveEdit(${index})" style="background: var(--accent); color: white;" disabled>Save Changes</button>
+        </div>
+      </div>
+    </div>
+  `;
   
-  const newAuthor = prompt("Edit author:", entry.author);
-  if (newAuthor === null) return;
+  // Add modal to page
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
   
-  const newRating = prompt("Edit rating (0.5 to 5, with 0.5 increments):", entry.rating);
-  if (newRating === null) return;
+  // Show modal with animation
+  setTimeout(() => {
+    document.getElementById('editModal').classList.add('show');
+  }, 10);
   
-  const newGenre = prompt("Edit genres (comma-separated):", entry.genre);
-  if (newGenre === null) return;
+  // Add haptic feedback
+  hapticFeedback('medium');
+}
+
+// Show the appropriate edit field based on selection
+function showEditField() {
+  const fieldType = document.getElementById('editFieldSelect').value;
+  const container = document.getElementById('editFieldContainer');
+  const saveBtn = document.getElementById('saveEditBtn');
   
-  // Validate rating
-  const ratingNum = parseFloat(newRating);
-  if (isNaN(ratingNum) || ratingNum < 0.5 || ratingNum > 5 || (ratingNum * 2) % 1 !== 0) {
-    alert("Please enter a valid rating between 0.5 and 5 with 0.5 increments (e.g., 3.5, 4, 4.5)");
+  if (!fieldType) {
+    container.style.display = 'none';
+    saveBtn.disabled = true;
     return;
   }
   
-  // Update entry
+  const index = parseInt(document.getElementById('saveEditBtn').onclick.toString().match(/\d+/)[0]);
+  const list = getHistory();
+  const entry = list[index];
+  
+  let fieldHTML = '';
+  
+  switch(fieldType) {
+    case 'title':
+      fieldHTML = `
+        <div class="edit-field">
+          <label for="editValue">📖 Book Title</label>
+          <input type="text" id="editValue" value="${entry.title}" placeholder="Enter book title">
+        </div>
+      `;
+      break;
+    case 'author':
+      fieldHTML = `
+        <div class="edit-field">
+          <label for="editValue">✍️ Author</label>
+          <input type="text" id="editValue" value="${entry.author}" placeholder="Enter author name">
+        </div>
+      `;
+      break;
+    case 'rating':
+      fieldHTML = `
+        <div class="edit-field">
+          <label for="editValue">⭐ Rating</label>
+          <select id="editValue">
+            <option value="5" ${entry.rating == 5 ? 'selected' : ''}>★★★★★ Amazing (5)</option>
+            <option value="4.5" ${entry.rating == 4.5 ? 'selected' : ''}>★★★★☆ Excellent (4.5)</option>
+            <option value="4" ${entry.rating == 4 ? 'selected' : ''}>★★★★☆ Great (4)</option>
+            <option value="3.5" ${entry.rating == 3.5 ? 'selected' : ''}>★★★☆☆ Good (3.5)</option>
+            <option value="3" ${entry.rating == 3 ? 'selected' : ''}>★★★☆☆ Okay (3)</option>
+            <option value="2.5" ${entry.rating == 2.5 ? 'selected' : ''}>★★☆☆☆ Fair (2.5)</option>
+            <option value="2" ${entry.rating == 2 ? 'selected' : ''}>★★☆☆☆ Poor (2)</option>
+            <option value="1.5" ${entry.rating == 1.5 ? 'selected' : ''}>★☆☆☆☆ Bad (1.5)</option>
+            <option value="1" ${entry.rating == 1 ? 'selected' : ''}>★☆☆☆☆ Terrible (1)</option>
+            <option value="0.5" ${entry.rating == 0.5 ? 'selected' : ''}>☆☆☆☆☆ Awful (0.5)</option>
+          </select>
+        </div>
+      `;
+      break;
+    case 'genre':
+      fieldHTML = `
+        <div class="edit-field">
+          <label for="editValue">🏷️ Genres</label>
+          <input type="text" id="editValue" value="${entry.genre || ''}" placeholder="e.g., Fiction, Mystery, Romance">
+          <small style="color: var(--secondary); font-size: 14px; margin-top: 4px; display: block;">Separate multiple genres with commas</small>
+        </div>
+      `;
+      break;
+    case 'thumbnail':
+      fieldHTML = `
+        <div class="edit-field">
+          <label for="editValue">🖼️ Book Cover URL</label>
+          <input type="url" id="editValue" value="${entry.thumbnail || ''}" placeholder="https://example.com/cover.jpg">
+          <small style="color: var(--secondary); font-size: 14px; margin-top: 4px; display: block;">Enter a direct link to a book cover image</small>
+        </div>
+      `;
+      break;
+  }
+  
+  container.innerHTML = fieldHTML;
+  container.style.display = 'block';
+  saveBtn.disabled = false;
+  
+  // Focus the input field
+  setTimeout(() => {
+    document.getElementById('editValue').focus();
+  }, 100);
+}
+
+// Save the edit
+function saveEdit(index) {
+  const fieldType = document.getElementById('editFieldSelect').value;
+  const newValue = document.getElementById('editValue').value.trim();
+  
+  if (!newValue && fieldType !== 'thumbnail') {
+    showToast('Please enter a value', 'error');
+    return;
+  }
+  
+  const list = getHistory();
+  const entry = list[index];
+  
+  // Validate rating if that's what's being edited
+  if (fieldType === 'rating') {
+    const ratingNum = parseFloat(newValue);
+    if (isNaN(ratingNum) || ratingNum < 0.5 || ratingNum > 5) {
+      showToast('Please select a valid rating', 'error');
+      return;
+    }
+  }
+  
+  // Update the specific field
   list[index] = {
     ...entry,
-    title: newTitle.trim(),
-    author: newAuthor.trim(),
-    rating: ratingNum,
-    genre: newGenre.trim()
+    [fieldType]: fieldType === 'rating' ? parseFloat(newValue) : newValue
   };
   
   setHistory(list);
   showHistory();
+  closeEditModal();
+  
+  const fieldNames = {
+    title: 'title',
+    author: 'author',
+    rating: 'rating',
+    genre: 'genres',
+    thumbnail: 'book cover'
+  };
+  
+  showToast(`✅ Book ${fieldNames[fieldType]} updated successfully!`, 'success');
+  hapticFeedback('success');
+}
+
+// Close edit modal
+function closeEditModal() {
+  const modal = document.getElementById('editModal');
+  if (modal) {
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.remove();
+    }, 300);
+  }
+}
+
+function editHistoryEntry(index) {
+  // This function is now replaced by openEditModal
+  openEditModal(index);
 }
 
 /* ========== CSV IMPORT/EXPORT FUNCTIONS ========== */
